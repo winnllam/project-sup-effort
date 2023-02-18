@@ -40,7 +40,7 @@ Time and resource permitting we may integrate _Twilio_ (2 points) for 2 factor a
 
 By the Alpha version, we aim to have three areas of the web application completed: users, code editor and deployment.
 
-In the Alpha version, users would be able to create an account, login, solve problems on the site by using the provided code editor and have the code be ran and "graded" in the contests.. There will also be feature for an adminstrative user who will have permissions to create or add new problems along with test cases. There will also be support for multiple users. Lastly, we aim to have the alpha version deployed.
+In the Alpha version, users would be able to create an account, login, solve problems on the site by using the provided code editor and have the code be ran and "graded" in the contests. There will also be feature for an adminstrative user who will have permissions to create or add new problems along with test cases. There will also be support for multiple users. Lastly, we aim to have the alpha version deployed.
 
 ### Beta Version
 

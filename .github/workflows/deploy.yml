@@ -1,0 +1,39 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH & Deploy
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SSH_HOST }} # IP address
+          username: ${{ secrets.SSH_USERNAME }} # User
+          password: ${{ secrets.SSH_PASSWORD }}
+
+          script: |
+            cd project-sup-effort
+            git pull
+
+            cd backend
+            npm install
+            pm2 startup ubuntu
+
+            cd ../frontend
+            npm install
+
+            cd /var/www/html
+            rm -r divideandconquer.me
+
+            cd ~/project-sup-effort
+            cp -Rv frontend /var/www/html
+            cd /var/www/html
+            mv frontend divideandconquer.me
+            chown -R www-data:www-data /var/www/html/divideandconquer.me
+
+            sudo systemctl restart nginx
+            sudo service nginx restart

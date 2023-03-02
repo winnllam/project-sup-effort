@@ -17,7 +17,6 @@ jobs:
 
           script: |
             cd project-sup-effort
-            git config user.name winnllam
 
             git pull
             ${{ secrets.GH_USER }}

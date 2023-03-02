@@ -8,32 +8,39 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: SSH & Deploy
+      - name: SSH
         uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.SSH_HOST }} # IP address
           username: ${{ secrets.SSH_USERNAME }} # User
           password: ${{ secrets.SSH_PASSWORD }}
 
-          script: |
-            cd project-sup-effort
-            git pull
+      - name: Pull Repo & Build
+        run: |
+          cd project-sup-effort
+          git config user.name winnllam
 
-            cd backend
-            npm install
-            pm2 startup ubuntu
+          git pull
+          ${{ secrets.GH_USER }}
+          ${{ secrets.GH_TOKEN }}
 
-            cd ../frontend
-            npm install
+          cd backend
+          npm install
+          pm2 startup ubuntu
 
-            cd /var/www/html
-            rm -r divideandconquer.me
+          cd ../frontend
+          npm install
 
-            cd ~/project-sup-effort
-            cp -Rv frontend /var/www/html
-            cd /var/www/html
-            mv frontend divideandconquer.me
-            chown -R www-data:www-data /var/www/html/divideandconquer.me
+      - name: Deploy
+        run: |
+          cd /var/www/html
+          rm -r divideandconquer.me
 
-            sudo systemctl restart nginx
-            sudo service nginx restart
+          cd ~/project-sup-effort
+          cp -Rv frontend /var/www/html
+          cd /var/www/html
+          mv frontend divideandconquer.me
+          chown -R www-data:www-data /var/www/html/divideandconquer.me
+
+          sudo systemctl restart nginx
+          sudo service nginx restart

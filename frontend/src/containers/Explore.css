@@ -1,0 +1,63 @@
+#intro {
+  background: #284b63;
+  height: 500px;
+  padding-top: 50px;
+}
+
+#feature {
+  background: #cce3de;
+  height: 400px;
+  padding-top: 60px;
+}
+
+h1,
+h3 {
+  font-family: "Roboto";
+  color: #ffffff;
+  text-align: left;
+  margin-left: 100px;
+}
+
+#tagline {
+  font-style: normal;
+  font-size: 36px;
+}
+
+#webpage-name {
+  font-weight: 700;
+  font-size: 48px;
+}
+
+.graphics {
+  width: 400px;
+  margin-top: 100px;
+}
+
+.subtitle {
+  font-family: "Alegreya";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36px;
+  color: #ffffff;
+  text-align: center;
+}
+
+#feature .subtitle {
+  color: #274c77;
+}
+
+.text-block {
+  font-family: "Alegreya";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #000000;
+  background: #ffffff;
+  border-radius: 20px;
+}
+
+.intro-text {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  width: 500px;
+}

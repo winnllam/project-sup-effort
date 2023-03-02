@@ -1,9 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@500&display=swap");
-
 .header {
   text-align: center;
   background: #495057;
+  position: sticky;
+  top: 0;
 }
+
 .header img {
   width: 80px;
   height: 80px;
@@ -16,6 +17,7 @@
   color: #ffffff;
   font-size: 36px;
   padding: 20px 0px;
+  text-align: left;
 }
 
 .options {

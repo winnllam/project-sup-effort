@@ -17,10 +17,7 @@ jobs:
 
           script: |
             cd project-sup-effort
-
             git pull
-            ${{ secrets.GH_USER }}
-            ${{ secrets.GH_TOKEN }}
 
             cd backend
             npm install

@@ -1,37 +1,37 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
-import "./Header.css";
+import navbarStyles from "./Navbar.module.css";
 import logoUrl from "../../assets/logo.png";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const Header = () => (
-  <div className="header">
+const Navbar = () => (
+  <div className={navbarStyles.header}>
     <Container fluid>
       <Row>
         <Col md={1}>
           <img src={logoUrl} alt="Divide and Conquer" />
         </Col>
         <Col md={4}>
-          <div id="title">Divide and Conquer</div>
+          <div id={navbarStyles.title}>Divide and Conquer</div>
         </Col>
         <Col md={"auto"}>
-          <div id="premium" class="options">
+          <div id={navbarStyles.premium} class={navbarStyles.options}>
             Premium
           </div>
         </Col>
         <Col md={{ span: "auto" }}>
-          <div id="explore" class="options">
+          <div id={navbarStyles.explore} class={navbarStyles.options}>
             Explore
           </div>
         </Col>
         <Col md={"auto"}>
-          <div id="about" class="options">
+          <div id={navbarStyles.about} class={navbarStyles.options}>
             About Us
           </div>
         </Col>
         <Col md={{ span: "auto", offset: 2 }}>
-          <div id="login" class="options">
+          <div id={navbarStyles.login} class={navbarStyles.options}>
             Login
           </div>
         </Col>
@@ -39,4 +39,4 @@ const Header = () => (
     </Container>
   </div>
 );
-export default Header;
+export default Navbar;

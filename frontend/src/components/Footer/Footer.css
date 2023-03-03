@@ -1,6 +1,9 @@
 .footer {
   height: 100px;
   background: #003049;
+  bottom: 0;
+  position: relative;
+  width: 100%;
 }
 
 #footer-text {

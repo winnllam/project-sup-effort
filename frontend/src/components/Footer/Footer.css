@@ -1,0 +1,11 @@
+.footer {
+  height: 100px;
+  background: #003049;
+}
+
+#footer-text {
+  color: #cce6f4;
+  padding: 20px 0px;
+  font-family: "Alegreya";
+  font-size: 20px;
+}

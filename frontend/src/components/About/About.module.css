@@ -1,0 +1,37 @@
+.about {
+  background: #ece4db;
+  height: 500px;
+  padding-top: 50px;
+}
+
+.graphics {
+  width: 400px;
+  margin-top: 50px;
+}
+
+#aboutTitle {
+  font-family: "Lora";
+  font-style: italic;
+  font-weight: 700;
+  font-size: 36px;
+  color: #274c77;
+  text-align: center;
+}
+
+.textBlock {
+  font-family: "Alegreya";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #000000;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.introText {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  width: 700px;
+  padding-top: 50px;
+}

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Header from "./components/Header/Header";
 import Explore from "./containers/Explore";
-import Monaco from "./containers/Monaco";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 

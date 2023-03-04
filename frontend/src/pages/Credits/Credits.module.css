@@ -1,0 +1,26 @@
+.credits {
+  height: 100%;
+}
+
+.graphics {
+  margin: 0px auto;
+  width: 350px;
+  padding: 30px 0px;
+}
+
+#title {
+  font-family: "Josefin Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 48px;
+  color: #000000;
+}
+
+li {
+  font-family: "Alegreya";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  color: #000000;
+  margin: 10px auto;
+}

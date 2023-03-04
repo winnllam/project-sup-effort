@@ -17,6 +17,7 @@ jobs:
 
           script: |
             cd project-sup-effort
+            git stash
             git pull
 
             cd backend
@@ -25,6 +26,9 @@ jobs:
 
             cd ../frontend
             npm install
+            npm run build
+            pm2 serve build
+            pm2 start ubuntu
 
             cd /var/www/html
             rm -r divideandconquer.me

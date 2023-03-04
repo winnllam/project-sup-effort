@@ -1,13 +1,15 @@
 import React from "react";
-import "./Footer.css";
+import footerStyles from "./Footer.module.css";
+import { HashLink as Link } from "react-router-hash-link";
 
-class Footer extends React.Component {
-  render() {
-    return (
-      <div className="footer">
-        <div id="footer-text">Copyright Winter 2023</div>
-      </div>
-    );
-  }
-}
+const Footer = () => {
+  return (
+    <div className={footerStyles.footer}>
+      <div id={footerStyles.footerText}>Copyright Winter 2023</div>
+      <Link to="/credits" id={footerStyles.credits}>
+        Credits
+      </Link>
+    </div>
+  );
+};
 export default Footer;

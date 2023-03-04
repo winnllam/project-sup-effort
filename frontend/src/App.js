@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Premium from "./pages/Premium/Premium";
+import Credits from "./pages/Credits/Credits";
 
 class App extends Component {
   render() {
@@ -17,14 +18,11 @@ class App extends Component {
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route path="/premium" element={<Premium />} />
-            {/* <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/blogs" element={<Blogs />} />
-            <Route path="/sign-up" element={<SignUp />} /> */}
+            <Route path="/credits" element={<Credits />} />
             <Route path="/login" element={<Login />} />
           </Routes>
+          <Footer />
         </Router>
-        <Footer />
       </div>
     );
   }

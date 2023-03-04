@@ -1,0 +1,45 @@
+.header {
+  text-align: center;
+  background: #495057;
+  position: sticky;
+  top: 0;
+}
+
+.header img {
+  width: 80px;
+  height: 80px;
+  margin-top: 5px;
+}
+
+#title {
+  font-family: "Alegreya Sans SC";
+  font-style: normal;
+  color: #ffffff;
+  font-size: 36px;
+  text-decoration: none;
+}
+
+.options {
+  padding: 30px 0px;
+  font-family: "Alegreya Sans SC";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.titleBox {
+  padding: 20px 0px;
+  text-align: left;
+}
+
+#premium {
+  color: #f2e358;
+  text-decoration: none;
+}
+
+#premium:hover,
+.options:hover {
+  color: #2a9d8f;
+}

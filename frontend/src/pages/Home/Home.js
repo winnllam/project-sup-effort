@@ -9,7 +9,7 @@ import hackerMindset from "../../assets/hacker_mindset.svg";
 
 const Home = () => {
   return (
-    <div className={homeStyles.explore}>
+    <div className="home">
       <div id={homeStyles.intro}>
         <h3 id={homeStyles.tagline}>Introducing...</h3>
         <h1 id={homeStyles.webpageName}>Divide and Conquer</h1>

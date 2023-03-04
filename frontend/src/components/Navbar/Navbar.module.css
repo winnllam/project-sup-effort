@@ -16,8 +16,7 @@
   font-style: normal;
   color: #ffffff;
   font-size: 36px;
-  padding: 20px 0px;
-  text-align: left;
+  text-decoration: none;
 }
 
 .options {
@@ -27,8 +26,20 @@
   font-weight: 700;
   font-size: 24px;
   color: #ffffff;
+  text-decoration: none;
+}
+
+.titleBox {
+  padding: 20px 0px;
+  text-align: left;
 }
 
 #premium {
   color: #f2e358;
+  text-decoration: none;
+}
+
+#premium:hover,
+.options:hover {
+  color: #2a9d8f;
 }

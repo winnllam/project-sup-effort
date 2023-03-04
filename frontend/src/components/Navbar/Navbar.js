@@ -7,8 +7,11 @@ import Col from "react-bootstrap/Col";
 import { HashLink as Link } from "react-router-hash-link";
 import homeStyles from "../../pages/Home/Home.module.css";
 import aboutStyles from "../About/About.module.css";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
+  const { loginWithRedirect, isAuthenticated, logout, isLoading } = useAuth0();
+
   return (
     <div className={navbarStyles.header}>
       <Container fluid>
@@ -48,9 +51,28 @@ const Navbar = () => {
             </div>
           </Col>
           <Col md={{ span: "auto", offset: 2 }}>
-            <div id={navbarStyles.login} class={navbarStyles.options}>
-              Login
-            </div>
+            {!isAuthenticated && !isLoading && (
+              <div
+                id={navbarStyles.login}
+                class={navbarStyles.options}
+                onClick={() => loginWithRedirect()}
+              >
+                Login
+              </div>
+            )}
+            {isAuthenticated && !isLoading && (
+              <div
+                id={navbarStyles.login}
+                class={navbarStyles.options}
+                onClick={() =>
+                  logout({
+                    logoutParams: { returnTo: window.location.origin },
+                  })
+                }
+              >
+                Logout
+              </div>
+            )}
           </Col>
         </Row>
       </Container>

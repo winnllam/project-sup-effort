@@ -1,0 +1,27 @@
+.footer {
+  height: auto;
+  background: #003049;
+  bottom: 0;
+  position: relative;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+#footerText {
+  color: #cce6f4;
+  padding: 20px 0px;
+  font-family: "Alegreya";
+  font-size: 20px;
+}
+
+#credits {
+  font-family: "Alegreya Sans SC";
+  font-style: normal;
+  color: #ffffff;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+#credits:hover {
+  color: #2a9d8f;
+}

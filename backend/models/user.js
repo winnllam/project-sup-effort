@@ -1,30 +1,5 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
-  username: {
-    required: true,
-    type: String,
-  },
-  email: {
-    required: true,
-    type: String,
-  },
-  userStatus: {
-    required: true,
-    type: String,
-    enum: {
-      values: ["basic", "premium"],
-      message: "{VALUE} is not supported",
-    },
-    default: "basic",
-  },
-  lastLoginDate: {
-    required: true,
-    type: Date,
-  },
-  premium: premiumSchema,
-});
-
 const premiumSchema = new mongoose.Schema({
   status: {
     required: true,
@@ -52,6 +27,31 @@ const premiumSchema = new mongoose.Schema({
     },
     default: "off",
   },
+});
+
+const userSchema = new mongoose.Schema({
+  username: {
+    required: true,
+    type: String,
+  },
+  email: {
+    required: true,
+    type: String,
+  },
+  userStatus: {
+    required: true,
+    type: String,
+    enum: {
+      values: ["basic", "premium"],
+      message: "{VALUE} is not supported",
+    },
+    default: "basic",
+  },
+  lastLoginDate: {
+    required: true,
+    type: Date,
+  },
+  premium: premiumSchema,
 });
 
 export const User = mongoose.model("User", userSchema);

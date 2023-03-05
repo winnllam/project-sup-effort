@@ -4,8 +4,21 @@ import { User } from "../models/user.js";
 export const usersRouter = Router();
 
 usersRouter.post("/signup", async (req, res) => {
+  const username = req.body.username;
+  const existingUser = await User.findOne({
+    username: req.body.username,
+  });
+
+  if (existingUser) {
+    return res
+      .status(409)
+      .json({ error: "Username " + username + " already exists." });
+  }
+
   const user = new User({
     username: req.body.username,
+    email: req.body.email,
+    lastLoginDate: new Date(),
   });
 
   try {
@@ -17,9 +30,9 @@ usersRouter.post("/signup", async (req, res) => {
 });
 
 usersRouter.post("/signin", async (req, res) => {
-  const user = await User.findOne({
-    username: req.body.username,
-  });
+  const filter = { username: req.body.username };
+  const update = { lastLoginDate: new Date() };
+  const user = await User.findOneAndUpdate(filter, update);
 
   if (user === null) {
     return res.status(401).json({ error: "Incorrect username." });
@@ -51,5 +64,5 @@ usersRouter.get("/me", async (req, res) => {
     return res.status(404).json({ errors: "User not found." });
   }
 
-  return res.json({ username: user.name, userId: userId });
+  return res.json({ username: user.username, userId: userId });
 });

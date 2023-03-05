@@ -32,11 +32,9 @@ problemsRouter.get("/:id/solution/:lang", async function (req, res, next) {
     }
   }
 
-  return res
-    .status(404)
-    .json({
-      error: "soltuion for language:" + req.params.lang + " does not exist",
-    });
+  return res.status(404).json({
+    error: "solution in language:" + req.params.lang + " does not exist",
+  });
 });
 
 problemsRouter.get("/:id/testCases", async function (req, res, next) {

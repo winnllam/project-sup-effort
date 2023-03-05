@@ -39,8 +39,8 @@ app.use(
   })
 );
 
-app.use("/users", usersRouter);
-app.use("/problems", problemsRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/problems", problemsRouter);
 
 app.listen(PORT, (err) => {
   if (err) console.log(err);

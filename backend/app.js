@@ -5,6 +5,7 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 import { usersRouter } from "./routers/users_router.js";
+import { problemsRouter } from "./routers/problems_router.js";
 
 const PORT = 9000;
 export const app = express();
@@ -39,6 +40,7 @@ app.use(
 );
 
 app.use("/users", usersRouter);
+app.use("/problems", problemsRouter);
 
 app.listen(PORT, (err) => {
   if (err) console.log(err);

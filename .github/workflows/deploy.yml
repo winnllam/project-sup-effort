@@ -22,6 +22,8 @@ jobs:
 
             cd backend
             npm install
+            export DATABASE_URL=${{ secrets.DATABASE_URL }}
+            pm2 restart app
             pm2 startup ubuntu
 
             cd ../frontend

@@ -8,6 +8,8 @@ git pull
 
 cd backend
 npm install
+export DATABASE_URL=${mongo_url}
+pm2 restart app
 pm2 startup ubuntu
 
 cd ../frontend

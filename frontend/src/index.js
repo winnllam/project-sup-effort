@@ -16,7 +16,7 @@ root.render(
       domain={AUTH_DOMAIN}
       clientId={AUTH_CLIENT_ID}
       authorizationParams={{
-        redirect_uri: window.location.origin,
+        redirect_uri: `${window.location.origin}/dashboard`,
       }}
     >
       <App />

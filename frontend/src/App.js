@@ -20,11 +20,11 @@ class App extends Component {
             <Route exact path="/" element={<Home />} />
             <Route path="/premium" element={<Premium />} />
             <Route path="/credits" element={<Credits />} />
-            {/* <Route
+            <Route
               path="/dashboard"
               element={<AuthenticationGuard component={Dashboard} />}
-            /> */}
-            <Route path="/dashboard" element={<Dashboard />} />
+            />
+            {/* <Route path="/dashboard" element={<Dashboard />} /> */}
           </Routes>
           <Footer />
         </Router>

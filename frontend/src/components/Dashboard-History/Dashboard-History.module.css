@@ -1,0 +1,38 @@
+.subtitle {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  color: #274c77;
+  margin-top: 50px;
+}
+
+#headerBox {
+  width: 70%;
+  margin: 10px auto;
+  background: #e9f5db;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  height: auto;
+  padding: 20px 0px;
+
+  font-family: "Josefin Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  color: #000000;
+}
+
+.historyBox {
+  width: 70%;
+  margin: 10px auto;
+  background: #ffffff;
+  height: auto;
+  padding: 20px 0px;
+  font-family: "Alegreya";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  text-align: center;
+  color: #000000;
+}

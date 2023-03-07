@@ -1,0 +1,62 @@
+.title {
+  font-family: "Alegreya";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 48px;
+  color: #274c77;
+  margin-top: 20px;
+}
+
+.subtitle {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  color: #274c77;
+  margin-top: 50px;
+}
+
+.box {
+  background: #ffffff;
+  border-radius: 25px;
+  font-family: "Alegreya";
+  font-style: normal;
+  font-size: 24px;
+  font-weight: 400;
+  color: #000000;
+  padding: 15px 5px;
+  width: 500px;
+  margin: 15px auto;
+  text-align: left;
+  padding: 15px 25px;
+}
+
+.dropdown {
+  width: 70%;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 10px;
+}
+
+.button {
+  background: #ffffff;
+  border: 3px solid #284b63;
+  border-radius: 15px;
+  font-size: 20px;
+  width: 100px;
+  height: auto;
+  margin: 10px 0px;
+}
+
+#contestCode {
+  width: 70%;
+  border-radius: 10px;
+}
+
+input::placeholder {
+  font-weight: lighter;
+  font-style: italic;
+  opacity: 0.7;
+  color: #ced4da;
+  font-size: 20px;
+}

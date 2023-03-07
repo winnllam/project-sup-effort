@@ -5,9 +5,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
-import Login from "./pages/Login/Login";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import Premium from "./pages/Premium/Premium";
 import Credits from "./pages/Credits/Credits";
+import { AuthenticationGuard } from "./components/authentication-guard";
 
 class App extends Component {
   render() {
@@ -19,7 +20,11 @@ class App extends Component {
             <Route exact path="/" element={<Home />} />
             <Route path="/premium" element={<Premium />} />
             <Route path="/credits" element={<Credits />} />
-            <Route path="/login" element={<Login />} />
+            {/* <Route
+              path="/dashboard"
+              element={<AuthenticationGuard component={Dashboard} />}
+            /> */}
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
           <Footer />
         </Router>

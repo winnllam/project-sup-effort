@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path";
 import bodyParser from "body-parser";
 import session from "express-session";
 import cors from "cors";
@@ -10,6 +11,12 @@ import { problemsRouter } from "./routers/problems_router.js";
 const PORT = 9000;
 export const app = express();
 app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, "build")));
+
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 dotenv.config();
 

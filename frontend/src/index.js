@@ -7,7 +7,8 @@ import { Auth0Provider } from "@auth0/auth0-react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <React>
     <Auth0Provider
       domain="dev-mgag88l8f25irbxl.us.auth0.com"
       clientId="5jEgFKpvgQK8gAT0tpmTbwEwBdHCkgkA"
@@ -17,7 +18,8 @@ root.render(
     >
       <App />
     </Auth0Provider>
-  </React.StrictMode>
+  </React>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

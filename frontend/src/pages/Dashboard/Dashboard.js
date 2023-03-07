@@ -5,6 +5,7 @@ import DashboardWelcome from "../../components/Dashboard-Welcome/Dashboard-Welco
 import DashboardProfile from "../../components/Dashboard-Profile/Dashboard-Profile";
 import DashboardHistory from "../../components/Dashboard-History/Dashboard-History";
 import DashboardCompetition from "../../components/Dashboard-Competition/Dashboard-Competition";
+import * as userService from "../../services/api/Users.js";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -12,6 +13,8 @@ class Dashboard extends React.Component {
     this.state = {
       section: "welcome",
     };
+    userService.getAllUsers().then((res) => console.log(res));
+    // userService.signUpUser("wines", "email").then((res) => console.log(res));
   }
 
   render() {

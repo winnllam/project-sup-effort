@@ -12,12 +12,6 @@ const PORT = 9000;
 export const app = express();
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, "build")));
-
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
-
 dotenv.config();
 
 const mongoString = process.env.DATABASE_URL;

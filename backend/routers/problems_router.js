@@ -65,7 +65,7 @@ problemsRouter.post("/starter", async function (req, res, next) {
   }
 
   // TODO: check for dupe language
-  const starter = { language: req.body.language, output: req.body.code };
+  const starter = { language: req.body.language, code: req.body.code };
   problem.starterCode.push(starter);
 
   try {
@@ -85,7 +85,7 @@ problemsRouter.post("/solution", async function (req, res, next) {
   }
 
   // TODO: check for dupe language
-  const solution = { language: req.body.language, output: req.body.code };
+  const solution = { language: req.body.language, code: req.body.code };
   problem.sampleSolution.push(solution);
 
   try {

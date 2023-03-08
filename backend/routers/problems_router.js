@@ -22,12 +22,12 @@ problemsRouter.post("/", async function (req, res, next) {
   return res.json({ problem });
 });
 
-problemsRouter.patch("/", async function (req, res, next) {
+problemsRouter.patch("/:id", async function (req, res, next) {
   const name = req.body.name;
   const description = req.body.description;
   const difficulty = req.body.difficulty;
 
-  const filter = { number: req.body.number };
+  const filter = { number: req.params.id };
   const update = {
     $set: { name: name, description: description, difficulty: difficulty },
   };

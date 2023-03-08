@@ -56,8 +56,8 @@ problemsRouter.get("/:id", async function (req, res, next) {
   return res.json({ problem });
 });
 
-problemsRouter.post("/starter", async function (req, res, next) {
-  const problem = await Problem.findOne({ number: req.body.number });
+problemsRouter.post("/:id/starter", async function (req, res, next) {
+  const problem = await Problem.findOne({ number: req.params.id });
   if (!problem) {
     return res
       .status(404)
@@ -76,8 +76,8 @@ problemsRouter.post("/starter", async function (req, res, next) {
   return res.json({ problem });
 });
 
-problemsRouter.post("/solution", async function (req, res, next) {
-  const problem = await Problem.findOne({ number: req.body.number });
+problemsRouter.post("/:id/solution", async function (req, res, next) {
+  const problem = await Problem.findOne({ number: req.params.id });
   if (!problem) {
     return res
       .status(404)
@@ -116,8 +116,8 @@ problemsRouter.get("/:id/solution/:lang", async function (req, res, next) {
   });
 });
 
-problemsRouter.post("/testCases", async function (req, res, next) {
-  const problem = await Problem.findOne({ number: req.body.number });
+problemsRouter.post("/:id/testCases", async function (req, res, next) {
+  const problem = await Problem.findOne({ number: req.params.id });
   if (!problem) {
     return res
       .status(404)

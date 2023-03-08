@@ -29,6 +29,29 @@ const premiumSchema = new mongoose.Schema({
   },
 });
 
+const historySchema = new mongoose.Schema({
+  number: {
+    required: true,
+    type: Number,
+  },
+  name: {
+    required: true,
+    type: String,
+  },
+  date: {
+    required: true,
+    type: Date,
+  },
+  result: {
+    require: true,
+    type: String,
+    enum: {
+      values: ["Winner", "Loser"],
+      message: "{VALUE} is not supported",
+    },
+  },
+});
+
 const userSchema = new mongoose.Schema({
   username: {
     required: true,
@@ -52,6 +75,7 @@ const userSchema = new mongoose.Schema({
     type: Date,
   },
   premium: premiumSchema,
+  codingHistory: [historySchema],
 });
 
 export const User = mongoose.model("User", userSchema);

@@ -113,6 +113,7 @@ usersRouter.get("/me", async (req, res) => {
     userId: userId,
     username: user.username,
     email: user.email,
+    userStatus: user.userStatus,
     lastLoginDate: user.lastLoginDate,
   });
 });

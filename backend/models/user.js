@@ -65,7 +65,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     type: String,
     enum: {
-      values: ["basic", "premium"],
+      values: ["basic", "admin"],
       message: "{VALUE} is not supported",
     },
     default: "basic",

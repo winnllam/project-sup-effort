@@ -13,3 +13,7 @@ export const signUpUser = function (username, email) {
 export const signInUser = function (username) {
   return post(URL + "/signin", { username }).then((res) => res.data);
 };
+
+export const getMe = function () {
+  return get(URL + "/me").then((res) => res.data);
+};

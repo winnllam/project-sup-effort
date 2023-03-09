@@ -57,18 +57,18 @@ usersRouter.get("/", async (req, res) => {
   });
 });
 
-usersRouter.get("/:id", async (req, res) => {
-  const userId = req.params.id;
-  const user = await User.findById(userId);
-  if (user === null) {
-    return res.status(404).json({ errors: "User not found." });
-  }
+// usersRouter.get("/:id", async (req, res) => {
+//   const userId = req.params.id;
+//   const user = await User.findById(userId);
+//   if (user === null) {
+//     return res.status(404).json({ errors: "User not found." });
+//   }
 
-  return res.json({
-    username: user.username,
-    lastLoginDate: user.lastLoginDate,
-  });
-});
+//   return res.json({
+//     username: user.username,
+//     lastLoginDate: user.lastLoginDate,
+//   });
+// });
 
 usersRouter.post("/:id/codingHistory", async (req, res) => {
   const userId = req.params.id;
@@ -103,11 +103,14 @@ usersRouter.get("/:id/codingHistory", async (req, res) => {
 });
 
 usersRouter.get("/me", async (req, res) => {
-  const userId = req.session.userId;
+  // const userId = req.session.userId;
+  const userId = "640779e11a7db54821aa1517";
   const user = await User.findById(userId);
   if (user === null) {
     return res.status(404).json({ errors: "User not found." });
   }
+
+  console.log(user);
 
   return res.json({
     userId: userId,

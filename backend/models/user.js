@@ -5,27 +5,26 @@ const premiumSchema = new mongoose.Schema({
     required: true,
     type: String,
     enum: {
-      values: ["active", "inactive"],
+      values: ["Active", "Inactive"],
       message: "{VALUE} is not supported",
     },
-    default: "inactive",
+    default: "Inactive",
   },
   expirationDate: {
     required: function () {
-      this.status === "active";
+      this.status === "Active";
     },
     type: Date,
   },
   renewalStatus: {
     required: function () {
-      this.status === "active";
+      this.status === "Active";
     },
     type: String,
     enum: {
-      values: ["on", "off"],
+      values: ["Monthly", "Yearly"],
       message: "{VALUE} is not supported",
     },
-    default: "off",
   },
 });
 

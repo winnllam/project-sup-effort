@@ -13,11 +13,13 @@ usersRouter.post("/signon", async (req, res) => {
     req.session.userId = existingUser.id;
     return res.json(existingUser);
   } else {
+    const premium = { status: "Inactive" };
     const user = new User({
       email: req.body.email,
       username: req.body.username,
       lastLoginDate: currDate,
       creationDate: currDate,
+      premium: premium,
     });
 
     try {
@@ -102,6 +104,7 @@ usersRouter.get("/me", async (req, res) => {
     userStatus: user.userStatus,
     lastLoginDate: user.lastLoginDate,
     creationDate: user.creationDate,
+    premium: user.premium,
   });
 });
 

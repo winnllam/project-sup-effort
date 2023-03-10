@@ -11,6 +11,9 @@ class DashboardProfile extends React.Component {
       username: null,
       email: null,
       creationDate: null,
+      premiumStatus: null,
+      expirationDate: "--",
+      renewalStatus: "--",
     };
   }
 
@@ -20,12 +23,28 @@ class DashboardProfile extends React.Component {
         username: res.username,
         email: res.email,
         creationDate: res.creationDate,
+        premiumStatus: res.premium.status,
       });
+
+      if (res.premium.status === "Active") {
+        this.setState({
+          expirationDate: res.premium.expirationDate,
+          renewalStatus: res.premium.renewalStatus,
+        });
+      }
     });
   }
 
   render() {
-    const { username, email, creationDate } = this.state;
+    const {
+      username,
+      email,
+      creationDate,
+      premiumStatus,
+      expirationDate,
+      renewalStatus,
+    } = this.state;
+
     return (
       <div className={styles.profile}>
         <div class={styles.section}>
@@ -43,10 +62,10 @@ class DashboardProfile extends React.Component {
         <div class={styles.section}>
           <div class={styles.subtitle}>Premium Status</div>
           <div class={styles.box}>
-            <b>Premium Account:</b> Yes <br />
-            <b>Expiry Date:</b> March 31, 2023
+            <b>Premium Account:</b> {premiumStatus} <br />
+            <b>Expiry Date:</b> {expirationDate}
             <br />
-            <b>Plan Type:</b> Monthly
+            <b>Plan Type:</b> {renewalStatus}
           </div>
         </div>
 

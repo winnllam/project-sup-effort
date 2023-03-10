@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./Dashboard-Profile.module.css";
 import profile from "../../assets/profile.svg";
 import dashboardStyles from "../../pages/Dashboard/Dashboard.module.css";
-import Auth0Profile from "./Auth0-Profile.js";
 import * as userService from "../../services/api/Users.js";
 
 class DashboardProfile extends React.Component {
@@ -10,31 +9,34 @@ class DashboardProfile extends React.Component {
     super(props);
     this.state = {
       username: null,
+      email: null,
+      creationDate: null,
     };
   }
 
   componentDidMount() {
     userService.getMe().then((res) => {
-      console.log(res);
-      this.setState({ username: res.username });
+      this.setState({
+        username: res.username,
+        email: res.email,
+        creationDate: res.creationDate,
+      });
     });
   }
 
   render() {
-    const { username } = this.state;
+    const { username, email, creationDate } = this.state;
     return (
       <div className={styles.profile}>
         <div class={styles.section}>
           <div class={styles.subtitle}>User Profile</div>
           <div class={styles.box}>
-            <Auth0Profile />
+            <b>Name:</b> {this.props.name} <br />
             <b>Username:</b> {username}
-            {/* <b>Name:</b> {user.name} <br />
-              <b>Username:</b> johndoe123
-              <br />
-              <b>Email:</b> {user.email} <br />
-              <b>Connection:</b> Email <br />
-              <b>Member Since:</b> March 1, 2023 */}
+            <br />
+            <b>Email:</b> {email} <br />
+            <b>Connection:</b> Email <br />
+            <b>Member Since:</b> {creationDate}
           </div>
         </div>
 

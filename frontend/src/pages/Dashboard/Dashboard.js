@@ -1,29 +1,37 @@
 import React from "react";
 import dashboardStyles from "./Dashboard.module.css";
-import pic from "../../assets/plane_square.jpeg";
 import DashboardWelcome from "../../components/Dashboard-Welcome/Dashboard-Welcome";
 import DashboardProfile from "../../components/Dashboard-Profile/Dashboard-Profile";
 import DashboardHistory from "../../components/Dashboard-History/Dashboard-History";
 import DashboardCompetition from "../../components/Dashboard-Competition/Dashboard-Competition";
 import * as userService from "../../services/api/Users.js";
+import { withAuth0 } from "@auth0/auth0-react";
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
+
+    const { user } = this.props.auth0;
+
     this.state = {
-      section: "welcome",
+      name: user.nickname,
+      userPic: user.picture,
+      lastLoginDate: null,
     };
-    userService.getAllUsers().then((res) => console.log(res));
-    // userService.signUpUser("wines", "email").then((res) => console.log(res));
+
+    userService.signOnUser(user.email, user.nickname).then((res) => {
+      this.setState({ lastLoginDate: res.lastLoginDate });
+    });
   }
 
   render() {
+    const { name, userPic, lastLoginDate } = this.state;
     return (
       <div className={dashboardStyles.dashboard}>
         <div id={dashboardStyles.user}>
-          <img src={pic} id={dashboardStyles.userPic} alt="user pic"></img>
-          <div class={dashboardStyles.username}>John Doe</div>
-          <div id={dashboardStyles.lastLogin}>Last Login: March 5, 2023</div>
+          <img src={userPic} id={dashboardStyles.userPic} alt="user pic"></img>
+          <div class={dashboardStyles.username}>{name}</div>
+          <div id={dashboardStyles.lastLogin}>Last Login: {lastLoginDate}</div>
           <button
             class={dashboardStyles.button}
             onClick={() => this.setState({ section: "profile" })}
@@ -47,7 +55,7 @@ class Dashboard extends React.Component {
         </div>
         <div id={dashboardStyles.screen}>
           {this.state.section === "welcome" && <DashboardWelcome />}
-          {this.state.section === "profile" && <DashboardProfile />}
+          {this.state.section === "profile" && <DashboardProfile name={name} />}
           {this.state.section === "history" && <DashboardHistory />}
           {this.state.section === "compete" && <DashboardCompetition />}
         </div>
@@ -56,4 +64,4 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
+export default withAuth0(Dashboard);

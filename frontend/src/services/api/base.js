@@ -8,6 +8,7 @@ if (process.env.NODE_ENV === "production") {
 const apiClient = axios.create({
   baseURL: url,
   headers: { "Content-Type": "application/json" },
+  withCredentials: true,
 });
 
 const { get, post, put, patch, delete: destroy } = apiClient;

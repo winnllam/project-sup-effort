@@ -74,6 +74,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     type: Date,
   },
+  creationDate: {
+    required: true,
+    type: Date,
+  },
   premium: premiumSchema,
   codingHistory: [historySchema],
 });

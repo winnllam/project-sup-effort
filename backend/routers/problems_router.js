@@ -65,7 +65,11 @@ problemsRouter.post("/:id/starter", async function (req, res, next) {
   }
 
   // TODO: check for dupe language
-  const starter = { language: req.body.language, code: req.body.code };
+  const starter = {
+    language: req.body.language,
+    code: req.body.code,
+    methodName: req.body.methodName,
+  };
   problem.starterCode.push(starter);
 
   try {

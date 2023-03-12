@@ -13,6 +13,9 @@ const codeSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
+  methodName: {
+    type: String,
+  },
 });
 
 const testCaseSchema = new mongoose.Schema({

@@ -1,9 +1,10 @@
 import React from "react";
 import Editor from "@monaco-editor/react";
+import * as compilerService from "../../services/api/JDoodle.js";
 
 const height = "90vh";
 const width = "50%";
-const language = "javascript";
+const language = "python";
 // TODO: need dropdown selection for language
 
 let editorCode = null;
@@ -14,7 +15,9 @@ function handleEditorDidMount(editor, monaco) {
 
 function submit() {
   // TODO: need to somehow send the resulting code to the compiler
-  alert(editorCode?.getValue());
+  compilerService
+    .executeCode(editorCode?.getValue(), language)
+    .then((res) => console.log(res));
 }
 
 class Monaco extends React.Component {

@@ -9,12 +9,14 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Premium from "./pages/Premium/Premium";
 import Credits from "./pages/Credits/Credits";
 import { AuthenticationGuard } from "./components/authentication-guard";
+import Monaco from "./components/Monaco/Monaco";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <Router>
+          <Monaco />
           <Navbar />
           <Routes>
             <Route exact path="/" element={<Home />} />

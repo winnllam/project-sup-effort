@@ -71,6 +71,7 @@ problemsRouter.post("/:id/starter", async function (req, res, next) {
     methodName: req.body.methodName,
   };
   problem.starterCode.push(starter);
+  console.log(req.body.code);
 
   try {
     await problem.save();
@@ -78,6 +79,26 @@ problemsRouter.post("/:id/starter", async function (req, res, next) {
     return res.status(422).json({ message: error.message });
   }
   return res.json({ problem });
+});
+
+problemsRouter.get("/:id/starter/:lang", async function (req, res, next) {
+  const problem = await Problem.findOne({ number: req.params.id });
+  if (!problem) {
+    return res
+      .status(404)
+      .json({ error: "problem number:" + req.params.id + " does not exist" });
+  }
+
+  const starter = problem.starterCode;
+  for (let i = 0; i < starter.length; i++) {
+    if (starter[i].language == req.params.lang) {
+      return res.json({ starter: starter[i] });
+    }
+  }
+
+  return res.status(404).json({
+    error: "starter code in language:" + req.params.lang + " does not exist",
+  });
 });
 
 problemsRouter.post("/:id/solution", async function (req, res, next) {

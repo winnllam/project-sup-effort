@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Edit.module.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import TestCase from "../Test-Case/Test-Case";
 import { Modal, Button } from "react-bootstrap";
 
 class Edit extends React.Component {
@@ -13,13 +14,13 @@ class Edit extends React.Component {
     };
   }
 
-  openModal = () => this.setState({ isOpen: true });
-  closeModal = () => this.setState({ isOpen: false });
+  // openModal = () => this.setState({ isOpen: true });
+  // closeModal = () => this.setState({ isOpen: false });
 
   render() {
     return (
       <div className={styles.problem}>
-        <Modal
+        {/* <Modal
           show={this.state.isOpen}
           onHide={this.closeModal}
           class={styles.editModal}
@@ -36,7 +37,7 @@ class Edit extends React.Component {
               Close
             </Button>
           </Modal.Footer>
-        </Modal>
+        </Modal> */}
         <div class={styles.title}>FizzBuzz</div>
 
         <div class={styles.desc}>
@@ -74,33 +75,7 @@ class Edit extends React.Component {
           </Row>
 
           <div class={styles.testsBox}>
-            <div class={styles.oneTest}>
-              <b>Test #</b> <br />
-              <i>Test Description</i> <br />
-              <b>Input:</b> 5 <br />
-              <b>Output:</b> Fizz <br />
-              <button class={styles.button} onClick={this.openModal}>
-                Edit
-              </button>
-            </div>
-            <div class={styles.oneTest}>
-              <b>Test #</b> <br />
-              <i>Test Description</i> <br />
-              <b>Input:</b> 5 <br />
-              <b>Output:</b> Fizz <br />
-              <button class={styles.button} onClick={this.openModal}>
-                Edit
-              </button>
-            </div>
-            <div class={styles.oneTest}>
-              <b>Test #</b> <br />
-              <i>Test Description</i> <br />
-              <b>Input:</b> 5 <br />
-              <b>Output:</b> Fizz <br />
-              <button class={styles.button} onClick={this.openModal}>
-                Edit
-              </button>
-            </div>
+            <TestCase />
           </div>
         </div>
       </div>

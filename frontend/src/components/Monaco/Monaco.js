@@ -4,7 +4,7 @@ import * as compilerService from "../../services/api/JDoodle.js";
 import * as problemService from "../../services/api/Problems.js";
 
 const height = "90vh";
-const width = "50%";
+const width = "100%";
 // TODO: need dropdown selection for language and then get it passed in
 const languageDropdown = "python";
 
@@ -65,12 +65,21 @@ class Monaco extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      number: null,
       code: null,
     };
+  }
 
-    problemService.getStarterCode(1, languageDropdown).then((res) => {
-      this.setState({ code: res.code });
-    });
+  componentWillReceiveProps(props) {
+    console.log(props);
+
+    if (props.number !== null) {
+      problemService
+        .getStarterCode(props.number, languageDropdown)
+        .then((res) => {
+          this.setState({ code: res.code });
+        });
+    }
   }
 
   render() {

@@ -17,5 +17,5 @@ export const getStarterCode = function (problemId, language) {
 };
 
 export const getTestCases = function (problemId) {
-  return get(URL + `/${problemId}/testCases`).then((res) => res.data.test);
+  return get(URL + `/${problemId}/testCases`).then((res) => res.data);
 };

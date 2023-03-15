@@ -10,34 +10,77 @@ class Edit extends React.Component {
     super(props);
 
     this.state = {
-      isOpen: false,
+      newTest: false,
+      testsList: [],
     };
+
+    for (let i = 0; i < 10; i++) {
+      this.state.testsList.push({
+        id: i,
+        desc: "Desc",
+        input: 5,
+        output: "Fizz",
+        isEditing: false,
+      });
+    }
   }
 
-  // openModal = () => this.setState({ isOpen: true });
-  // closeModal = () => this.setState({ isOpen: false });
+  openNewTestModal = () => this.setState({ newTest: true });
+  closeNewTestModal = (e) => {
+    this.setState({ newTest: false });
+    e.preventDefault();
+
+    // Read the form data
+    const form = e.target;
+    const formData = new FormData(form);
+    const formJson = Object.fromEntries(formData.entries());
+    const newList = this.state.testsList;
+
+    newList.push({
+      id: 20,
+      desc: "some desc",
+      input: formJson.input,
+      output: formJson.output,
+      isEditing: false,
+    });
+    this.setState({ testList: newList });
+  };
 
   render() {
     return (
       <div className={styles.problem}>
-        {/* <Modal
-          show={this.state.isOpen}
-          onHide={this.closeModal}
+        <Modal
+          show={this.state.newTest}
+          onHide={this.closeNewTestModal}
           class={styles.editModal}
         >
-          <Modal.Header closeButton>
-            <Modal.Title>Edit Test Case</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            Woohoo, you're reading this text in a modal!
-            <input type={Text}></input>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.closeModal}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal> */}
+          <form onSubmit={this.closeNewTestModal}>
+            <Modal.Header closeButton>
+              <Modal.Title>Add New Test Case</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div class={styles.modalTitle}>Input</div>
+              <input
+                type={Text}
+                placeholder={"Expected input"}
+                class={styles.inputBox}
+                name="input"
+              ></input>
+              <div class={styles.modalTitle}>Output</div>
+              <input
+                type={Text}
+                placeholder={"Expected output"}
+                class={styles.inputBox}
+                name="output"
+              ></input>{" "}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" type="submit">
+                Save
+              </Button>
+            </Modal.Footer>
+          </form>
+        </Modal>
         <div class={styles.title}>FizzBuzz</div>
 
         <div class={styles.desc}>
@@ -67,7 +110,11 @@ class Edit extends React.Component {
             </Col>
             <Col md={2}>
               <div class={styles.newTest}>
-                <button class={styles.button} id={styles.new}>
+                <button
+                  class={styles.button}
+                  id={styles.new}
+                  onClick={this.openNewTestModal}
+                >
                   New
                 </button>
               </div>
@@ -75,7 +122,7 @@ class Edit extends React.Component {
           </Row>
 
           <div class={styles.testsBox}>
-            <TestCase />
+            <TestCase testsList={this.state.testsList} />
           </div>
         </div>
       </div>

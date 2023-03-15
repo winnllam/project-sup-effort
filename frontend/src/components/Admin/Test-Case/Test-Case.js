@@ -6,18 +6,8 @@ class TestCase extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      testList: [],
+      testList: props.testsList,
     };
-
-    for (let i = 0; i < 10; i++) {
-      this.state.testList.push({
-        id: i,
-        desc: "Desc",
-        input: 5,
-        output: "Fizz",
-        isEditing: false,
-      });
-    }
   }
   saveTest = (testId) => (e) => {
     // Prevent the browser from reloading the page
@@ -36,7 +26,6 @@ class TestCase extends React.Component {
     newList[id].input = formJson.input;
     newList[id].output = formJson.output;
     this.setState({ testList: newList });
-    console.log(this.state.testList);
   };
 
   editTest(testId) {
@@ -62,18 +51,16 @@ class TestCase extends React.Component {
                   <form onSubmit={this.saveTest(test.id)}>
                     <b>Input:</b>{" "}
                     <input
-                      type="text"
+                      type={Text}
                       defaultValue={test.input}
                       class={styles.inputBox}
                       readOnly={!test.isEditing}
-                      onChange={this.handleChange}
                       name="input"
-                      id="input"
                     ></input>{" "}
                     <br />
                     <b>Output:</b>{" "}
                     <input
-                      type="text"
+                      type={Text}
                       defaultValue={test.output}
                       class={styles.inputBox}
                       readOnly={!test.isEditing}

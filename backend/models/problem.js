@@ -19,6 +19,10 @@ const codeSchema = new mongoose.Schema({
 });
 
 const testCaseSchema = new mongoose.Schema({
+  number: {
+    required: true,
+    type: Number,
+  },
   input: {
     required: true,
     type: String,

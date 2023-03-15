@@ -104,7 +104,7 @@ class Monaco extends React.Component {
         {showReuslts ? (
           <div className={monacoStyles.testResults}>
             {results.map((test) => (
-              <p>{test}</p>
+              <p key={test}>{test}</p>
             ))}
           </div>
         ) : null}

@@ -21,7 +21,6 @@ compilersRouter.post("/execute", function (req, res, next) {
   }
 
   axios.post(jdoodleURL + "/execute", body).then((result) => {
-    console.log(result.data);
     const ret = result.data;
     return res.json({ output: ret.output, statusCode: ret.statusCode });
   });

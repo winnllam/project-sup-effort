@@ -36,7 +36,7 @@ problemsRouter.patch("/:id", async function (req, res, next) {
   if (problem === null) {
     return res
       .status(404)
-      .json({ error: "problem number:" + req.body.number + " does not exist" });
+      .json({ error: "problem number:" + req.params.id + " does not exist" });
   }
 
   return res.json({ problem });
@@ -61,7 +61,7 @@ problemsRouter.post("/:id/starter", async function (req, res, next) {
   if (!problem) {
     return res
       .status(404)
-      .json({ error: "problem number:" + req.body.number + " does not exist" });
+      .json({ error: "problem number:" + req.params.id + " does not exist" });
   }
 
   // TODO: check for dupe language
@@ -106,7 +106,7 @@ problemsRouter.post("/:id/solution", async function (req, res, next) {
   if (!problem) {
     return res
       .status(404)
-      .json({ error: "problem number:" + req.body.number + " does not exist" });
+      .json({ error: "problem number:" + req.params.id + " does not exist" });
   }
 
   // TODO: check for dupe language
@@ -146,10 +146,16 @@ problemsRouter.post("/:id/testCases", async function (req, res, next) {
   if (!problem) {
     return res
       .status(404)
-      .json({ error: "problem number:" + req.body.number + " does not exist" });
+      .json({ error: "problem number:" + req.params.id + " does not exist" });
   }
 
-  const test = { input: req.body.input, output: req.body.output };
+  const seqId = "TestNumber" + req.params.id;
+  const nextNum = await Sequence.next(seqId);
+  const test = {
+    number: nextNum,
+    input: req.body.input,
+    output: req.body.output,
+  };
   problem.testCases.push(test);
 
   try {

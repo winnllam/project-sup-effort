@@ -1,8 +1,18 @@
 import React from "react";
 import codingStyles from "./Coding.module.css";
 import { withAuth0 } from "@auth0/auth0-react";
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
 import Monaco from "../../components/Monaco/Monaco";
 import * as problemService from "../../services/api/Problems.js";
+
+const options = [
+  { value: "python", label: "Python3" },
+  { value: "java", label: "Java" },
+  { value: "javascript", label: "JavaScript" },
+  { value: "c", label: "C" },
+];
+const defaultOption = options[0];
 
 class Coding extends React.Component {
   constructor(props) {
@@ -12,8 +22,12 @@ class Coding extends React.Component {
       name: null,
       description: null,
       difficulty: null,
+      language: defaultOption.value,
     };
 
+    this.updateLanguage = this.updateLanguage.bind(this);
+
+    // TODO: get problem number from selected problem by user
     problemService.getProblem(1).then((res) => {
       this.setState({
         number: res.number,
@@ -24,8 +38,17 @@ class Coding extends React.Component {
     });
   }
 
+  shouldComponentUpdate(nextState) {
+    // TODO: pretty sure this isnt right...
+    return this.state !== nextState;
+  }
+
+  updateLanguage(language) {
+    this.setState({ language: language.value });
+  }
+
   render() {
-    const { number, name, description, difficulty } = this.state;
+    const { number, name, description, difficulty, language } = this.state;
 
     return (
       <div className={codingStyles.coding}>
@@ -38,7 +61,13 @@ class Coding extends React.Component {
         </div>
 
         <div className={codingStyles.rightPane}>
-          <Monaco number={number} />
+          <Dropdown
+            options={options}
+            onChange={this.updateLanguage}
+            value={defaultOption}
+            placeholder="Select a language"
+          />
+          <Monaco number={number} language={language} />
         </div>
       </div>
     );

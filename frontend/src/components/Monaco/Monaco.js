@@ -1,5 +1,6 @@
 import React from "react";
 import Editor from "@monaco-editor/react";
+import monacoStyles from "./Monaco.module.css";
 import * as compilerService from "../../services/api/JDoodle.js";
 import * as problemService from "../../services/api/Problems.js";
 
@@ -14,14 +15,15 @@ class Monaco extends React.Component {
     this.state = {
       number: null,
       code: null,
-      height: "90vh",
+      height: "80vh",
+      results: [],
+      showReuslts: false,
     };
 
     this.submit = this.submit.bind(this);
   }
 
   componentWillReceiveProps(props) {
-    console.log(props);
     if (props.language !== null) {
       language = props.language;
     }
@@ -35,10 +37,6 @@ class Monaco extends React.Component {
 
   shouldComponentUpdate(nextState) {
     return this.state !== nextState;
-  }
-
-  handleEditorWillMount(monaco) {
-    monaco.languages.typescript.javascriptDefaults.setEagerModelSync(true);
   }
 
   handleEditorDidMount(editor, monaco) {
@@ -84,16 +82,15 @@ class Monaco extends React.Component {
 
       console.log(addTests);
 
-      compilerService.executeCode(addTests, language).then((output) => {
-        alert(output.output);
-        this.setState({ height: "45vh" });
+      compilerService.executeCode(addTests, language).then((test) => {
+        const result = test.output.split(/\r?\n/);
+        this.setState({ height: "45vh", results: result, showReuslts: true });
       });
-      // TODO: send output somewhere else to dusplay results properly
     });
   }
 
   render() {
-    const { code, height } = this.state;
+    const { code, height, results, showReuslts } = this.state;
     return (
       <>
         <Editor
@@ -101,10 +98,16 @@ class Monaco extends React.Component {
           width={width}
           defaultLanguage={language}
           value={code}
-          beforeMount={this.handleEditorWillMount}
           onMount={this.handleEditorDidMount}
         />
         <button onClick={this.submit}>Submit Code</button>
+        {showReuslts ? (
+          <div className={monacoStyles.testResults}>
+            {results.map((test) => (
+              <p>{test}</p>
+            ))}
+          </div>
+        ) : null}
       </>
     );
   }

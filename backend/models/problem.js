@@ -23,6 +23,10 @@ const testCaseSchema = new mongoose.Schema({
     required: true,
     type: Number,
   },
+  description: {
+    required: false,
+    type: String,
+  },
   input: {
     required: true,
     type: String,

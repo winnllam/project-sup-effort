@@ -151,11 +151,20 @@ problemsRouter.post("/:id/testCases", async function (req, res, next) {
 
   const seqId = "TestNumber" + req.params.id;
   const nextNum = await Sequence.next(seqId);
-  const test = {
+  let test = {
     number: nextNum,
     input: req.body.input,
     output: req.body.output,
   };
+  if (req.body.description) {
+    test = {
+      number: nextNum,
+      description: req.body.description,
+      input: req.body.input,
+      output: req.body.output,
+    };
+  }
+
   problem.testCases.push(test);
 
   try {

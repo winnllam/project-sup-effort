@@ -8,7 +8,16 @@ class ProblemList extends React.Component {
 
     this.state = {
       problemId: null,
+      problems: [],
     };
+
+    for (let i = 0; i < 10; i++) {
+      this.state.problems.push({
+        id: i,
+        desc: "Desc",
+        name: "FizzBuzz",
+      });
+    }
   }
 
   render() {
@@ -17,76 +26,30 @@ class ProblemList extends React.Component {
         {this.state.problemId === null && (
           <div id={styles.screen}>
             <div class={styles.title}>Problems</div>
-            <div class={styles.problem}>
-              <div class={styles.problemName}>
-                <b>Fizzbuzz</b>
+            {this.state.problems.map((problem) => (
+              <div class={styles.problem}>
+                <div class={styles.problemName}>
+                  <b>
+                    {problem.id} : {problem.name}
+                  </b>
+                </div>
+                <div class={styles.problemDesc}>
+                  <i> {problem.desc}</i>
+                </div>
+                <div class={styles.editProblem}>
+                  <button
+                    class={styles.button}
+                    onClick={() => this.setState({ problemId: problem.id })}
+                  >
+                    Edit
+                  </button>
+                </div>
               </div>
-              <div class={styles.problemDesc}>
-                <i> Problem Description</i>
-              </div>
-              <div class={styles.editProblem}>
-                <button
-                  class={styles.button}
-                  onClick={() => this.setState({ problemId: 5 })}
-                >
-                  Edit
-                </button>
-              </div>
-            </div>
-
-            <div class={styles.problem}>
-              <div class={styles.problemName}>
-                <b>Fizzbuzz</b>
-              </div>
-              <div class={styles.problemDesc}>
-                <i> Problem Description</i>
-              </div>
-              <div class={styles.editProblem}>
-                <button
-                  class={styles.button}
-                  onClick={() => this.setState({ problemId: 5 })}
-                >
-                  Edit
-                </button>
-              </div>
-            </div>
-
-            <div class={styles.problem}>
-              <div class={styles.problemName}>
-                <b>Fizzbuzz</b>
-              </div>
-              <div class={styles.problemDesc}>
-                <i> Problem Description</i>
-              </div>
-              <div class={styles.editProblem}>
-                <button
-                  class={styles.button}
-                  onClick={() => this.setState({ problemId: 5 })}
-                >
-                  Edit
-                </button>
-              </div>
-            </div>
-
-            <div class={styles.problem}>
-              <div class={styles.problemName}>
-                <b>Fizzbuzz</b>
-              </div>
-              <div class={styles.problemDesc}>
-                <i> Problem Description</i>
-              </div>
-              <div class={styles.editProblem}>
-                <button
-                  class={styles.button}
-                  onClick={() => this.setState({ problemId: 5 })}
-                >
-                  Edit
-                </button>
-              </div>
-            </div>
+            ))}
+            ;
           </div>
         )}
-        {this.state.problemId !== null && <Edit />}
+        ;{this.state.problemId !== null && <Edit />}
       </div>
     );
   }

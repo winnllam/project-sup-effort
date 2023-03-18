@@ -12,6 +12,7 @@ class Edit extends React.Component {
     this.state = {
       newTest: false,
       testsList: [],
+      desc: "It was a dark and stormy night when I wanted to code FizzBuzz...",
     };
 
     for (let i = 0; i < 10; i++) {
@@ -26,6 +27,7 @@ class Edit extends React.Component {
   }
 
   openNewTestModal = () => this.setState({ newTest: true });
+
   closeNewTestModal = (e) => {
     this.setState({ newTest: false });
     e.preventDefault();
@@ -44,6 +46,16 @@ class Edit extends React.Component {
       isEditing: false,
     });
     this.setState({ testList: newList });
+  };
+
+  saveDesc = (e) => {
+    e.preventDefault();
+
+    // Read the form data
+    const form = e.target;
+    const formData = new FormData(form);
+    const formJson = Object.fromEntries(formData.entries());
+    this.setState({ desc: formJson.desc });
   };
 
   render() {
@@ -86,10 +98,16 @@ class Edit extends React.Component {
         <div class={styles.desc}>
           <div class={styles.subtitle}>Problem Description</div>
           <div class={styles.descBox}>
-            <textarea id={styles.problemDesc} name="desc">
-              It was a dark and stormy night when I wanted to code FizzBuzz...
-            </textarea>
-            <button class={styles.button}>Save</button>
+            <form onSubmit={this.saveDesc}>
+              <textarea
+                id={styles.problemDesc}
+                name="desc"
+                defaultValue={this.state.desc}
+              ></textarea>
+              <button class={styles.button} type="submit">
+                Save
+              </button>
+            </form>
           </div>
         </div>
 

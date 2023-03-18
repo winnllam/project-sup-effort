@@ -8,7 +8,6 @@ import Home from "./pages/Home/Home";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Premium from "./pages/Premium/Premium";
 import Credits from "./pages/Credits/Credits";
-import Coding from "./pages/Coding/Coding";
 import CodingHook from "./pages/Coding/Coding-Hook";
 import Problems from "./pages/Problems/Problems";
 import { AuthenticationGuard } from "./components/authentication-guard";

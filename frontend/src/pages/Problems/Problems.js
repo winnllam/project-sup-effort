@@ -24,23 +24,17 @@ class Problems extends React.Component {
           <Link
             to="/coding"
             state={{ number: problem.number }}
-            className={problemStyles.link}
-          >
-            <div key={problem.number} className={problemStyles.problem}>
-              <div className={problemStyles.info}>
-                <h2>
-                  {problem.number}. {problem.name}
-                </h2>
-                <p>{problem.description}</p>
-              </div>
-              <div
-                className={`${problemStyles.difficulty} 
+            className={`${problemStyles.problem}
               ${problem.difficulty === "easy" ? problemStyles.easy : ""} 
               ${problem.difficulty === "medium" ? problemStyles.medium : ""} 
               ${problem.difficulty === "hard" ? problemStyles.hard : ""}`}
-              >
-                {problem.difficulty}
-              </div>
+            key={problem.number}
+          >
+            <div className={problemStyles.info}>
+              <h2>
+                {problem.number}. {problem.name}
+              </h2>
+              <p>{problem.description}</p>
             </div>
           </Link>
         ))}

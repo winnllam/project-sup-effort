@@ -36,10 +36,18 @@ problemsRouter.patch("/:id", async function (req, res, next) {
   if (problem === null) {
     return res
       .status(404)
-      .json({ error: "problem number:" + req.body.number + " does not exist" });
+      .json({ error: "problem number:" + req.params.id + " does not exist" });
   }
 
   return res.json({ problem });
+});
+
+problemsRouter.get("/", async function (req, res, next) {
+  const problems = await Problem.find(
+    {},
+    { starterCode: 0, sampleSolution: 0, testCases: 0 }
+  );
+  return res.json({ problems });
 });
 
 problemsRouter.get("/:id", async function (req, res, next) {
@@ -61,7 +69,7 @@ problemsRouter.post("/:id/starter", async function (req, res, next) {
   if (!problem) {
     return res
       .status(404)
-      .json({ error: "problem number:" + req.body.number + " does not exist" });
+      .json({ error: "problem number:" + req.params.id + " does not exist" });
   }
 
   // TODO: check for dupe language
@@ -71,6 +79,7 @@ problemsRouter.post("/:id/starter", async function (req, res, next) {
     methodName: req.body.methodName,
   };
   problem.starterCode.push(starter);
+  console.log(req.body.code);
 
   try {
     await problem.save();
@@ -80,12 +89,32 @@ problemsRouter.post("/:id/starter", async function (req, res, next) {
   return res.json({ problem });
 });
 
+problemsRouter.get("/:id/starter/:lang", async function (req, res, next) {
+  const problem = await Problem.findOne({ number: req.params.id });
+  if (!problem) {
+    return res
+      .status(404)
+      .json({ error: "problem number:" + req.params.id + " does not exist" });
+  }
+
+  const starter = problem.starterCode;
+  for (let i = 0; i < starter.length; i++) {
+    if (starter[i].language == req.params.lang) {
+      return res.json({ starter: starter[i] });
+    }
+  }
+
+  return res.status(404).json({
+    error: "starter code in language:" + req.params.lang + " does not exist",
+  });
+});
+
 problemsRouter.post("/:id/solution", async function (req, res, next) {
   const problem = await Problem.findOne({ number: req.params.id });
   if (!problem) {
     return res
       .status(404)
-      .json({ error: "problem number:" + req.body.number + " does not exist" });
+      .json({ error: "problem number:" + req.params.id + " does not exist" });
   }
 
   // TODO: check for dupe language
@@ -125,10 +154,25 @@ problemsRouter.post("/:id/testCases", async function (req, res, next) {
   if (!problem) {
     return res
       .status(404)
-      .json({ error: "problem number:" + req.body.number + " does not exist" });
+      .json({ error: "problem number:" + req.params.id + " does not exist" });
   }
 
-  const test = { input: req.body.input, output: req.body.output };
+  const seqId = "TestNumber" + req.params.id;
+  const nextNum = await Sequence.next(seqId);
+  let test = {
+    number: nextNum,
+    input: req.body.input,
+    output: req.body.output,
+  };
+  if (req.body.description) {
+    test = {
+      number: nextNum,
+      description: req.body.description,
+      input: req.body.input,
+      output: req.body.output,
+    };
+  }
+
   problem.testCases.push(test);
 
   try {

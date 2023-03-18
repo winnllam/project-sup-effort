@@ -1,0 +1,40 @@
+.problems {
+  background: rgba(222, 226, 230, 0.8);
+  height: 100%;
+  display: flex;
+}
+
+.problem {
+  width: 80%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  background: white;
+  border-radius: 10px;
+  margin: 20px auto;
+  padding: 30px;
+  text-align: left;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.info {
+  width: 90%;
+}
+
+.difficulty {
+  width: 10%;
+}
+
+.easy {
+  background-color: green;
+}
+
+.medium {
+  background-color: yellow;
+}
+.hard {
+  background-color: red;
+}

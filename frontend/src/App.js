@@ -9,8 +9,8 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Premium from "./pages/Premium/Premium";
 import Credits from "./pages/Credits/Credits";
 import Coding from "./pages/Coding/Coding";
+import Problems from "./pages/Problems/Problems";
 import { AuthenticationGuard } from "./components/authentication-guard";
-import Monaco from "./components/Monaco/Monaco";
 
 class App extends Component {
   render() {
@@ -29,6 +29,7 @@ class App extends Component {
             />
             {/* <Route path="/dashboard" element={<Dashboard />} /> */}
             <Route path="/coding" element={<Coding />} />
+            <Route path="/problems" element={<Problems />} />
           </Routes>
           <Footer />
         </Router>

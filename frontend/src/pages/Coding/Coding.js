@@ -18,7 +18,7 @@ class Coding extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      number: null,
+      number: props.number,
       name: null,
       description: null,
       difficulty: null,
@@ -27,10 +27,8 @@ class Coding extends React.Component {
 
     this.updateLanguage = this.updateLanguage.bind(this);
 
-    // TODO: get problem number from selected problem by user
-    problemService.getProblem(1).then((res) => {
+    problemService.getProblem(props.number).then((res) => {
       this.setState({
-        number: res.number,
         name: res.name,
         description: res.description,
         difficulty: res.difficulty,

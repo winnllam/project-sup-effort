@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Premium from "./pages/Premium/Premium";
 import Credits from "./pages/Credits/Credits";
 import Coding from "./pages/Coding/Coding";
+import CodingHook from "./pages/Coding/Coding-Hook";
 import Problems from "./pages/Problems/Problems";
 import { AuthenticationGuard } from "./components/authentication-guard";
 
@@ -17,7 +18,6 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-          {/* <Monaco /> */}
           <Navbar />
           <Routes>
             <Route exact path="/" element={<Home />} />
@@ -28,7 +28,7 @@ class App extends Component {
               element={<AuthenticationGuard component={Dashboard} />}
             />
             {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-            <Route path="/coding" element={<Coding />} />
+            <Route path="/coding" element={<CodingHook />} />
             <Route path="/problems" element={<Problems />} />
           </Routes>
           <Footer />

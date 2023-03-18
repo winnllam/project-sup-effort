@@ -42,6 +42,14 @@ problemsRouter.patch("/:id", async function (req, res, next) {
   return res.json({ problem });
 });
 
+problemsRouter.get("/", async function (req, res, next) {
+  const problems = await Problem.find(
+    {},
+    { starterCode: 0, sampleSolution: 0, testCases: 0 }
+  );
+  return res.json({ problems });
+});
+
 problemsRouter.get("/:id", async function (req, res, next) {
   const problem = await Problem.findOne(
     { number: req.params.id },

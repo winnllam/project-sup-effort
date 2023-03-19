@@ -20,6 +20,7 @@ class Problems extends React.Component {
     const { problems } = this.state;
     return (
       <div className={problemStyles.problems}>
+        <div id={problemStyles.header}>Problem Catalog</div>
         {problems.map((problem) => (
           <Link
             to="/coding"

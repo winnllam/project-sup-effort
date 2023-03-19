@@ -26,9 +26,14 @@ class App extends Component {
               path="/dashboard"
               element={<AuthenticationGuard component={Dashboard} />}
             />
-            {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-            <Route path="/coding" element={<CodingHook />} />
-            <Route path="/problems" element={<Problems />} />
+            <Route
+              path="/coding"
+              element={<AuthenticationGuard component={CodingHook} />}
+            />
+            <Route
+              path="/problems"
+              element={<AuthenticationGuard component={Problems} />}
+            />
           </Routes>
           <Footer />
         </Router>

@@ -4,26 +4,35 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import TestCase from "../Test-Case/Test-Case";
 import { Modal, Button } from "react-bootstrap";
+import * as problemService from "../../../services/api/Problems.js";
 
 class Edit extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      problemId: props.problemId,
+      problemName: "",
       newTest: false,
       testsList: [],
-      desc: "It was a dark and stormy night when I wanted to code FizzBuzz...",
+      desc: "",
+      difficulty: "",
     };
+  }
 
-    for (let i = 0; i < 10; i++) {
-      this.state.testsList.push({
-        id: i,
-        desc: "Desc",
-        input: 5,
-        output: "Fizz",
-        isEditing: false,
+  componentDidMount() {
+    problemService.getProblem(this.state.problemId).then((res) => {
+      this.setState({
+        problemName: res.name,
+        desc: res.description,
+        difficulty: res.difficulty,
       });
-    }
+    });
+    problemService.getTestCases(this.state.problemId).then((res) => {
+      this.setState({
+        testsList: res.test,
+      });
+    });
   }
 
   openNewTestModal = () => this.setState({ newTest: true });
@@ -55,7 +64,22 @@ class Edit extends React.Component {
     const form = e.target;
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
-    this.setState({ desc: formJson.desc });
+
+    // TODO: Change to allow edit name + difficulty
+    problemService
+      .updateProblem(
+        this.state.problemId,
+        this.state.problemName,
+        formJson.desc,
+        this.state.difficulty
+      )
+      .then((res) => {
+        this.setState({
+          problemName: res.name,
+          desc: res.description,
+          difficulty: res.difficulty,
+        });
+      });
   };
 
   render() {
@@ -93,7 +117,7 @@ class Edit extends React.Component {
             </Modal.Footer>
           </form>
         </Modal>
-        <div class={styles.title}>FizzBuzz</div>
+        <div class={styles.title}>{this.state.problemName}</div>
 
         <div class={styles.desc}>
           <div class={styles.subtitle}>Problem Description</div>
@@ -140,7 +164,13 @@ class Edit extends React.Component {
           </Row>
 
           <div class={styles.testsBox}>
-            <TestCase testsList={this.state.testsList} />
+            {" "}
+            {this.state.testsList.length > 0 && (
+              <TestCase
+                testsList={this.state.testsList}
+                problemId={this.state.problemId}
+              />
+            )}
           </div>
         </div>
       </div>

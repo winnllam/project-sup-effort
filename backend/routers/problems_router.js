@@ -194,3 +194,24 @@ problemsRouter.get("/:id/testCases", async function (req, res, next) {
   const testCases = problem.testCases;
   return res.json({ total: testCases.length, test: testCases });
 });
+
+problemsRouter.patch("/:id/testCases/:testId", async function (req, res, next) {
+  const problem = await Problem.findOne({ number: req.params.id });
+  if (!problem) {
+    return res
+      .status(404)
+      .json({ error: "problem number:" + req.params.id + " does not exist" });
+  }
+
+  let tests = problem.testCases;
+  const id = tests.findIndex(function (test) {
+    return test.number === +req.params.testId;
+  });
+
+  tests[id].input = req.body.input;
+  tests[id].output = req.body.output;
+
+  problem.save();
+
+  return res.json({ tests });
+});

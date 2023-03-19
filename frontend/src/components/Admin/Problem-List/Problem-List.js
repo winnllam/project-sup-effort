@@ -1,6 +1,7 @@
 import React from "react";
 import Edit from "../Edit/Edit";
 import styles from "./Problem-List.module.css";
+import * as problemService from "../../../services/api/Problems.js";
 
 class ProblemList extends React.Component {
   constructor(props) {
@@ -10,14 +11,12 @@ class ProblemList extends React.Component {
       problemId: null,
       problems: [],
     };
+  }
 
-    for (let i = 0; i < 10; i++) {
-      this.state.problems.push({
-        id: i,
-        desc: "Desc",
-        name: "FizzBuzz",
-      });
-    }
+  componentDidMount() {
+    problemService.getProblems().then((res) => {
+      this.setState({ problems: res });
+    });
   }
 
   render() {
@@ -30,26 +29,27 @@ class ProblemList extends React.Component {
               <div class={styles.problem}>
                 <div class={styles.problemName}>
                   <b>
-                    {problem.id} : {problem.name}
+                    {problem.number} : {problem.name}
                   </b>
                 </div>
                 <div class={styles.problemDesc}>
-                  <i> {problem.desc}</i>
+                  <i> {problem.description}</i>
                 </div>
                 <div class={styles.editProblem}>
                   <button
                     class={styles.button}
-                    onClick={() => this.setState({ problemId: problem.id })}
+                    onClick={() => this.setState({ problemId: problem.number })}
                   >
                     Edit
                   </button>
                 </div>
               </div>
             ))}
-            ;
           </div>
         )}
-        ;{this.state.problemId !== null && <Edit />}
+        {this.state.problemId !== null && (
+          <Edit problemId={this.state.problemId} />
+        )}
       </div>
     );
   }

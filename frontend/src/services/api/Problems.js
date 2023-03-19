@@ -1,4 +1,4 @@
-import { post, get } from "./base.js";
+import { post, get, patch } from "./base.js";
 
 const URL = "/problems";
 
@@ -26,4 +26,19 @@ export const getStarterCode = function (problemId, language) {
 
 export const getTestCases = function (problemId) {
   return get(URL + `/${problemId}/testCases`).then((res) => res.data);
+};
+
+export const updateProblem = function (problemId, name, desc, difficulty) {
+  return patch(URL + `/${problemId}`, {
+    name: name,
+    description: desc,
+    difficulty: difficulty,
+  }).then((res) => res.data);
+};
+
+export const updateTest = function (problemId, testId, input, output) {
+  return patch(URL + `/${problemId}/testCases/${testId}`, {
+    input: input,
+    output: output,
+  }).then((res) => res.data);
 };

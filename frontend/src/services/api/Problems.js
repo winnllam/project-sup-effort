@@ -42,3 +42,19 @@ export const updateTest = function (problemId, testId, input, output) {
     output: output,
   }).then((res) => res.data);
 };
+
+export const addTest = function (problemId, input, output, desc = "") {
+  return post(URL + `/${problemId}/testCases`, {
+    input: input,
+    output: output,
+    description: desc,
+  }).then((res) => res.data);
+};
+
+export const addProblem = function (name, description, difficulty) {
+  return post(URL, {
+    name: name,
+    description: description,
+    difficulty: difficulty,
+  }).then((res) => res.data);
+};

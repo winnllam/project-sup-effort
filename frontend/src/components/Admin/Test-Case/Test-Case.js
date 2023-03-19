@@ -16,6 +16,16 @@ class TestCase extends React.Component {
     });
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.testsList !== state.testList) {
+      return {
+        testList: props.testsList,
+        problemId: props.problemId,
+      };
+    }
+    return null;
+  }
+
   saveTest = (testId) => (e) => {
     e.preventDefault();
 

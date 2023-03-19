@@ -37,30 +37,27 @@ class Edit extends React.Component {
 
   openNewTestModal = () => this.setState({ newTest: true });
 
-  closeNewTestModal = (e) => {
+  closeNewTestModal = () => this.setState({ newTest: false });
+
+  saveNewTestModal = (e) => {
     this.setState({ newTest: false });
     e.preventDefault();
 
-    // Read the form data
     const form = e.target;
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
-    const newList = this.state.testsList;
-
-    newList.push({
-      id: 20,
-      desc: "some desc",
-      input: formJson.input,
-      output: formJson.output,
-      isEditing: false,
-    });
-    this.setState({ testList: newList });
+    problemService
+      .addTest(this.state.problemId, formJson.input, formJson.output)
+      .then((res) => {
+        this.setState(() => ({
+          testsList: res.problem.testCases,
+        }));
+      });
   };
 
   saveDesc = (e) => {
     e.preventDefault();
 
-    // Read the form data
     const form = e.target;
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
@@ -90,7 +87,7 @@ class Edit extends React.Component {
           onHide={this.closeNewTestModal}
           class={styles.editModal}
         >
-          <form onSubmit={this.closeNewTestModal}>
+          <form onSubmit={this.saveNewTestModal}>
             <Modal.Header closeButton>
               <Modal.Title>Add New Test Case</Modal.Title>
             </Modal.Header>
@@ -108,6 +105,13 @@ class Edit extends React.Component {
                 placeholder={"Expected output"}
                 class={styles.inputBox}
                 name="output"
+              ></input>{" "}
+              <div class={styles.modalTitle}>Description</div>
+              <input
+                type={Text}
+                placeholder={"Optional"}
+                class={styles.inputBox}
+                name="desc"
               ></input>{" "}
             </Modal.Body>
             <Modal.Footer>

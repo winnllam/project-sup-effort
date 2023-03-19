@@ -101,6 +101,10 @@
   padding: 10px;
 }
 
+.inputBox::placeholder {
+  color: black;
+}
+
 .modalTitle {
   font-family: "Raleway";
   font-style: normal;

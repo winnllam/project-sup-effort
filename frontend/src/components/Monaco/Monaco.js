@@ -15,9 +15,10 @@ class Monaco extends React.Component {
     this.state = {
       number: null,
       code: null,
+      methodName: null,
       height: "80vh",
       results: [],
-      showReuslts: false,
+      showResults: false,
     };
 
     this.submit = this.submit.bind(this);
@@ -30,7 +31,7 @@ class Monaco extends React.Component {
     if (props.number !== null) {
       this.setState({ number: props.number });
       problemService.getStarterCode(props.number, language).then((res) => {
-        this.setState({ code: res.code });
+        this.setState({ code: res.code, methodName: res.methodName });
       });
     }
   }
@@ -43,54 +44,58 @@ class Monaco extends React.Component {
     editorCode = editor;
   }
 
+  runPython(total, tests) {
+    let addTests = editorCode?.getValue();
+    console.log(addTests);
+    addTests = addTests.concat("\r\npassCounter = 0");
+
+    for (let i = 0; i < total; i++) {
+      // what the function call looks like using the test input
+      const functionCall = this.state.methodName + "(" + tests[i].input + ")";
+      // calling the function and save results
+      addTests = addTests.concat(
+        "\r\ntestCallResult = str(" + functionCall + ")"
+      );
+      // print out info line about pass/fail
+      addTests = addTests.concat(
+        "\r\nprint('Expected: " +
+          tests[i].output +
+          "; Actual: ' + testCallResult + '; Pass: ', str(" +
+          tests[i].output +
+          ") == testCallResult)"
+      );
+      // increase pass counter if passed
+      addTests = addTests.concat(
+        "\r\nif str(" +
+          tests[i].output +
+          ") == testCallResult: passCounter += 1"
+      );
+    }
+    addTests = addTests.concat(
+      "\r\nprint('Passed: ' + str(passCounter) + '/" + total + "')"
+    );
+
+    console.log(addTests);
+    return addTests;
+  }
+
   submit() {
     // TODO: this is for python only right now, need to account for the other languages
-    problemService.getTestCases(1).then((res) => {
-      let addTests = editorCode?.getValue();
-      console.log(addTests);
-
+    problemService.getTestCases(this.state.number).then((res) => {
       const total = res.total;
       const tests = res.test;
 
-      addTests = addTests.concat("\r\npassCounter = 0");
-
-      for (let i = 0; i < total; i++) {
-        // what the function call looks like using the test input
-        const functionCall = "double(" + tests[i].input + ")";
-        // calling the function and save results
-        addTests = addTests.concat(
-          "\r\ntestCallResult = str(" + functionCall + ")"
-        );
-        // print out info line about pass/fail
-        addTests = addTests.concat(
-          "\r\nprint('Expected: " +
-            tests[i].output +
-            "; Actual: ' + testCallResult + '; Pass: ', str(" +
-            tests[i].output +
-            ") == testCallResult)"
-        );
-        // increase pass counter if passed
-        addTests = addTests.concat(
-          "\r\nif str(" +
-            tests[i].output +
-            ") == testCallResult: passCounter += 1"
-        );
-      }
-      addTests = addTests.concat(
-        "\r\nprint('Passed: ' + str(passCounter) + '/" + total + "')"
-      );
-
-      console.log(addTests);
+      const addTests = this.runPython(total, tests);
 
       compilerService.executeCode(addTests, language).then((test) => {
         const result = test.output.split(/\r?\n/);
-        this.setState({ height: "45vh", results: result, showReuslts: true });
+        this.setState({ height: "45vh", results: result, showResults: true });
       });
     });
   }
 
   render() {
-    const { code, height, results, showReuslts } = this.state;
+    const { code, height, results, showResults } = this.state;
     return (
       <>
         <Editor
@@ -101,7 +106,7 @@ class Monaco extends React.Component {
           onMount={this.handleEditorDidMount}
         />
         <button onClick={this.submit}>Submit Code</button>
-        {showReuslts ? (
+        {showResults ? (
           <div className={monacoStyles.testResults}>
             {results.map((test) => (
               <p key={test}>{test}</p>

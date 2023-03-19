@@ -56,7 +56,7 @@ class Dashboard extends React.Component {
             </button>
           )}
           <br />
-          {this.state.userStatus === "baisc" && (
+          {this.state.userStatus === "basic" && (
             <button
               class={dashboardStyles.button}
               onClick={() => this.setState({ section: "compete" })}

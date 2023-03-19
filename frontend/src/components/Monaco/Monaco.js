@@ -44,44 +44,48 @@ class Monaco extends React.Component {
     editorCode = editor;
   }
 
+  runPython(total, tests) {
+    let addTests = editorCode?.getValue();
+    console.log(addTests);
+    addTests = addTests.concat("\r\npassCounter = 0");
+
+    for (let i = 0; i < total; i++) {
+      // what the function call looks like using the test input
+      const functionCall = this.state.methodName + "(" + tests[i].input + ")";
+      // calling the function and save results
+      addTests = addTests.concat(
+        "\r\ntestCallResult = str(" + functionCall + ")"
+      );
+      // print out info line about pass/fail
+      addTests = addTests.concat(
+        "\r\nprint('Expected: " +
+          tests[i].output +
+          "; Actual: ' + testCallResult + '; Pass: ', str(" +
+          tests[i].output +
+          ") == testCallResult)"
+      );
+      // increase pass counter if passed
+      addTests = addTests.concat(
+        "\r\nif str(" +
+          tests[i].output +
+          ") == testCallResult: passCounter += 1"
+      );
+    }
+    addTests = addTests.concat(
+      "\r\nprint('Passed: ' + str(passCounter) + '/" + total + "')"
+    );
+
+    console.log(addTests);
+    return addTests;
+  }
+
   submit() {
     // TODO: this is for python only right now, need to account for the other languages
     problemService.getTestCases(this.state.number).then((res) => {
-      let addTests = editorCode?.getValue();
-      console.log(addTests);
-
       const total = res.total;
       const tests = res.test;
 
-      addTests = addTests.concat("\r\npassCounter = 0");
-
-      for (let i = 0; i < total; i++) {
-        // what the function call looks like using the test input
-        const functionCall = this.state.methodName + "(" + tests[i].input + ")";
-        // calling the function and save results
-        addTests = addTests.concat(
-          "\r\ntestCallResult = str(" + functionCall + ")"
-        );
-        // print out info line about pass/fail
-        addTests = addTests.concat(
-          "\r\nprint('Expected: " +
-            tests[i].output +
-            "; Actual: ' + testCallResult + '; Pass: ', str(" +
-            tests[i].output +
-            ") == testCallResult)"
-        );
-        // increase pass counter if passed
-        addTests = addTests.concat(
-          "\r\nif str(" +
-            tests[i].output +
-            ") == testCallResult: passCounter += 1"
-        );
-      }
-      addTests = addTests.concat(
-        "\r\nprint('Passed: ' + str(passCounter) + '/" + total + "')"
-      );
-
-      console.log(addTests);
+      const addTests = this.runPython(total, tests);
 
       compilerService.executeCode(addTests, language).then((test) => {
         const result = test.output.split(/\r?\n/);

@@ -46,7 +46,6 @@ class Monaco extends React.Component {
 
   runPython(total, tests) {
     let addTests = editorCode?.getValue();
-    console.log(addTests);
     addTests = addTests.concat("\r\npassCounter = 0");
 
     for (let i = 0; i < total; i++) {
@@ -75,8 +74,48 @@ class Monaco extends React.Component {
       "\r\nprint('Passed: ' + str(passCounter) + '/" + total + "')"
     );
 
-    console.log(addTests);
     return addTests;
+  }
+
+  runJava(total, tests) {
+    let main =
+      "public class mainClass { public static void main(String args[]) { Solution sol = new Solution();";
+    main = main.concat("int passCounter = 0;");
+    for (let i = 0; i < total; i++) {
+      const functionCall =
+        "sol." + this.state.methodName + "(" + tests[i].input + ")";
+
+      // print out comparisons
+      main = main.concat(
+        'System.out.println("Expected: ' +
+          tests[i].output +
+          '; Actual: " + ' +
+          functionCall +
+          ' + "; Pass: " + (' +
+          tests[i].output +
+          " == " +
+          functionCall +
+          "));"
+      );
+
+      // increase counter if test passed
+      main = main.concat(
+        "if (" +
+          tests[i].output +
+          " == " +
+          functionCall +
+          ") { passCounter++; }"
+      );
+    }
+
+    main = main.concat(
+      'System.out.println("Passed: " + passCounter + "/' + total + '");'
+    );
+    main = main.concat("}}");
+
+    let solutionCode = editorCode?.getValue();
+    main = main.concat(solutionCode);
+    return main;
   }
 
   submit() {
@@ -85,7 +124,13 @@ class Monaco extends React.Component {
       const total = res.total;
       const tests = res.test;
 
-      const addTests = this.runPython(total, tests);
+      let addTests = "";
+      if (language === "python") {
+        addTests = this.runPython(total, tests);
+      } else if (language === "java") {
+        addTests = this.runJava(total, tests);
+      }
+      console.log(addTests);
 
       compilerService.executeCode(addTests, language).then((test) => {
         const result = test.output.split(/\r?\n/);

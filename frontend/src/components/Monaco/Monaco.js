@@ -15,9 +15,10 @@ class Monaco extends React.Component {
     this.state = {
       number: null,
       code: null,
+      methodName: null,
       height: "80vh",
       results: [],
-      showReuslts: false,
+      showResults: false,
     };
 
     this.submit = this.submit.bind(this);
@@ -30,7 +31,7 @@ class Monaco extends React.Component {
     if (props.number !== null) {
       this.setState({ number: props.number });
       problemService.getStarterCode(props.number, language).then((res) => {
-        this.setState({ code: res.code });
+        this.setState({ code: res.code, methodName: res.methodName });
       });
     }
   }
@@ -45,7 +46,7 @@ class Monaco extends React.Component {
 
   submit() {
     // TODO: this is for python only right now, need to account for the other languages
-    problemService.getTestCases(1).then((res) => {
+    problemService.getTestCases(this.state.number).then((res) => {
       let addTests = editorCode?.getValue();
       console.log(addTests);
 
@@ -56,7 +57,7 @@ class Monaco extends React.Component {
 
       for (let i = 0; i < total; i++) {
         // what the function call looks like using the test input
-        const functionCall = "double(" + tests[i].input + ")";
+        const functionCall = this.state.methodName + "(" + tests[i].input + ")";
         // calling the function and save results
         addTests = addTests.concat(
           "\r\ntestCallResult = str(" + functionCall + ")"
@@ -84,13 +85,13 @@ class Monaco extends React.Component {
 
       compilerService.executeCode(addTests, language).then((test) => {
         const result = test.output.split(/\r?\n/);
-        this.setState({ height: "45vh", results: result, showReuslts: true });
+        this.setState({ height: "45vh", results: result, showResults: true });
       });
     });
   }
 
   render() {
-    const { code, height, results, showReuslts } = this.state;
+    const { code, height, results, showResults } = this.state;
     return (
       <>
         <Editor
@@ -101,7 +102,7 @@ class Monaco extends React.Component {
           onMount={this.handleEditorDidMount}
         />
         <button onClick={this.submit}>Submit Code</button>
-        {showReuslts ? (
+        {showResults ? (
           <div className={monacoStyles.testResults}>
             {results.map((test) => (
               <p key={test}>{test}</p>

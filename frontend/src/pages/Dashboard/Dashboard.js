@@ -38,7 +38,7 @@ class Dashboard extends React.Component {
           <img src={userPic} id={dashboardStyles.userPic} alt="user pic"></img>
           <div class={dashboardStyles.username}>{name}</div>
           <div id={dashboardStyles.lastLogin}>Last Login: {lastLoginDate}</div>
-          {this.state.userStatus === "user" && (
+          {this.state.userStatus === "basic" && (
             <button
               class={dashboardStyles.button}
               onClick={() => this.setState({ section: "profile" })}
@@ -47,7 +47,7 @@ class Dashboard extends React.Component {
             </button>
           )}
           <br />
-          {this.state.userStatus === "user" && (
+          {this.state.userStatus === "basic" && (
             <button
               class={dashboardStyles.button}
               onClick={() => this.setState({ section: "history" })}
@@ -56,7 +56,7 @@ class Dashboard extends React.Component {
             </button>
           )}
           <br />
-          {this.state.userStatus === "user" && (
+          {this.state.userStatus === "basic" && (
             <button
               class={dashboardStyles.button}
               onClick={() => this.setState({ section: "compete" })}

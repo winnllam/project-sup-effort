@@ -31,11 +31,18 @@ class Payment extends React.Component {
       <div className={styles.payment}>
         <h1>React Stripe and Payment Element</h1>
         {stripePromise && clientSecret !== "" && (
-          <Elements
-            stripe={this.state.stripePromise}
-            options={{ clientSecret }}
-          >
-            <CheckoutForm />
+          // <Elements
+          //   stripe={this.state.stripePromise}
+          //   options={{ clientSecret }}
+          // >
+          //   <CheckoutForm />
+          // </Elements>
+          <Elements stripe={stripePromise} options={{ clientSecret }}>
+            <ElementsConsumer>
+              {({ stripe, elements }) => (
+                <CheckoutForm stripe={stripe} elements={elements} />
+              )}
+            </ElementsConsumer>
           </Elements>
         )}
       </div>

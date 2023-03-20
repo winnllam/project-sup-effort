@@ -10,17 +10,35 @@ class CheckoutForm extends React.Component {
       message: null,
       isProcessing: false,
     };
-    const { stripe, elements } = this.props;
   }
 
-  submitPayment = async (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
+    const { stripe, elements } = this.props;
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    this.setState({ isProcessing: true });
+    const result = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: `${window.location.origin}/dashboard`, // TODO: Change to return somewhere better
+      },
+    });
+
+    if (result.error) {
+      this.setState({ message: result.error.message });
+    }
+
+    this.setState({ isProcessing: false });
   };
 
   render() {
     return (
       <div className={styles.form}>
-        <form id={styles.paymentForm} onSubmit={this.submitPayment}>
+        <form id={styles.paymentForm} onSubmit={this.handleSubmit}>
           <PaymentElement />
           <button disabled={!this.props.stripe} id={styles.submit}>
             <span id={styles.buttonText}>

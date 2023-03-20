@@ -11,7 +11,6 @@ import { usersRouter } from "./routers/users_router.js";
 import { problemsRouter } from "./routers/problems_router.js";
 import { compilersRouter } from "./routers/compilers_router.js";
 
-
 const PORT = 9000;
 export const app = express();
 app.use(bodyParser.json());
@@ -53,7 +52,6 @@ app.listen(PORT, (err) => {
   else console.log("HTTP server on http://localhost:%s", PORT);
 });
 
-
 const httpServer = createServer(app);
 
 const io = new Server(httpServer, {
@@ -76,5 +74,3 @@ io.on("connection", (socket) => {
     console.log("Client disconnected");
   });
 });
-
-

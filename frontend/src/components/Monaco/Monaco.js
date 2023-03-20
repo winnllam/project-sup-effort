@@ -9,14 +9,11 @@ const width = "100%";
 // TODO: need dropdown selection for language and then get it passed in
 const languageDropdown = "python";
 
-
-
 let editorCode = null;
 
 function handleEditorDidMount(editor, monaco) {
   editorCode = editor;
 }
-
 
 function submit() {
   // TODO: need to somehow send the resulting code to the compiler
@@ -76,7 +73,7 @@ class Monaco extends React.Component {
     };
   }
 
-  componentWillMount(){
+  componentWillMount() {
     this.socket.on("connect", () => {
       console.log(`Connected to socket server with id ${this.socket.id}`);
     });
@@ -84,9 +81,9 @@ class Monaco extends React.Component {
     this.socket.on("receive-code", (code) => {
       this.setState(() => {
         return {
-          code: code  
+          code: code,
         };
-      })
+      });
     });
   }
 
@@ -102,7 +99,7 @@ class Monaco extends React.Component {
     }
   }
 
-  handleEditorChange(value, event){
+  handleEditorChange(value, event) {
     this.socket.emit("send-code", value);
   }
 

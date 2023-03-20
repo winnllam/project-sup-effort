@@ -29,6 +29,8 @@ class Edit extends React.Component {
       desc: "",
       difficulty: "",
       language: defaultOption.value,
+      code: "",
+      methodName: "",
     };
 
     this.updateLanguage = this.updateLanguage.bind(this);
@@ -118,6 +120,15 @@ class Edit extends React.Component {
 
   updateLanguage(language) {
     this.setState({ language: language.value });
+
+    problemService
+      .getStarterCode(this.state.problemId, language.value)
+      .then((res) => {
+        this.setState({ code: res.code, methodName: res.methodName });
+      })
+      .catch((error) => {
+        this.setState({ code: "", methodName: "" });
+      });
   }
 
   render() {
@@ -195,13 +206,17 @@ class Edit extends React.Component {
                 height={"30vh"}
                 width={"100%"}
                 language={this.state.language}
-                value={"sdfsdf"}
+                value={this.state.code}
                 onMount={this.handleEditorDidMount}
               />
               <input
                 type="text"
                 id={styles.methodName}
                 name="methodName"
+                value={this.state.methodName}
+                onChange={(e) => {
+                  this.setState({ methodName: e.target.value });
+                }}
               ></input>
               <button class={styles.button}>Save</button>
             </form>

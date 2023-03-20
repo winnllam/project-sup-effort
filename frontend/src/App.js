@@ -11,6 +11,7 @@ import Credits from "./pages/Credits/Credits";
 import CodingHook from "./pages/Coding/Coding-Hook";
 import Problems from "./pages/Problems/Problems";
 import { AuthenticationGuard } from "./components/authentication-guard";
+import Payment from "./pages/Payment/Payment";
 
 class App extends Component {
   render() {
@@ -34,6 +35,7 @@ class App extends Component {
               path="/problems"
               element={<AuthenticationGuard component={Problems} />}
             />
+            <Route path="/payment" element={<Payment />} />
           </Routes>
           <Footer />
         </Router>

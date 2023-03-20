@@ -66,6 +66,15 @@ class DashboardProfile extends React.Component {
             <b>Expiry Date:</b> {expirationDate}
             <br />
             <b>Plan Type:</b> {renewalStatus}
+            {premiumStatus === "Inactive" && (
+              <button
+                class={styles.button}
+                id={styles.new}
+                onClick={this.openNewTestModal}
+              >
+                Upgrade to Premium
+              </button>
+            )}
           </div>
         </div>
 

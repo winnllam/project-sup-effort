@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 import { usersRouter } from "./routers/users_router.js";
 import { problemsRouter } from "./routers/problems_router.js";
 import { compilersRouter } from "./routers/compilers_router.js";
+import { paymentRouter } from "./routers/payment_router.js";
 
 const PORT = 9000;
 export const app = express();
@@ -44,6 +45,7 @@ app.use(
 app.use("/api/users", usersRouter);
 app.use("/api/problems", problemsRouter);
 app.use("/api/compilers", compilersRouter);
+app.use("/api/payments", paymentRouter);
 
 app.listen(PORT, (err) => {
   if (err) console.log(err);

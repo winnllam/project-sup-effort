@@ -1,10 +1,21 @@
 import React from "react";
 import styles from "./Edit.module.css";
+import Editor from "@monaco-editor/react";
+import Dropdown from "react-dropdown";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import TestCase from "../Test-Case/Test-Case";
 import { Modal, Button } from "react-bootstrap";
 import * as problemService from "../../../services/api/Problems.js";
+
+const options = [
+  { value: "python", label: "Python3" },
+  { value: "java", label: "Java" },
+  { value: "javascript", label: "JavaScript" },
+  { value: "c", label: "C" },
+];
+const defaultOption = options[0];
+let editorCode = null;
 
 class Edit extends React.Component {
   constructor(props) {
@@ -17,7 +28,10 @@ class Edit extends React.Component {
       testsList: [],
       desc: "",
       difficulty: "",
+      language: defaultOption.value,
     };
+
+    this.updateLanguage = this.updateLanguage.bind(this);
   }
 
   componentDidMount() {
@@ -78,6 +92,33 @@ class Edit extends React.Component {
         });
       });
   };
+
+  saveCode = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const formJson = Object.fromEntries(formData.entries());
+
+    problemService
+      .addStarterCode(
+        this.state.problemId,
+        this.state.language,
+        editorCode?.getValue(),
+        formJson.methodName
+      )
+      .then((res) => {
+        console.log(res);
+      });
+  };
+
+  handleEditorDidMount(editor, monaco) {
+    editorCode = editor;
+  }
+
+  updateLanguage(language) {
+    this.setState({ language: language.value });
+  }
 
   render() {
     return (
@@ -141,11 +182,29 @@ class Edit extends React.Component {
 
         <div class={styles.starterCode}>
           <div class={styles.subtitle}>Starter Code</div>
+          <Dropdown
+            options={options}
+            onChange={this.updateLanguage}
+            defaultValue={defaultOption}
+            placeholder="Select a language"
+          />
           <div class={styles.codeBox}>
-            <textarea id={styles.code} name="starter">
-              TODO REPLACE WITH MONACO
-            </textarea>
-            <button class={styles.button}>Save</button>
+            <form onSubmit={this.saveCode}>
+              <Editor
+                id={styles.code}
+                height={"30vh"}
+                width={"100%"}
+                language={this.state.language}
+                value={"sdfsdf"}
+                onMount={this.handleEditorDidMount}
+              />
+              <input
+                type="text"
+                id={styles.methodName}
+                name="methodName"
+              ></input>
+              <button class={styles.button}>Save</button>
+            </form>
           </div>
         </div>
 

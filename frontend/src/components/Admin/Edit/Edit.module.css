@@ -42,10 +42,22 @@
   text-align: right;
 }
 
-#problemDesc,
-#code {
+#problemDesc {
   width: 100%;
   height: 200px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  font-size: 16px;
+  resize: none;
+  border-radius: 10px;
+}
+
+#methodName {
+  width: 100%;
+  height: 50px;
   padding: 12px 20px;
   box-sizing: border-box;
   background: #ffffff;

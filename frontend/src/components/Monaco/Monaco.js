@@ -2,17 +2,21 @@ import React from "react";
 import Editor from "@monaco-editor/react";
 import * as compilerService from "../../services/api/JDoodle.js";
 import * as problemService from "../../services/api/Problems.js";
+import { io } from "socket.io-client";
 
 const height = "90vh";
 const width = "100%";
 // TODO: need dropdown selection for language and then get it passed in
 const languageDropdown = "python";
 
+
+
 let editorCode = null;
 
 function handleEditorDidMount(editor, monaco) {
   editorCode = editor;
 }
+
 
 function submit() {
   // TODO: need to somehow send the resulting code to the compiler
@@ -64,10 +68,26 @@ function submit() {
 class Monaco extends React.Component {
   constructor(props) {
     super(props);
+    this.socket = io("http://localhost:9001");
+    this.handleEditorChange = this.handleEditorChange.bind(this);
     this.state = {
       number: null,
       code: null,
     };
+  }
+
+  componentWillMount(){
+    this.socket.on("connect", () => {
+      console.log(`Connected to socket server with id ${this.socket.id}`);
+    });
+
+    this.socket.on("receive-code", (code) => {
+      this.setState(() => {
+        return {
+          code: code  
+        };
+      })
+    });
   }
 
   componentWillReceiveProps(props) {
@@ -82,16 +102,21 @@ class Monaco extends React.Component {
     }
   }
 
+  handleEditorChange(value, event){
+    this.socket.emit("send-code", value);
+  }
+
   render() {
-    const { code } = this.state;
+    let { code } = this.state;
     return (
       <>
         <Editor
           height={height}
           width={width}
           defaultLanguage={languageDropdown}
-          defaultValue={code}
+          value={code}
           onMount={handleEditorDidMount}
+          onChange={this.handleEditorChange}
         />
         <button onClick={submit}>Submit Code</button>
       </>

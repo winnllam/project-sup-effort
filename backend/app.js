@@ -70,7 +70,6 @@ httpServer.listen(9001, () => {
 io.on("connection", (socket) => {
   console.log("New client connected");
   socket.on("send-code", (code) => {
-    console.log(code);
     socket.broadcast.emit("receive-code", code);
   });
   socket.on("disconnect", () => {

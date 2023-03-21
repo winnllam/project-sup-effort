@@ -248,6 +248,7 @@ class Edit extends React.Component {
                 type="text"
                 id={styles.methodName}
                 name="methodName"
+                placeholder={"Method Name"}
                 value={this.state.methodName}
                 onChange={(e) => {
                   this.setState({ methodName: e.target.value });

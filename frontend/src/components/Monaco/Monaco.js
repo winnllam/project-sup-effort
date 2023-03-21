@@ -146,7 +146,6 @@ class Monaco extends React.Component {
   }
 
   submit() {
-    // TODO: this is for python only right now, need to account for the other languages
     problemService.getTestCases(this.state.number).then((res) => {
       const total = res.total;
       const tests = res.test;

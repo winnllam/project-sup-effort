@@ -15,7 +15,8 @@ const options = [
   { value: "c", label: "C" },
 ];
 const defaultOption = options[0];
-let editorCode = null;
+let starterEditorCode = null;
+let solutionEditorCode = null;
 
 class Edit extends React.Component {
   constructor(props) {
@@ -28,12 +29,15 @@ class Edit extends React.Component {
       testsList: [],
       desc: "",
       difficulty: "",
-      language: defaultOption.value,
-      code: "",
+      starterLanguage: defaultOption.value,
+      solutionLanguage: defaultOption.value,
+      starterCode: "",
+      solutionCode: "",
       methodName: "",
     };
 
-    this.updateLanguage = this.updateLanguage.bind(this);
+    this.updateStarterLanguage = this.updateStarterLanguage.bind(this);
+    this.updateSolutionLanguage = this.updateSolutionLanguage.bind(this);
   }
 
   componentDidMount() {
@@ -95,7 +99,7 @@ class Edit extends React.Component {
       });
   };
 
-  saveCode = (e) => {
+  saveStarterCode = (e) => {
     e.preventDefault();
 
     const form = e.target;
@@ -105,8 +109,8 @@ class Edit extends React.Component {
     problemService
       .addStarterCode(
         this.state.problemId,
-        this.state.language,
-        editorCode?.getValue(),
+        this.state.starterLanguage,
+        starterEditorCode?.getValue(),
         formJson.methodName
       )
       .then((res) => {
@@ -114,20 +118,51 @@ class Edit extends React.Component {
       });
   };
 
-  handleEditorDidMount(editor, monaco) {
-    editorCode = editor;
+  saveSolutionCode = (e) => {
+    e.preventDefault();
+
+    problemService
+      .addSolutionCode(
+        this.state.problemId,
+        this.state.solutionLanguage,
+        solutionEditorCode?.getValue()
+      )
+      .then((res) => {
+        console.log(res);
+      });
+  };
+
+  handleStarterEditorDidMount(editor, monaco) {
+    starterEditorCode = editor;
   }
 
-  updateLanguage(language) {
-    this.setState({ language: language.value });
+  handleSolutionEditorDidMount(editor, monaco) {
+    solutionEditorCode = editor;
+  }
+
+  updateStarterLanguage(language) {
+    this.setState({ starterLanguage: language.value });
 
     problemService
       .getStarterCode(this.state.problemId, language.value)
       .then((res) => {
-        this.setState({ code: res.code, methodName: res.methodName });
+        this.setState({ starterCode: res.code, methodName: res.methodName });
       })
       .catch((error) => {
-        this.setState({ code: "", methodName: "" });
+        this.setState({ starterCode: "", methodName: "" });
+      });
+  }
+
+  updateSolutionLanguage(language) {
+    this.setState({ solutionLanguage: language.value });
+
+    problemService
+      .getSolutionCode(this.state.problemId, language.value)
+      .then((res) => {
+        this.setState({ solutionCode: res.code });
+      })
+      .catch((error) => {
+        this.setState({ solutionCode: "" });
       });
   }
 
@@ -191,23 +226,23 @@ class Edit extends React.Component {
           </div>
         </div>
 
-        <div class={styles.starterCode}>
+        <div class={styles.code}>
           <div class={styles.subtitle}>Starter Code</div>
           <Dropdown
             options={options}
-            onChange={this.updateLanguage}
+            onChange={this.updateStarterLanguage}
             defaultValue={defaultOption}
             placeholder="Select a language"
           />
           <div class={styles.codeBox}>
-            <form onSubmit={this.saveCode}>
+            <form onSubmit={this.saveStarterCode}>
               <Editor
                 id={styles.code}
                 height={"30vh"}
                 width={"100%"}
-                language={this.state.language}
-                value={this.state.code}
-                onMount={this.handleEditorDidMount}
+                language={this.state.starterLanguage}
+                value={this.state.starterCode}
+                onMount={this.handleStarterEditorDidMount}
               />
               <input
                 type="text"
@@ -218,6 +253,28 @@ class Edit extends React.Component {
                   this.setState({ methodName: e.target.value });
                 }}
               ></input>
+              <button class={styles.button}>Save</button>
+            </form>
+          </div>
+        </div>
+
+        <div class={styles.code}>
+          <div class={styles.subtitle}>Sample Solution Code</div>
+          <Dropdown
+            options={options}
+            onChange={this.updateSolutionLanguage}
+            defaultValue={defaultOption}
+            placeholder="Select a language"
+          />
+          <div class={styles.codeBox}>
+            <form onSubmit={this.saveSolutionCode}>
+              <Editor
+                height={"30vh"}
+                width={"100%"}
+                language={this.state.solutionLanguage}
+                value={this.state.solutionCode}
+                onMount={this.handleSolutionEditorDidMount}
+              />
               <button class={styles.button}>Save</button>
             </form>
           </div>

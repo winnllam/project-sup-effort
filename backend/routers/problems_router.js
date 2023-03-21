@@ -93,6 +93,7 @@ problemsRouter.post("/:id/starter", async function (req, res, next) {
     problem.starterCode.push(starter);
   } else {
     starterCodes[index] = starter;
+    problem.starterCode = starterCodes;
   }
 
   try {
@@ -131,9 +132,25 @@ problemsRouter.post("/:id/solution", async function (req, res, next) {
       .json({ error: "problem number:" + req.params.id + " does not exist" });
   }
 
-  // TODO: check for dupe language
   const solution = { language: req.body.language, code: req.body.code };
-  problem.sampleSolution.push(solution);
+
+  // check if language already exists
+  const solutionCodes = problem.sampleSolution;
+  let index = -1;
+  for (let i = 0; i < solutionCodes.length; i++) {
+    if (solutionCodes[i].language === req.body.language) {
+      index = i;
+      break;
+    }
+  }
+
+  // add to list if language is not already in, otherwise replace
+  if (index === -1) {
+    problem.solutionCode.push(solution);
+  } else {
+    solutionCodes[index] = solution;
+    problem.sampleSolution = solutionCodes;
+  }
 
   try {
     await problem.save();

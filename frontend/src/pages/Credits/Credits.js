@@ -10,6 +10,18 @@ const Credits = () => {
       <ul>
         <li>All images from Undraw.co</li>
         <li>All icons from Flaticon.co</li>
+        <li>
+          MongoDB auto increment sequence from{" "}
+          <a href="https://stackoverflow.com/questions/62281421/mongodb-auto-increment-sequence">
+            Stackoverflow
+          </a>
+        </li>
+        <li>
+          Axios API call setup for React from{" "}
+          <a href="https://medium.com/@sirpeas/api-endpoints-in-a-react-project-86a7f1572bbc">
+            Medium
+          </a>
+        </li>
       </ul>
     </div>
   );

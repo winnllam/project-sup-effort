@@ -36,11 +36,6 @@ class Coding extends React.Component {
     });
   }
 
-  shouldComponentUpdate(nextState) {
-    // TODO: pretty sure this isnt right...
-    return this.state !== nextState;
-  }
-
   updateLanguage(language) {
     this.setState({ language: language.value });
   }

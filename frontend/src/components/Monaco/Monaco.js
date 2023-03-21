@@ -36,10 +36,6 @@ class Monaco extends React.Component {
     }
   }
 
-  shouldComponentUpdate(nextState) {
-    return this.state !== nextState;
-  }
-
   handleEditorDidMount(editor, monaco) {
     editorCode = editor;
   }
@@ -146,7 +142,7 @@ class Monaco extends React.Component {
         <Editor
           height={height}
           width={width}
-          defaultLanguage={language}
+          language={language}
           value={code}
           onMount={this.handleEditorDidMount}
         />

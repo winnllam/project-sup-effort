@@ -59,6 +59,15 @@ const Navbar = () => {
               </div>
             )}
           </Col>
+          <Col md={"auto"}>
+            {isAuthenticated && !isLoading && (
+              <div id={navbarStyles.dashboard} class={navbarStyles.options}>
+                <Link to="/problems" class={navbarStyles.options}>
+                  Problems
+                </Link>
+              </div>
+            )}
+          </Col>
           <Col md={{ span: "auto", offset: 2 }}>
             {!isAuthenticated && !isLoading && (
               <div

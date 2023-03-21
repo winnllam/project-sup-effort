@@ -1,0 +1,51 @@
+.testCase {
+  background: #ffffff;
+  border-radius: 25px;
+  height: auto;
+  padding: 20px 0px;
+  font-family: "Alegreya";
+  font-style: normal;
+  margin: 15px auto;
+  width: 90%;
+}
+
+.oneTest {
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  width: 85%;
+  margin: 10px auto;
+  padding: 10px;
+}
+
+.button {
+  background: #ffffff;
+  border: 3px solid #284b63;
+  border-radius: 15px;
+  font-size: 20px;
+  width: 100px;
+  height: auto;
+  margin: 10px 0px;
+}
+
+.testBody {
+  font-size: 24px;
+}
+
+.testHeader {
+  font-size: 30px;
+}
+
+.Accordion-Header {
+  background: beige;
+}
+
+.inputBox {
+  height: auto;
+  border-radius: 15px;
+  padding-left: 10px;
+}
+
+input:read-only {
+  border: none;
+}

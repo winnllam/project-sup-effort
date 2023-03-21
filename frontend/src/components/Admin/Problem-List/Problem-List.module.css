@@ -1,0 +1,90 @@
+.title {
+  font-family: "Alegreya";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 48px;
+  color: #274c77;
+  margin-top: 20px;
+}
+
+.subtitle {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  color: #274c77;
+  margin-top: 50px;
+}
+
+.problem {
+  background: #ffffff;
+  border-radius: 25px;
+  font-family: "Alegreya";
+  font-style: normal;
+  font-size: 24px;
+  font-weight: 400;
+  color: #000000;
+  padding: 15px 5px;
+  width: 600px;
+  margin: 15px auto;
+  text-align: left;
+  padding: 15px 25px;
+  height: auto;
+}
+
+.button {
+  background: #ffffff;
+  border: 3px solid #284b63;
+  border-radius: 15px;
+  font-size: 20px;
+  width: 200px;
+  height: auto;
+  margin: 10px 0px;
+}
+
+.problemDesc {
+  font-size: 20px;
+  font-style: italic;
+}
+
+.editProblem {
+  text-align: right;
+}
+
+#new {
+  margin-top: 50px;
+}
+
+.editModal {
+  width: 500px;
+}
+
+.inputBox {
+  height: auto;
+  border-radius: 15px;
+  padding: 10px;
+  width: 400px;
+}
+
+.inputBox::placeholder {
+  color: black;
+}
+
+.modalTitle {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  color: #274c77;
+}
+
+#difficulty {
+  width: 300px;
+  height: auto;
+  padding: 10px 0px;
+  font-size: 20px;
+  font-family: "Alegreya";
+  font-style: normal;
+  font-weight: 400;
+  color: #000000;
+}

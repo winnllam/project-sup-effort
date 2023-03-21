@@ -1,0 +1,10 @@
+.editor {
+  height: 100%;
+}
+
+.testResults {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: left;
+}

@@ -30,9 +30,14 @@ class Monaco extends React.Component {
     }
     if (props.number !== null) {
       this.setState({ number: props.number });
-      problemService.getStarterCode(props.number, language).then((res) => {
-        this.setState({ code: res.code, methodName: res.methodName });
-      });
+      problemService
+        .getStarterCode(props.number, language)
+        .then((res) => {
+          this.setState({ code: res.code, methodName: res.methodName });
+        })
+        .catch((error) => {
+          this.setState({ code: "Language not supported!" });
+        });
     }
   }
 

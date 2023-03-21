@@ -78,6 +78,32 @@ class Monaco extends React.Component {
     return addTests;
   }
 
+  runJavascript(total, tests) {
+    let addTests = editorCode?.getValue();
+    addTests = addTests.concat("let passCounter = 0;");
+
+    for (let i = 0; i < total; i++) {
+      const functionCall = this.state.methodName + "(" + tests[i].input + ")";
+      addTests = addTests.concat("testCallResult = " + functionCall + ";");
+      addTests = addTests.concat(
+        'console.log("Expected: ' +
+          tests[i].output +
+          '; Actual: " + testCallResult + "; Pass: " + (' +
+          tests[i].output +
+          "=== testCallResult));"
+      );
+      addTests = addTests.concat(
+        "if (" + tests[i].output + " === testCallResult) { passCounter++; }"
+      );
+    }
+
+    addTests = addTests.concat(
+      'console.log("Passed: " + passCounter + "/' + total + '")'
+    );
+
+    return addTests;
+  }
+
   runJava(total, tests) {
     let main =
       "public class mainClass { public static void main(String args[]) { Solution sol = new Solution();";
@@ -130,6 +156,8 @@ class Monaco extends React.Component {
         addTests = this.runPython(total, tests);
       } else if (language === "java") {
         addTests = this.runJava(total, tests);
+      } else if (language === "javascript") {
+        addTests = this.runJavascript(total, tests);
       }
       console.log(addTests);
 

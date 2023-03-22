@@ -5,6 +5,8 @@ import { ElementsConsumer } from "@stripe/react-stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import * as paymentService from "../../services/api/Payments.js";
 import CheckoutForm from "../../components/Checkout-Form/Checkout-Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 class Payment extends React.Component {
   constructor(props) {
@@ -12,6 +14,8 @@ class Payment extends React.Component {
     this.state = {
       stripePromise: null,
       clientSecret: "",
+      type: props.upgradeType,
+      total: props.upgradeTotal,
     };
   }
 
@@ -20,7 +24,7 @@ class Payment extends React.Component {
       stripePromise: loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY),
     });
 
-    paymentService.createPaymentIntent().then((res) => {
+    paymentService.createPaymentIntent(999).then((res) => {
       this.setState({ clientSecret: res.clientSecret });
     });
   }
@@ -29,14 +33,9 @@ class Payment extends React.Component {
     const { clientSecret, stripePromise } = this.state;
     return (
       <div className={styles.payment}>
-        <h1>React Stripe and Payment Element</h1>
+        <div class={styles.subtitle}>Divide and Conquer Checkout</div>
+        <div class={styles.plans}></div>
         {stripePromise && clientSecret !== "" && (
-          // <Elements
-          //   stripe={this.state.stripePromise}
-          //   options={{ clientSecret }}
-          // >
-          //   <CheckoutForm />
-          // </Elements>
           <Elements stripe={stripePromise} options={{ clientSecret }}>
             <ElementsConsumer>
               {({ stripe, elements }) => (

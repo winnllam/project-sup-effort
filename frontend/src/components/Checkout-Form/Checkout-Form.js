@@ -39,8 +39,13 @@ class CheckoutForm extends React.Component {
     return (
       <div className={styles.form}>
         <form id={styles.paymentForm} onSubmit={this.handleSubmit}>
+          <div class={styles.subtitle}>Payment Information</div>
           <PaymentElement />
-          <button disabled={!this.props.stripe} id={styles.submit}>
+          <button
+            disabled={!this.props.stripe}
+            id={styles.submit}
+            class={styles.button}
+          >
             <span id={styles.buttonText}>
               {this.state.isProcessing ? "Processing ..." : "Pay now"}
             </span>

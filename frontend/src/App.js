@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Premium from "./pages/Premium/Premium";
 import Credits from "./pages/Credits/Credits";
 import CodingHook from "./pages/Coding/Coding-Hook";
+import PaymentHook from "./pages/Payment/Payment-Hook";
 import Problems from "./pages/Problems/Problems";
 import { AuthenticationGuard } from "./components/authentication-guard";
 import Payment from "./pages/Payment/Payment";
@@ -35,7 +36,10 @@ class App extends Component {
               path="/problems"
               element={<AuthenticationGuard component={Problems} />}
             />
-            <Route path="/payment" element={<Payment />} />
+            <Route
+              path="/payment"
+              element={<AuthenticationGuard component={PaymentHook} />}
+            />
           </Routes>
           <Footer />
         </Router>

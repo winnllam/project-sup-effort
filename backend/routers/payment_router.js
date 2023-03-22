@@ -9,9 +9,10 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 // TODO: Should this be post?
 paymentRouter.post("/", async function (req, res, next) {
   try {
+    console.log(req.body.total);
     const paymentIntent = await stripe.paymentIntents.create({
       currency: "cad",
-      amount: 99,
+      amount: req.body.total,
       automatic_payment_methods: {
         enabled: true,
       },

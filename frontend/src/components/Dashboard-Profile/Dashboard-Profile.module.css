@@ -31,3 +31,39 @@
   height: auto;
   margin: 10px 0px;
 }
+
+.upgradeModal {
+  width: 500px;
+}
+
+.inputBox {
+  height: auto;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.inputBox::placeholder {
+  color: black;
+}
+
+.modalTitle {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  color: #274c77;
+}
+
+#upgradeBtn {
+  width: 200px;
+}
+
+#planType {
+  width: 125px;
+}
+
+.modalTotal {
+  font-family: "Alegreya";
+  font-style: normal;
+  font-size: 22px;
+}

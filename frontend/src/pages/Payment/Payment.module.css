@@ -1,4 +1,10 @@
-h1 {
-  font-size: 40px;
-  color: black;
+.payment {
+  background: white;
+}
+
+.subtitle {
+  font-family: "Lora";
+  font-style: italic;
+  font-size: 50px;
+  color: #274c77;
 }

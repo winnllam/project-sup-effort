@@ -3,6 +3,8 @@ import styles from "./Dashboard-Profile.module.css";
 import profile from "../../assets/profile.svg";
 import dashboardStyles from "../../pages/Dashboard/Dashboard.module.css";
 import * as userService from "../../services/api/Users.js";
+import { Modal } from "react-bootstrap";
+import { HashLink as Link } from "react-router-hash-link";
 
 class DashboardProfile extends React.Component {
   constructor(props) {
@@ -14,6 +16,9 @@ class DashboardProfile extends React.Component {
       premiumStatus: null,
       expirationDate: "--",
       renewalStatus: "--",
+      upgrade: false,
+      upgradeType: "monthly",
+      upgradeTotal: 999,
     };
   }
 
@@ -35,6 +40,15 @@ class DashboardProfile extends React.Component {
     });
   }
 
+  handleChange = (e) => {
+    const total = e.target.value === "monthly" ? 999 : 9999;
+    this.setState({ upgradeType: e.target.value, upgradeTotal: total });
+  };
+
+  openUpgradeModal = () => this.setState({ upgrade: true });
+
+  closeUpgradeModal = () => this.setState({ upgrade: false });
+
   render() {
     const {
       username,
@@ -43,10 +57,46 @@ class DashboardProfile extends React.Component {
       premiumStatus,
       expirationDate,
       renewalStatus,
+      upgradeType,
+      upgradeTotal,
     } = this.state;
 
     return (
       <div className={styles.profile}>
+        <Modal
+          show={this.state.upgrade}
+          onHide={this.closeUpgradeModal}
+          class={styles.upgradeModal}
+        >
+          <form onSubmit={this.submitUpgrade}>
+            <Modal.Header closeButton>
+              <Modal.Title>Upgrade to Premium</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div class={styles.modalTitle}>Subscription Type</div>
+              <select
+                id={styles.planType}
+                name="planType"
+                defaultValue={this.state.upgradeType}
+                onChange={this.handleChange}
+              >
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+              </select>
+              <hr />
+              <div class={styles.modalCost}></div>
+              <div class={styles.modalTotal}>
+                <b>Total: </b>
+                {this.state.upgradeTotal / 100}
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Link to="/payment" state={{ upgradeType, upgradeTotal }}>
+                Submit
+              </Link>
+            </Modal.Footer>
+          </form>
+        </Modal>
         <div class={styles.section}>
           <div class={styles.subtitle}>User Profile</div>
           <div class={styles.box}>
@@ -66,11 +116,12 @@ class DashboardProfile extends React.Component {
             <b>Expiry Date:</b> {expirationDate}
             <br />
             <b>Plan Type:</b> {renewalStatus}
+            <br></br>
             {premiumStatus === "Inactive" && (
               <button
                 class={styles.button}
-                id={styles.new}
-                onClick={this.openNewTestModal}
+                id={styles.upgradeBtn}
+                onClick={this.openUpgradeModal}
               >
                 Upgrade to Premium
               </button>

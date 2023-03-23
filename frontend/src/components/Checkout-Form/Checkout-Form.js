@@ -1,14 +1,17 @@
 import React from "react";
 import styles from "./Checkout-Form.module.css";
 import { PaymentElement } from "@stripe/react-stripe-js";
+import * as paymentService from "../../services/api/Payments.js";
+import { redirect } from "react-router-dom";
 
 class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      message: null,
+      message: "",
       isProcessing: false,
+      planType: props.planType,
     };
   }
 
@@ -21,28 +24,41 @@ class CheckoutForm extends React.Component {
     }
 
     this.setState({ isProcessing: true });
-    const result = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: `${window.location.origin}/dashboard`, // TODO: Change to return somewhere better
-      },
-    });
-
-    if (result.error) {
-      this.setState({ message: result.error.message });
-    }
-
-    this.setState({ isProcessing: false });
+    stripe
+      .confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: `${window.location.origin}/dashboard`,
+        },
+        redirect: "if_required",
+      })
+      .then((result) => {
+        if (result.error) {
+          if (
+            result.error.type === "card_error" ||
+            result.error.type === "validation_error"
+          ) {
+            this.setState({ message: result.error.message });
+          } else {
+            this.setState({ message: "An unexpected error occured." });
+          }
+        } else {
+          paymentService.upgradeUser(this.state.planType).then((res) => {});
+        }
+        this.setState({ isProcessing: false });
+        window.location.replace(`${window.location.origin}/dashboard`);
+      });
   };
 
   render() {
+    const { message, isProcessing } = this.state;
     return (
       <div className={styles.form}>
         <form id={styles.paymentForm} onSubmit={this.handleSubmit}>
           <div class={styles.subtitle}>Payment Information</div>
           <PaymentElement />
           <button
-            disabled={!this.props.stripe}
+            disabled={isProcessing}
             id={styles.submit}
             class={styles.button}
           >
@@ -50,6 +66,7 @@ class CheckoutForm extends React.Component {
               {this.state.isProcessing ? "Processing ..." : "Pay now"}
             </span>
           </button>
+          {message !== "" && <div id={styles.paymentMessage}>{message}</div>}
         </form>
       </div>
     );

@@ -17,7 +17,7 @@ class DashboardProfile extends React.Component {
       expirationDate: "--",
       renewalStatus: "--",
       upgrade: false,
-      upgradeType: "monthly",
+      upgradeType: "Monthly",
       upgradeTotal: 999,
     };
   }
@@ -41,7 +41,7 @@ class DashboardProfile extends React.Component {
   }
 
   handleChange = (e) => {
-    const total = e.target.value === "monthly" ? 999 : 9999;
+    const total = e.target.value === "Monthly" ? 999 : 9999;
     this.setState({ upgradeType: e.target.value, upgradeTotal: total });
   };
 
@@ -80,8 +80,8 @@ class DashboardProfile extends React.Component {
                 defaultValue={this.state.upgradeType}
                 onChange={this.handleChange}
               >
-                <option value="monthly">Monthly</option>
-                <option value="yearly">Yearly</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Yearly">Yearly</option>
               </select>
               <hr />
               <div class={styles.modalCost}></div>

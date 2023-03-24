@@ -1,5 +1,4 @@
 import express from "express";
-import path from "path";
 import bodyParser from "body-parser";
 import session from "express-session";
 import cors from "cors";
@@ -8,6 +7,7 @@ import mongoose from "mongoose";
 import { usersRouter } from "./routers/users_router.js";
 import { problemsRouter } from "./routers/problems_router.js";
 import { compilersRouter } from "./routers/compilers_router.js";
+import { emailsRouter } from "./routers/email_router.js";
 
 const PORT = 9000;
 export const app = express();
@@ -44,6 +44,7 @@ app.use(
 app.use("/api/users", usersRouter);
 app.use("/api/problems", problemsRouter);
 app.use("/api/compilers", compilersRouter);
+app.use("/api/emails", emailsRouter);
 
 app.listen(PORT, (err) => {
   if (err) console.log(err);

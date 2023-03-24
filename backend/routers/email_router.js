@@ -12,7 +12,8 @@ emailsRouter.post("/send", async function (req, res, next) {
   const to = req.body.to;
   const subject = req.body.subject;
   const text = req.body.text;
-  const options = { to, from, subject, text };
+  const html = req.body.html;
+  const options = { to, from, subject, text, html };
 
   try {
     await sendgrid.send(options);

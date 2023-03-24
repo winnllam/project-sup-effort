@@ -5,6 +5,7 @@ import DashboardProfile from "../../components/Dashboard-Profile/Dashboard-Profi
 import DashboardHistory from "../../components/Dashboard-History/Dashboard-History";
 import DashboardCompetition from "../../components/Dashboard-Competition/Dashboard-Competition";
 import * as userService from "../../services/api/Users.js";
+import * as emailService from "../../services/api/Emails.js";
 import { withAuth0 } from "@auth0/auth0-react";
 import ProblemList from "../../components/Admin/Problem-List/Problem-List";
 
@@ -23,9 +24,19 @@ class Dashboard extends React.Component {
     };
 
     userService.signOnUser(user.email, user.nickname).then((res) => {
+      if (res.newUser === true) {
+        // send email to new users
+        const subject = "Welcome to Divide and Conquer!";
+        const text = "Welcome text placeholder";
+        const html =
+          "Hello " +
+          user.nickname +
+          "! \n Thank you for signing up for Divide and Conquer!";
+        emailService.sendEmail(user.email, subject, text, html);
+      }
       this.setState({
-        lastLoginDate: res.lastLoginDate,
-        userStatus: res.userStatus,
+        lastLoginDate: res.user.lastLoginDate,
+        userStatus: res.user.userStatus,
       });
     });
   }

@@ -11,7 +11,7 @@ usersRouter.post("/signon", async (req, res) => {
 
   if (existingUser) {
     req.session.userId = existingUser.id;
-    return res.json(existingUser);
+    return res.json({ user: existingUser, newUser: false });
   } else {
     const premium = { status: "Inactive" };
     const user = new User({
@@ -32,7 +32,7 @@ usersRouter.post("/signon", async (req, res) => {
       email: req.body.email,
     });
     req.session.userId = newUser.id;
-    return res.json(user);
+    return res.json({ user, newUser: true });
   }
 });
 

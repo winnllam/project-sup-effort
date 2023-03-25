@@ -28,11 +28,23 @@ class Payment extends React.Component {
   }
 
   render() {
-    const { clientSecret, stripePromise, planType } = this.state;
+    const { clientSecret, stripePromise, planType, total } = this.state;
     return (
       <div className={styles.payment}>
         <div class={styles.subtitle}>Divide and Conquer Checkout</div>
-        <div class={styles.plans}></div>
+        <div class={styles.summary}>
+          <div class={styles.cart}>Cart Summary</div>
+          {planType === "Monthly" && (
+            <div class={styles.cartItem}>
+              <b>Monthly Premium Subscription:</b> ${total / 100}
+            </div>
+          )}
+          {planType === "Yearly" && (
+            <div class={styles.cartItem}>
+              <b>Yearly Premium Subscription:</b> ${total / 100}
+            </div>
+          )}
+        </div>
         {stripePromise && clientSecret !== "" && (
           <Elements stripe={stripePromise} options={{ clientSecret }}>
             <ElementsConsumer>

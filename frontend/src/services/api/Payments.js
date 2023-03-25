@@ -7,5 +7,9 @@ export const createPaymentIntent = function (total) {
 };
 
 export const upgradeUser = function (planType) {
-  return post(URL + `/user`, { planType }).then((res) => res.data);
+  return patch(URL + `/upgrade`, { planType }).then((res) => res.data);
+};
+
+export const downgradeUser = function () {
+  return patch(URL + `/cancel`).then((res) => res.data);
 };

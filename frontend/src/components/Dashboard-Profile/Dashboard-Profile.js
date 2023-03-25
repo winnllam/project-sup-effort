@@ -3,8 +3,10 @@ import styles from "./Dashboard-Profile.module.css";
 import profile from "../../assets/profile.svg";
 import dashboardStyles from "../../pages/Dashboard/Dashboard.module.css";
 import * as userService from "../../services/api/Users.js";
+import * as paymentService from "../../services/api/Payments.js";
 import { Modal } from "react-bootstrap";
 import { HashLink as Link } from "react-router-hash-link";
+import Row from "react-bootstrap/Row";
 
 class DashboardProfile extends React.Component {
   constructor(props) {
@@ -49,6 +51,15 @@ class DashboardProfile extends React.Component {
 
   closeUpgradeModal = () => this.setState({ upgrade: false });
 
+  cancelSubscription = () => {
+    paymentService.downgradeUser(), then((res) => {});
+    this.setState({
+      premiumStatus: null,
+      expirationDate: "--",
+      renewalStatus: "--",
+    });
+  };
+
   render() {
     const {
       username,
@@ -70,7 +81,10 @@ class DashboardProfile extends React.Component {
         >
           <form onSubmit={this.submitUpgrade}>
             <Modal.Header closeButton>
-              <Modal.Title>Upgrade to Premium</Modal.Title>
+              {premiumStatus === "Active" && <Modal.Title>Renewal</Modal.Title>}
+              {premiumStatus === "Inactive" && (
+                <Modal.Title>Upgrade to Premium</Modal.Title>
+              )}
             </Modal.Header>
             <Modal.Body>
               <div class={styles.modalTitle}>Subscription Type</div>
@@ -125,6 +139,24 @@ class DashboardProfile extends React.Component {
               >
                 Upgrade to Premium
               </button>
+            )}
+            {premiumStatus === "Active" && (
+              <Row>
+                <button
+                  class={styles.button}
+                  id={styles.upgradeBtn}
+                  onClick={this.openUpgradeModal}
+                >
+                  Renew Subscription
+                </button>
+                <button
+                  class={styles.button}
+                  id={styles.upgradeBtn}
+                  onClick={this.cancelSubscription}
+                >
+                  Cancel Subscription
+                </button>
+              </Row>
             )}
           </div>
         </div>

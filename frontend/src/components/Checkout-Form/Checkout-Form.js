@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./Checkout-Form.module.css";
 import { PaymentElement } from "@stripe/react-stripe-js";
 import * as paymentService from "../../services/api/Payments.js";
-import { redirect } from "react-router-dom";
 
 class CheckoutForm extends React.Component {
   constructor(props) {

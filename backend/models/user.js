@@ -22,7 +22,7 @@ const premiumSchema = new mongoose.Schema({
     },
     type: String,
     enum: {
-      values: ["Monthly", "Yearly"],
+      values: ["Monthly", "Yearly", ""],
       message: "{VALUE} is not supported",
     },
   },

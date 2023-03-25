@@ -32,7 +32,7 @@
   margin: 10px 5px;
 }
 
-.upgradeModal {
+.modal {
   width: 500px;
 }
 
@@ -62,7 +62,7 @@
   width: 125px;
 }
 
-.modalTotal {
+.modalText {
   font-family: "Alegreya";
   font-style: normal;
   font-size: 22px;

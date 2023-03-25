@@ -34,9 +34,10 @@ premiumRouter.patch("/upgrade", async function (req, res, next) {
 
   let premium = user.premium;
   premium.renewalStatus = req.body.planType;
-  premium.status = "Active";
   let expiryDate =
-    premium.status === "Inactive" ? new Date() : premium.expirationDate;
+    premium.status === "Inactive"
+      ? new Date()
+      : new Date(premium.expirationDate);
 
   if (req.body.planType === "Monthly") {
     expiryDate.setMonth(expiryDate.getMonth() + 1);
@@ -45,8 +46,13 @@ premiumRouter.patch("/upgrade", async function (req, res, next) {
   }
 
   premium.expirationDate = expiryDate;
+  premium.status = "Active";
   user.premium = premium;
-  await user.save();
+  try {
+    await user.save();
+  } catch (error) {
+    return res.status(422).json({ message: error.message });
+  }
 
   return res.json({ user });
 });
@@ -59,9 +65,13 @@ premiumRouter.patch("/cancel", async function (req, res, next) {
   }
 
   user.premium.status = "Inactive";
-  user.premium.expiryDate = null;
-  user.premium.renewalStatus = null;
-  await user.save();
+  user.premium.expiryDate = new Date(null);
+  user.premium.renewalStatus = "";
+  try {
+    await user.save();
+  } catch (error) {
+    return res.status(422).json({ message: error.message });
+  }
 
   return res.json({ user });
 });

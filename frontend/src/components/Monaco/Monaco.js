@@ -3,6 +3,7 @@ import Editor from "@monaco-editor/react";
 import monacoStyles from "./Monaco.module.css";
 import * as compilerService from "../../services/api/JDoodle.js";
 import * as problemService from "../../services/api/Problems.js";
+import { io } from "socket.io-client";
 
 // const height = "90vh";
 const width = "100%";
@@ -12,6 +13,7 @@ let editorCode = null;
 class Monaco extends React.Component {
   constructor(props) {
     super(props);
+    this.socket = io("http://localhost:9001");
     this.state = {
       number: null,
       code: null,
@@ -20,7 +22,7 @@ class Monaco extends React.Component {
       results: [],
       showResults: false,
     };
-
+    this.handleEditorChange = this.handleEditorChange.bind(this);
     this.submit = this.submit.bind(this);
   }
 
@@ -34,6 +36,20 @@ class Monaco extends React.Component {
         this.setState({ code: res.code, methodName: res.methodName });
       });
     }
+  }
+
+  componentWillMount() {
+    this.socket.on("connect", () => {
+      console.log(`Connected to socket server with id ${this.socket.id}`);
+    });
+
+    this.socket.on("receive-code", (code) => {
+      this.setState(() => {
+        return {
+          code: code,
+        };
+      });
+    });
   }
 
   shouldComponentUpdate(nextState) {
@@ -94,6 +110,10 @@ class Monaco extends React.Component {
     });
   }
 
+  handleEditorChange(value, event) {
+    this.socket.emit("send-code", value);
+  }
+
   render() {
     const { code, height, results, showResults } = this.state;
     return (
@@ -104,6 +124,7 @@ class Monaco extends React.Component {
           defaultLanguage={language}
           value={code}
           onMount={this.handleEditorDidMount}
+          onChange={this.handleEditorChange}
         />
         <button onClick={this.submit}>Submit Code</button>
         {showResults ? (

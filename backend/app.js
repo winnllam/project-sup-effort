@@ -5,6 +5,8 @@ import session from "express-session";
 import cors from "cors";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
+import { createServer } from "http";
+import { Server } from "socket.io";
 import { usersRouter } from "./routers/users_router.js";
 import { problemsRouter } from "./routers/problems_router.js";
 import { compilersRouter } from "./routers/compilers_router.js";
@@ -29,7 +31,7 @@ database.once("connected", () => {
 });
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000", "https://divideandconquer.me/"],
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -50,4 +52,27 @@ app.use("/api/premium", premiumRouter);
 app.listen(PORT, (err) => {
   if (err) console.log(err);
   else console.log("HTTP server on http://localhost:%s", PORT);
+});
+
+const httpServer = createServer(app);
+
+const io = new Server(httpServer, {
+  cors: {
+    origin: ["http://localhost:3000", "https://divideandconquer.me/"],
+    methods: ["GET", "POST"],
+  },
+});
+
+httpServer.listen(9001, () => {
+  console.log("Socket server on http://localhost:9001");
+});
+
+io.on("connection", (socket) => {
+  console.log("New client connected");
+  socket.on("send-code", (code) => {
+    socket.broadcast.emit("receive-code", code);
+  });
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
+  });
 });

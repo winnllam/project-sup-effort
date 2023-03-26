@@ -30,7 +30,7 @@ database.once("connected", () => {
 });
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000", "https://divideandconquer.me/"],
   credentials: true,
 };
 app.use(cors(corsOptions));

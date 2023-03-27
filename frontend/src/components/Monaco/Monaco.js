@@ -13,7 +13,7 @@ let editorCode = null;
 class Monaco extends React.Component {
   constructor(props) {
     super(props);
-    this.socket = io("http://localhost:9001");
+    this.socket = io("https://divideandconquer.me/");
     this.state = {
       number: null,
       code: null,

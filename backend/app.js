@@ -63,8 +63,8 @@ const io = new Server(httpServer, {
   },
 });
 
-httpServer.listen(9001, () => {
-  console.log("Socket server on http://localhost:9001");
+httpServer.listen(process.env.PORT || 9001, () => {
+  console.log(`Socket server on ${process.env.PORT || 9001}`);
 });
 
 io.on("connection", (socket) => {

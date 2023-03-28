@@ -1,0 +1,11 @@
+.bg {
+  margin: 0;
+  padding: 0;
+  min-height: 80vh;
+}
+
+.image {
+  width: 100%;
+  padding: 50px;
+  margin-top: 50px;
+}

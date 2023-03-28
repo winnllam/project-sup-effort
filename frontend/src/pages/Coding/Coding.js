@@ -56,6 +56,7 @@ class Coding extends React.Component {
           </div>
           <div>{difficulty}</div>
           <div>{description}</div>
+          <Monaco number={number} language={language} />
         </div>
 
         <div className={codingStyles.rightPane}>

@@ -32,9 +32,14 @@ class Monaco extends React.Component {
     }
     if (props.number !== null) {
       this.setState({ number: props.number });
-      problemService.getStarterCode(props.number, language).then((res) => {
-        this.setState({ code: res.code, methodName: res.methodName });
-      });
+      problemService
+        .getStarterCode(props.number, language)
+        .then((res) => {
+          this.setState({ code: res.code, methodName: res.methodName });
+        })
+        .catch((error) => {
+          this.setState({ code: "Language not supported!" });
+        });
     }
   }
 
@@ -62,7 +67,6 @@ class Monaco extends React.Component {
 
   runPython(total, tests) {
     let addTests = editorCode?.getValue();
-    console.log(addTests);
     addTests = addTests.concat("\r\npassCounter = 0");
 
     for (let i = 0; i < total; i++) {
@@ -91,17 +95,90 @@ class Monaco extends React.Component {
       "\r\nprint('Passed: ' + str(passCounter) + '/" + total + "')"
     );
 
-    console.log(addTests);
     return addTests;
   }
 
+  runJavascript(total, tests) {
+    let addTests = editorCode?.getValue();
+    addTests = addTests.concat("let passCounter = 0;");
+
+    for (let i = 0; i < total; i++) {
+      const functionCall = this.state.methodName + "(" + tests[i].input + ")";
+      addTests = addTests.concat("testCallResult = " + functionCall + ";");
+      addTests = addTests.concat(
+        'console.log("Expected: ' +
+          tests[i].output +
+          '; Actual: " + testCallResult + "; Pass: " + (' +
+          tests[i].output +
+          "=== testCallResult));"
+      );
+      addTests = addTests.concat(
+        "if (" + tests[i].output + " === testCallResult) { passCounter++; }"
+      );
+    }
+
+    addTests = addTests.concat(
+      'console.log("Passed: " + passCounter + "/' + total + '")'
+    );
+
+    return addTests;
+  }
+
+  runJava(total, tests) {
+    let main =
+      "public class mainClass { public static void main(String args[]) { Solution sol = new Solution();";
+    main = main.concat("int passCounter = 0;");
+    for (let i = 0; i < total; i++) {
+      const functionCall =
+        "sol." + this.state.methodName + "(" + tests[i].input + ")";
+
+      // print out comparisons
+      main = main.concat(
+        'System.out.println("Expected: ' +
+          tests[i].output +
+          '; Actual: " + ' +
+          functionCall +
+          ' + "; Pass: " + (' +
+          tests[i].output +
+          " == " +
+          functionCall +
+          "));"
+      );
+
+      // increase counter if test passed
+      main = main.concat(
+        "if (" +
+          tests[i].output +
+          " == " +
+          functionCall +
+          ") { passCounter++; }"
+      );
+    }
+
+    main = main.concat(
+      'System.out.println("Passed: " + passCounter + "/' + total + '");'
+    );
+    main = main.concat("}}");
+
+    let solutionCode = editorCode?.getValue();
+    main = main.concat(solutionCode);
+    return main;
+  }
+
   submit() {
-    // TODO: this is for python only right now, need to account for the other languages
     problemService.getTestCases(this.state.number).then((res) => {
       const total = res.total;
       const tests = res.test;
 
-      const addTests = this.runPython(total, tests);
+      let addTests = "";
+      if (language === "python") {
+        addTests = this.runPython(total, tests);
+      } else if (language === "java") {
+        addTests = this.runJava(total, tests);
+      } else if (language === "javascript") {
+        addTests = this.runJavascript(total, tests);
+      }
+      console.log(addTests);
 
       compilerService.executeCode(addTests, language).then((test) => {
         const result = test.output.split(/\r?\n/);
@@ -121,7 +198,7 @@ class Monaco extends React.Component {
         <Editor
           height={height}
           width={width}
-          defaultLanguage={language}
+          language={language}
           value={code}
           onMount={this.handleEditorDidMount}
           onChange={this.handleEditorChange}

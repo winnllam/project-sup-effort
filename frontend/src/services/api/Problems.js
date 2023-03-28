@@ -58,3 +58,16 @@ export const addProblem = function (name, description, difficulty) {
     difficulty: difficulty,
   }).then((res) => res.data);
 };
+
+export const addSolutionCode = function (problemId, language, code) {
+  return post(URL + `/${problemId}/solution`, {
+    language,
+    code,
+  }).then((res) => res.data);
+};
+
+export const getSolutionCode = function (problemId, language) {
+  return get(URL + `/${problemId}/solution/${language}`).then(
+    (res) => res.data.solution
+  );
+};

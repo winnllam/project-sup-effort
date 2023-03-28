@@ -18,6 +18,8 @@ compilersRouter.post("/execute", function (req, res, next) {
   body["language"] = req.body.language;
   if (req.body.language === "python") {
     body["language"] = "python3";
+  } else if (req.body.language === "javascript") {
+    body["language"] = "nodejs";
   }
 
   axios.post(jdoodleURL + "/execute", body).then((result) => {

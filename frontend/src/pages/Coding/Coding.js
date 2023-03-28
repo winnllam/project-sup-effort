@@ -1,10 +1,13 @@
 import React from "react";
 import codingStyles from "./Coding.module.css";
 import { withAuth0 } from "@auth0/auth0-react";
+import Editor from "@monaco-editor/react";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import Monaco from "../../components/Monaco/Monaco";
 import * as problemService from "../../services/api/Problems.js";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
 const options = [
   { value: "python", label: "Python3" },
@@ -23,9 +26,11 @@ class Coding extends React.Component {
       description: null,
       difficulty: null,
       language: defaultOption.value,
+      solutionCode: "",
     };
 
     this.updateLanguage = this.updateLanguage.bind(this);
+    this.updateSolutionLanguage = this.updateSolutionLanguage.bind(this);
 
     problemService.getProblem(props.number).then((res) => {
       this.setState({
@@ -40,18 +45,57 @@ class Coding extends React.Component {
     this.setState({ language: language.value });
   }
 
+  updateSolutionLanguage(language) {
+    this.setState({ solutionLanguage: language.value });
+
+    problemService
+      .getSolutionCode(this.state.number, language.value)
+      .then((res) => {
+        this.setState({ solutionCode: res.code });
+      })
+      .catch((error) => {
+        this.setState({ solutionCode: "No solution in this language" });
+      });
+  }
+
   render() {
     const { number, name, description, difficulty, language } = this.state;
 
     return (
       <div className={codingStyles.coding}>
         <div className={codingStyles.leftPane}>
-          <div className={codingStyles.subtitle}>
-            {number}. {name}
-          </div>
-          <div>{difficulty}</div>
-          <div>{description}</div>
-          <Monaco number={number} language={language} />
+          <Tabs>
+            <TabList>
+              <Tab>Problem</Tab>
+              <Tab>Solution</Tab>
+            </TabList>
+
+            <TabPanel>
+              <div className={codingStyles.subtitle}>
+                {number}. {name}
+              </div>
+              <div>{difficulty}</div>
+              <div>{description}</div>
+            </TabPanel>
+            <TabPanel disabled={false}>
+              <Dropdown
+                options={options}
+                onChange={this.updateSolutionLanguage}
+                defaultValue={defaultOption}
+                placeholder="Select a language"
+              />
+              <div class={codingStyles.codeBox}>
+                <Editor
+                  height={"30vh"}
+                  width={"100%"}
+                  language={this.state.solutionLanguage}
+                  value={this.state.solutionCode}
+                  onMount={this.handleSolutionEditorDidMount}
+                  options={{ readOnly: true }}
+                />
+              </div>
+            </TabPanel>
+          </Tabs>
         </div>
 
         <div className={codingStyles.rightPane}>

@@ -1,5 +1,6 @@
 .payment {
   background: white;
+  min-height: 80vh;
 }
 
 .subtitle {

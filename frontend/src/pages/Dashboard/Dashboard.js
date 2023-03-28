@@ -27,11 +27,24 @@ class Dashboard extends React.Component {
       if (res.newUser === true) {
         // send email to new users
         const subject = "Welcome to Divide and Conquer!";
-        const text = "Welcome text placeholder";
-        const html =
+        const text =
           "Hello " +
           user.nickname +
-          "! \n Thank you for signing up for Divide and Conquer!";
+          "! Thank you for signing up for Divide and Conquer! " +
+          "Divide and Conquer is a competition site where you can compete on coding problems with your friends in real time! " +
+          "We can't wait for you to get started!" +
+          "Make sure to verify your email to be able to access all of the features we have to offer. Once that is done, you can divide right in!" +
+          "Welcome to the D&C community!";
+
+        const html =
+          "<p>Hello <b>" +
+          user.nickname +
+          "</b>!</p>" +
+          "<p>Thank you for signing up for Divide and Conquer!</p>" +
+          "<p>Divide and Conquer is a competition site where you can compete on coding problems with your friends in real time! " +
+          "We can't wait for you to get started!</p>" +
+          "<p>Make sure to verify your email to be able to access all of the features we have to offer. Once that is done, you can divide right in!</p>" +
+          "<p>Welcome to the D&C community!</p><br>";
         emailService.sendEmail(user.email, subject, text, html);
       }
       this.setState({

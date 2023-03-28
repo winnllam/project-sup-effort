@@ -1,10 +1,22 @@
 import React from "react";
 import styles from "./Edit.module.css";
+import Editor from "@monaco-editor/react";
+import Dropdown from "react-dropdown";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import TestCase from "../Test-Case/Test-Case";
 import { Modal, Button } from "react-bootstrap";
 import * as problemService from "../../../services/api/Problems.js";
+
+const options = [
+  { value: "python", label: "Python3" },
+  { value: "java", label: "Java" },
+  { value: "javascript", label: "JavaScript" },
+  { value: "c", label: "C" },
+];
+const defaultOption = options[0];
+let starterEditorCode = null;
+let solutionEditorCode = null;
 
 class Edit extends React.Component {
   constructor(props) {
@@ -17,7 +29,15 @@ class Edit extends React.Component {
       testsList: [],
       desc: "",
       difficulty: "",
+      starterLanguage: defaultOption.value,
+      solutionLanguage: defaultOption.value,
+      starterCode: "",
+      solutionCode: "",
+      methodName: "",
     };
+
+    this.updateStarterLanguage = this.updateStarterLanguage.bind(this);
+    this.updateSolutionLanguage = this.updateSolutionLanguage.bind(this);
   }
 
   componentDidMount() {
@@ -79,6 +99,73 @@ class Edit extends React.Component {
       });
   };
 
+  saveStarterCode = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const formJson = Object.fromEntries(formData.entries());
+
+    problemService
+      .addStarterCode(
+        this.state.problemId,
+        this.state.starterLanguage,
+        starterEditorCode?.getValue(),
+        formJson.methodName
+      )
+      .then((res) => {
+        console.log(res);
+      });
+  };
+
+  saveSolutionCode = (e) => {
+    e.preventDefault();
+
+    problemService
+      .addSolutionCode(
+        this.state.problemId,
+        this.state.solutionLanguage,
+        solutionEditorCode?.getValue()
+      )
+      .then((res) => {
+        console.log(res);
+      });
+  };
+
+  handleStarterEditorDidMount(editor, monaco) {
+    starterEditorCode = editor;
+  }
+
+  handleSolutionEditorDidMount(editor, monaco) {
+    solutionEditorCode = editor;
+  }
+
+  updateStarterLanguage(language) {
+    this.setState({ starterLanguage: language.value });
+
+    problemService
+      .getStarterCode(this.state.problemId, language.value)
+      .then((res) => {
+        this.setState({ starterCode: res.code, methodName: res.methodName });
+      })
+      .catch((error) => {
+        this.setState({ starterCode: "", methodName: "" });
+      });
+  }
+
+  updateSolutionLanguage(language) {
+    this.setState({ solutionLanguage: language.value });
+
+    problemService
+      .getSolutionCode(this.state.problemId, language.value)
+      .then((res) => {
+        this.setState({ solutionCode: res.code });
+      })
+      .catch((error) => {
+        this.setState({ solutionCode: "" });
+      });
+  }
+
   render() {
     return (
       <div className={styles.problem}>
@@ -139,13 +226,58 @@ class Edit extends React.Component {
           </div>
         </div>
 
-        <div class={styles.starterCode}>
+        <div class={styles.code}>
           <div class={styles.subtitle}>Starter Code</div>
+          <Dropdown
+            options={options}
+            onChange={this.updateStarterLanguage}
+            defaultValue={defaultOption}
+            placeholder="Select a language"
+          />
           <div class={styles.codeBox}>
-            <textarea id={styles.code} name="starter">
-              TODO REPLACE WITH MONACO
-            </textarea>
-            <button class={styles.button}>Save</button>
+            <form onSubmit={this.saveStarterCode}>
+              <Editor
+                id={styles.code}
+                height={"30vh"}
+                width={"100%"}
+                language={this.state.starterLanguage}
+                value={this.state.starterCode}
+                onMount={this.handleStarterEditorDidMount}
+              />
+              <input
+                type="text"
+                id={styles.methodName}
+                name="methodName"
+                placeholder={"Method Name"}
+                value={this.state.methodName}
+                onChange={(e) => {
+                  this.setState({ methodName: e.target.value });
+                }}
+              ></input>
+              <button class={styles.button}>Save</button>
+            </form>
+          </div>
+        </div>
+
+        <div class={styles.code}>
+          <div class={styles.subtitle}>Sample Solution Code</div>
+          <Dropdown
+            options={options}
+            onChange={this.updateSolutionLanguage}
+            defaultValue={defaultOption}
+            placeholder="Select a language"
+          />
+          <div class={styles.codeBox}>
+            <form onSubmit={this.saveSolutionCode}>
+              <Editor
+                height={"30vh"}
+                width={"100%"}
+                language={this.state.solutionLanguage}
+                value={this.state.solutionCode}
+                onMount={this.handleSolutionEditorDidMount}
+              />
+              <button class={styles.button}>Save</button>
+            </form>
           </div>
         </div>
 

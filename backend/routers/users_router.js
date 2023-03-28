@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { User } from "../models/user.js";
+import { isAuthenticated } from "../middleware/auth.js";
 
 export const usersRouter = Router();
 
@@ -11,6 +12,7 @@ usersRouter.post("/signon", async (req, res) => {
 
   if (existingUser) {
     req.session.userId = existingUser.id;
+    req.session.status = existingUser.userStatus;
     return res.json({ user: existingUser, newUser: false });
   } else {
     const premium = { status: "Inactive" };
@@ -32,6 +34,7 @@ usersRouter.post("/signon", async (req, res) => {
       email: req.body.email,
     });
     req.session.userId = newUser.id;
+    req.session.status = newUser.userStatus;
     return res.json({ user, newUser: true });
   }
 });
@@ -81,7 +84,7 @@ usersRouter.get("/signout", function (req, res, next) {
   return res.json(userId);
 });
 
-usersRouter.get("/", async (req, res) => {
+usersRouter.get("/", isAuthenticated, async (req, res) => {
   const users = await User.find();
 
   return res.json({
@@ -90,7 +93,7 @@ usersRouter.get("/", async (req, res) => {
   });
 });
 
-usersRouter.get("/me", async (req, res) => {
+usersRouter.get("/me", isAuthenticated, async (req, res) => {
   const userId = req.session.userId;
   const user = await User.findById(userId);
   if (user === null) {
@@ -108,7 +111,7 @@ usersRouter.get("/me", async (req, res) => {
   });
 });
 
-usersRouter.get("/:id", async (req, res) => {
+usersRouter.get("/:id", isAuthenticated, async (req, res) => {
   const userId = req.params.id;
   const user = await User.findById(userId);
   if (user === null) {
@@ -121,7 +124,7 @@ usersRouter.get("/:id", async (req, res) => {
   });
 });
 
-usersRouter.post("/:id/codingHistory", async (req, res) => {
+usersRouter.post("/:id/codingHistory", isAuthenticated, async (req, res) => {
   const userId = req.params.id;
   const user = await User.findById(userId);
   if (user === null) {
@@ -139,7 +142,7 @@ usersRouter.post("/:id/codingHistory", async (req, res) => {
   return res.json({ history });
 });
 
-usersRouter.get("/:id/codingHistory", async (req, res) => {
+usersRouter.get("/:id/codingHistory", isAuthenticated, async (req, res) => {
   const userId = req.params.id;
   const user = await User.findById(userId);
   if (user === null) {

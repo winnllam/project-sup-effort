@@ -38,7 +38,7 @@ app.use(cors(corsOptions));
 
 app.use(
   session({
-    secret: process.env.SECRET_KEY || "test",
+    secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: true,
   })

@@ -1,0 +1,33 @@
+.payment {
+  background: white;
+}
+
+.subtitle {
+  font-family: "Lora";
+  font-style: italic;
+  font-size: 50px;
+  color: #274c77;
+}
+
+.summary {
+  text-align: left;
+  width: 60%;
+  margin: 10px auto;
+}
+
+.cart {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  color: #274c77;
+  margin-top: 10px;
+}
+
+.cartItem {
+  font-family: "Alegreya";
+  font-style: normal;
+  font-size: 22px;
+  font-weight: 400;
+  color: #000000;
+}

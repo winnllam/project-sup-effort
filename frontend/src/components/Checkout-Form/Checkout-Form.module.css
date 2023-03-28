@@ -1,0 +1,31 @@
+#paymentForm {
+  width: 60%;
+  padding: 20px 25px;
+  margin: 20px auto;
+  background: #ffffff;
+  border-radius: 25px;
+  border: black 2px solid;
+}
+
+.button {
+  background: #ffffff;
+  border: 3px solid #284b63;
+  border-radius: 15px;
+  font-size: 20px;
+  width: 150px;
+  height: auto;
+  margin: 10px 0px;
+}
+
+.button:hover {
+  background: #e9f5db;
+  padding: 10px auto;
+}
+
+.subtitle {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  color: #274c77;
+}

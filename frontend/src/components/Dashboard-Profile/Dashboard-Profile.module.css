@@ -21,3 +21,49 @@
   text-align: left;
   padding: 15px 25px;
 }
+
+.button {
+  background: #ffffff;
+  border: 3px solid #284b63;
+  border-radius: 15px;
+  font-size: 20px;
+  width: 150px;
+  height: auto;
+  margin: 10px 5px;
+}
+
+.modal {
+  width: 500px;
+}
+
+.inputBox {
+  height: auto;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.inputBox::placeholder {
+  color: black;
+}
+
+.modalTitle {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  color: #274c77;
+}
+
+#upgradeBtn {
+  width: 200px;
+}
+
+#planType {
+  width: 125px;
+}
+
+.modalText {
+  font-family: "Alegreya";
+  font-style: normal;
+  font-size: 22px;
+}

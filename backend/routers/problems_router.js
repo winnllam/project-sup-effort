@@ -146,7 +146,7 @@ problemsRouter.post("/:id/solution", async function (req, res, next) {
 
   // add to list if language is not already in, otherwise replace
   if (index === -1) {
-    problem.solutionCode.push(solution);
+    problem.sampleSolution.push(solution);
   } else {
     solutionCodes[index] = solution;
     problem.sampleSolution = solutionCodes;

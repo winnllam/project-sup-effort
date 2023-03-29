@@ -16,6 +16,7 @@ import Credits from "./pages/Credits/Credits";
 import CodingHook from "./pages/Coding/Coding-Hook";
 import PaymentHook from "./pages/Payment/Payment-Hook";
 import Problems from "./pages/Problems/Problems";
+import NotFound from "./pages/Not-Found/Not-Found";
 import { AuthenticationGuard } from "./components/authentication-guard";
 import * as userService from "./services/api/Users.js";
 
@@ -62,6 +63,7 @@ class App extends Component {
               path="/payment"
               element={<AuthenticationGuard component={PaymentHook} />}
             />
+            <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
         </Router>

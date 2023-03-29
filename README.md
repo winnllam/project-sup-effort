@@ -24,7 +24,7 @@ The intended complexity points (9 of them) we aim to implement are:
 | Name + Complexity Point| Purpose |
 | ----------- | ----------- |
 |Auth0: 1 Point| Allow user creation and authentication|
-| SendGrind: 2 Points | To be used for sending verification emails, marketing emails (such as their rankings on a leadership board) and emails containing links to join the contest.|
+| SendGrid: 2 Points | To be used for sending verification emails, marketing emails (such as their rankings on a leadership board) and emails containing links to join the contest.|
 | Stripe: 2 Points | To be used for paid premimum features|
 | Socket.io: 2 Points| This will allow for communication between users more specifically for viewing coding progress in contests. |
 | JDoodle: 1 Point | For compiling code programs |
@@ -45,8 +45,8 @@ In the Alpha version, users would be able to create an account, login, solve pro
 ### Beta Version
 
 For the Beta version, we aim to include support for live coding between users via Socket.io,
-send sign up for email verification via SendGrind and generate links to share with other users inviting them to "contests.
+send sign up for email verification via SendGrid and generate links to share with other users inviting them to "contests".
 
 ### Final Version
 
-For the final version, it will include everything in the Alpha and Beta version but with paid premium features via Stripe. The appliaction will be fully polished and deployed.
+For the final version, it will include everything in the Alpha and Beta version but with paid premium features via Stripe. The application will be fully polished and deployed.

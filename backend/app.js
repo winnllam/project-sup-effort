@@ -1,5 +1,4 @@
 import express from "express";
-import path from "path";
 import bodyParser from "body-parser";
 import session from "express-session";
 import cors from "cors";
@@ -10,6 +9,7 @@ import { Server } from "socket.io";
 import { usersRouter } from "./routers/users_router.js";
 import { problemsRouter } from "./routers/problems_router.js";
 import { compilersRouter } from "./routers/compilers_router.js";
+import { emailsRouter } from "./routers/email_router.js";
 import { premiumRouter } from "./routers/premium_router.js";
 
 const PORT = 9000;
@@ -38,7 +38,7 @@ app.use(cors(corsOptions));
 
 app.use(
   session({
-    secret: process.env.SECRET_KEY || "test",
+    secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: true,
   })
@@ -47,6 +47,7 @@ app.use(
 app.use("/api/users", usersRouter);
 app.use("/api/problems", problemsRouter);
 app.use("/api/compilers", compilersRouter);
+app.use("/api/emails", emailsRouter);
 app.use("/api/premium", premiumRouter);
 
 app.listen(PORT, (err) => {

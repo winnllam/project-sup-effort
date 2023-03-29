@@ -33,23 +33,30 @@ const Navbar = () => {
               </Link>
             </div>
           </Col>
-          <Col md={{ span: "auto" }}>
-            <div id={navbarStyles.explore} class={navbarStyles.options}>
-              <Link to={"/#" + homeStyles.feature} class={navbarStyles.options}>
-                Explore
-              </Link>
-            </div>
-          </Col>
-          <Col md={"auto"}>
-            <div id={navbarStyles.about} class={navbarStyles.options}>
-              <Link
-                to={"/#" + aboutStyles.aboutBox}
-                class={navbarStyles.options}
-              >
-                About Us
-              </Link>
-            </div>
-          </Col>
+          {!isAuthenticated && (
+            <Col md={{ span: "auto" }}>
+              <div id={navbarStyles.explore} class={navbarStyles.options}>
+                <Link
+                  to={"/#" + homeStyles.feature}
+                  class={navbarStyles.options}
+                >
+                  Explore
+                </Link>
+              </div>
+            </Col>
+          )}
+          {!isAuthenticated && (
+            <Col md={"auto"}>
+              <div id={navbarStyles.about} class={navbarStyles.options}>
+                <Link
+                  to={"/#" + aboutStyles.aboutBox}
+                  class={navbarStyles.options}
+                >
+                  About Us
+                </Link>
+              </div>
+            </Col>
+          )}
           <Col md={"auto"}>
             {isAuthenticated && !isLoading && (
               <div id={navbarStyles.dashboard} class={navbarStyles.options}>

@@ -7,8 +7,11 @@ import * as problemService from "../../services/api/Problems.js";
 class Problems extends React.Component {
   constructor(props) {
     super(props);
+    const { user } = this.props.auth0;
+
     this.state = {
       problems: [],
+      emailVerified: user.email_verified,
     };
 
     problemService.getProblems().then((res) => {
@@ -17,28 +20,50 @@ class Problems extends React.Component {
   }
 
   render() {
-    const { problems } = this.state;
+    const { problems, emailVerified } = this.state;
+    let problemList;
+    if (emailVerified) {
+      problemList = problems.map((problem) => (
+        <Link
+          to="/coding"
+          state={{ number: problem.number }}
+          className={`${problemStyles.problem}
+            ${problem.difficulty === "easy" ? problemStyles.easy : ""} 
+            ${problem.difficulty === "medium" ? problemStyles.medium : ""} 
+            ${problem.difficulty === "hard" ? problemStyles.hard : ""}`}
+          key={problem.number}
+        >
+          <div className={problemStyles.info}>
+            <h2>
+              {problem.number}. {problem.name}
+            </h2>
+            <p>{problem.description}</p>
+          </div>
+        </Link>
+      ));
+    } else {
+      problemList = problems.map((problem) => (
+        <div
+          className={`${problemStyles.problem}
+            ${problem.difficulty === "easy" ? problemStyles.easy : ""} 
+            ${problem.difficulty === "medium" ? problemStyles.medium : ""} 
+            ${problem.difficulty === "hard" ? problemStyles.hard : ""}`}
+          key={problem.number}
+        >
+          <div className={problemStyles.info}>
+            <h2>
+              {problem.number}. {problem.name}
+            </h2>
+            <p>{problem.description}</p>
+          </div>
+        </div>
+      ));
+    }
+
     return (
       <div className={problemStyles.problems}>
         <div id={problemStyles.header}>Problem Catalog</div>
-        {problems.map((problem) => (
-          <Link
-            to="/coding"
-            state={{ number: problem.number }}
-            className={`${problemStyles.problem}
-              ${problem.difficulty === "easy" ? problemStyles.easy : ""} 
-              ${problem.difficulty === "medium" ? problemStyles.medium : ""} 
-              ${problem.difficulty === "hard" ? problemStyles.hard : ""}`}
-            key={problem.number}
-          >
-            <div className={problemStyles.info}>
-              <h2>
-                {problem.number}. {problem.name}
-              </h2>
-              <p>{problem.description}</p>
-            </div>
-          </Link>
-        ))}
+        {problemList}
       </div>
     );
   }

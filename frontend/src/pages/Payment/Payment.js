@@ -53,6 +53,7 @@ class Payment extends React.Component {
                   stripe={stripe}
                   elements={elements}
                   planType={planType}
+                  planTotal={total}
                 />
               )}
             </ElementsConsumer>

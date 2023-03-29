@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./Checkout-Form.module.css";
 import { PaymentElement } from "@stripe/react-stripe-js";
 import * as paymentService from "../../services/api/Payments.js";
+import * as emailService from "../../services/api/Emails.js";
+import * as userService from "../../services/api/Users.js";
 
 class CheckoutForm extends React.Component {
   constructor(props) {
@@ -11,7 +13,17 @@ class CheckoutForm extends React.Component {
       message: "",
       isProcessing: false,
       planType: props.planType,
+      planTotal: props.planTotal / 100,
+      userEmail: "",
     };
+  }
+
+  componentDidMount() {
+    userService.getMe().then((res) => {
+      this.setState({
+        userEmail: res.email,
+      });
+    });
   }
 
   handleSubmit = async (e) => {
@@ -41,11 +53,34 @@ class CheckoutForm extends React.Component {
           } else {
             this.setState({ message: "An unexpected error occured." });
           }
+          this.setState({ isProcessing: false });
         } else {
-          paymentService.upgradeUser(this.state.planType).then((res) => {});
+          paymentService.upgradeUser(this.state.planType).then(() => {
+            const subject = "Premium Divide and Conquer Subscription";
+            const text =
+              "Reciept for Successful Payment to Divide and Conquer" +
+              "Plan Type: " +
+              this.state.planType +
+              "Total:  " +
+              this.state.planTotal +
+              "Thank you for your purchase! Detailed information about your premium subscription can be found in your profile at https://divideandconquer.me";
+
+            const html =
+              "<h3>Reciept for Successful Payment to Divide and Conquer </h3>" +
+              "<b>Plan Type</b>: " +
+              this.state.planType +
+              "<br/>" +
+              "<b>Plan Total</b>: $" +
+              this.state.planTotal +
+              "<br/>" +
+              "Thank you for your purchase! Detailed information about your premium subscription can be found in your profile at https://divideandconquer.me <br/>" +
+              "Once more thank you for your support towards Divide and Conquer and we hope you enjoy your new premium subscription! <br/>";
+
+            emailService.sendEmail(this.state.userEmail, subject, text, html);
+            this.setState({ isProcessing: false });
+            window.location.replace(`${window.location.origin}/dashboard`);
+          });
         }
-        this.setState({ isProcessing: false });
-        window.location.replace(`${window.location.origin}/dashboard`);
       });
   };
 

@@ -112,8 +112,7 @@ class DashboardProfile extends React.Component {
               </select>
               <hr />
               <div class={styles.modalText}>
-                <b>Total: </b>
-                {this.state.upgradeTotal / 100}
+                <b>Total: </b>${this.state.upgradeTotal / 100}
               </div>
             </Modal.Body>
             <Modal.Footer>

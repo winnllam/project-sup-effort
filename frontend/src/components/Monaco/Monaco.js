@@ -18,7 +18,7 @@ class Monaco extends React.Component {
       number: null,
       code: null,
       methodName: null,
-      height: "80vh",
+      height: "75vh",
       results: [],
       showResults: false,
     };
@@ -182,7 +182,7 @@ class Monaco extends React.Component {
 
       compilerService.executeCode(addTests, language).then((test) => {
         const result = test.output.split(/\r?\n/);
-        this.setState({ height: "45vh", results: result, showResults: true });
+        this.setState({ height: "40vh", results: result, showResults: true });
       });
     });
   }
@@ -203,14 +203,19 @@ class Monaco extends React.Component {
           onMount={this.handleEditorDidMount}
           onChange={this.handleEditorChange}
         />
-        <button onClick={this.submit}>Submit Code</button>
         {showResults ? (
           <div className={monacoStyles.testResults}>
+            <h2>Test Results</h2>
             {results.map((test) => (
               <p key={test}>{test}</p>
             ))}
           </div>
         ) : null}
+        <div className={monacoStyles.buttonBar}>
+          <button onClick={this.submit} className={monacoStyles.submitBtn}>
+            Submit Code
+          </button>
+        </div>
       </>
     );
   }

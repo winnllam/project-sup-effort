@@ -4,7 +4,20 @@
 
 .testResults {
   background-color: white;
-  border-radius: 10px;
   padding: 20px;
   text-align: left;
+  max-height: 35vh;
+  overflow-y: scroll;
+}
+
+.buttonBar {
+  background-color: white;
+}
+.submitBtn {
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(117, 180, 117);
+  color: white;
 }

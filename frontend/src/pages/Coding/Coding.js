@@ -65,10 +65,12 @@ class Coding extends React.Component {
       <div className={codingStyles.coding}>
         <div className={codingStyles.leftPane}>
           <Tabs>
-            <TabList>
-              <Tab>Problem</Tab>
-              <Tab>Solution</Tab>
-            </TabList>
+            <div class={codingStyles.tabs}>
+              <TabList>
+                <Tab>Problem</Tab>
+                <Tab>Solution</Tab>
+              </TabList>
+            </div>
 
             <TabPanel>
               <div className={codingStyles.subtitle}>
@@ -77,7 +79,7 @@ class Coding extends React.Component {
               <div>{difficulty}</div>
               <div>{description}</div>
             </TabPanel>
-            <TabPanel disabled={false}>
+            <TabPanel>
               <Dropdown
                 options={options}
                 onChange={this.updateSolutionLanguage}

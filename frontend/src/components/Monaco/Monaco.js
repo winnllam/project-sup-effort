@@ -5,7 +5,6 @@ import * as compilerService from "../../services/api/JDoodle.js";
 import * as problemService from "../../services/api/Problems.js";
 import { io } from "socket.io-client";
 
-// const height = "90vh";
 const width = "100%";
 let language = "";
 
@@ -27,19 +26,28 @@ class Monaco extends React.Component {
   }
 
   componentWillReceiveProps(props) {
+    sessionStorage.setItem(language, editorCode?.getValue());
+
     if (props.language !== null) {
       language = props.language;
     }
     if (props.number !== null) {
       this.setState({ number: props.number });
-      problemService
-        .getStarterCode(props.number, language)
-        .then((res) => {
-          this.setState({ code: res.code, methodName: res.methodName });
-        })
-        .catch((error) => {
-          this.setState({ code: "Language not supported!" });
-        });
+
+      // if the language has modified code from previous attempt
+      if (sessionStorage.getItem(language) !== null) {
+        // restore the code from storage
+        this.setState({ code: sessionStorage.getItem(language) });
+      } else {
+        problemService
+          .getStarterCode(props.number, language)
+          .then((res) => {
+            this.setState({ code: res.code, methodName: res.methodName });
+          })
+          .catch((error) => {
+            this.setState({ code: "Language not supported!" });
+          });
+      }
     }
   }
 

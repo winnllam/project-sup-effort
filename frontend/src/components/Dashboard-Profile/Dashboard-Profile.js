@@ -60,7 +60,7 @@ class DashboardProfile extends React.Component {
 
   closeUpgradeModal = () => this.setState({ upgrade: false });
 
-  closeUpgradeModal = () => this.setState({ cancel: false });
+  closeCancelModal = () => this.setState({ cancel: false });
 
   cancelSubscription = () => {
     paymentService.downgradeUser().then((res) => {
@@ -125,7 +125,7 @@ class DashboardProfile extends React.Component {
         </Modal>
         <Modal
           show={this.state.cancel}
-          onHide={this.closeUpgradeModal}
+          onHide={this.closeCancelModal}
           class={styles.modal}
         >
           <form onSubmit={this.cancelSubscription}>

@@ -8,6 +8,7 @@ import Monaco from "../../components/Monaco/Monaco";
 import * as problemService from "../../services/api/Problems.js";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import * as userService from "../../services/api/Users.js";
 
 const options = [
   { value: "python", label: "Python3" },
@@ -27,6 +28,7 @@ class Coding extends React.Component {
       difficulty: null,
       language: defaultOption.value,
       solutionCode: "",
+      premium: false,
     };
 
     this.updateLanguage = this.updateLanguage.bind(this);
@@ -37,6 +39,14 @@ class Coding extends React.Component {
         name: res.name,
         description: res.description,
         difficulty: res.difficulty,
+      });
+    });
+  }
+
+  componentDidMount() {
+    userService.getMe().then((res) => {
+      this.setState({
+        premium: res.premium.status === "Active",
       });
     });
   }
@@ -59,7 +69,8 @@ class Coding extends React.Component {
   }
 
   render() {
-    const { number, name, description, difficulty, language } = this.state;
+    const { number, name, description, difficulty, language, premium } =
+      this.state;
 
     return (
       <div className={codingStyles.coding}>
@@ -68,10 +79,9 @@ class Coding extends React.Component {
             <div class={codingStyles.tabs}>
               <TabList>
                 <Tab>Problem</Tab>
-                <Tab>Solution</Tab>
+                {premium && <Tab>Solution</Tab>}
               </TabList>
             </div>
-
             <TabPanel>
               <div className={codingStyles.subtitle}>
                 {number}. {name}

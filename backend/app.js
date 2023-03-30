@@ -71,8 +71,10 @@ const io = new Server(httpServer, {
       "http://localhost:9000",
     ],
     methods: ["GET", "POST"],
+    transports: ["websocket", "polling"],
     credentials: true,
   },
+  allowEIO3: true,
 });
 
 httpServer.listen(process.env.PORT || 9000, () => {

@@ -13,7 +13,8 @@
 }
 
 .desc,
-.code {
+.code,
+.difficulty {
   width: 80%;
   margin: 0px auto;
   text-align: left;
@@ -45,12 +46,12 @@
 #problemDesc {
   width: 100%;
   height: 200px;
-  padding: 12px 20px;
+  padding: 12px 5px;
   box-sizing: border-box;
   background: #ffffff;
   border: 1px solid #000000;
   border-radius: 10px;
-  font-size: 16px;
+  font-size: 18px;
   resize: none;
   border-radius: 10px;
 }
@@ -68,11 +69,11 @@
   border-radius: 10px;
 }
 
-.descBox,
+.details,
 .codeBox {
   background: #ffffff;
   border-radius: 25px;
-  padding: 40px 20px;
+  padding: 10px 20px;
 }
 
 .tests {
@@ -110,7 +111,7 @@
 .inputBox {
   height: auto;
   border-radius: 15px;
-  padding: 10px;
+  padding: 10px 5px;
 }
 
 .inputBox::placeholder {
@@ -123,4 +124,28 @@
   font-weight: 500;
   font-size: 24px;
   color: #274c77;
+}
+
+#options {
+  width: 125px;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.nameInput {
+  height: 50px;
+  font-size: 22px;
+  border-radius: 5px;
+  padding: 5px;
+  border: 1px solid #000000;
+}
+
+.category {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  color: #000000;
+  height: 45px;
+  padding: 5px 0px;
 }

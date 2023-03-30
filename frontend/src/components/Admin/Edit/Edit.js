@@ -75,20 +75,19 @@ class Edit extends React.Component {
       });
   };
 
-  saveDesc = (e) => {
+  updateProblem = (e) => {
     e.preventDefault();
 
     const form = e.target;
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
 
-    // TODO: Change to allow edit name + difficulty
     problemService
       .updateProblem(
         this.state.problemId,
-        this.state.problemName,
+        formJson.name,
         formJson.desc,
-        this.state.difficulty
+        formJson.difficulty
       )
       .then((res) => {
         this.setState({
@@ -166,7 +165,13 @@ class Edit extends React.Component {
       });
   }
 
+  handleChange = (e) => {
+    const total = e.target.value === "Monthly" ? 999 : 9999;
+    this.setState({ upgradeType: e.target.value, upgradeTotal: total });
+  };
+
   render() {
+    const { difficulty, problemName } = this.state;
     return (
       <div className={styles.problem}>
         <Modal
@@ -181,7 +186,7 @@ class Edit extends React.Component {
             <Modal.Body>
               <div class={styles.modalTitle}>Input</div>
               <input
-                type={Text}
+                type={String}
                 placeholder={"Expected input"}
                 class={styles.inputBox}
                 name="input"
@@ -211,14 +216,39 @@ class Edit extends React.Component {
         <div class={styles.title}>{this.state.problemName}</div>
 
         <div class={styles.desc}>
-          <div class={styles.subtitle}>Problem Description</div>
-          <div class={styles.descBox}>
-            <form onSubmit={this.saveDesc}>
-              <textarea
-                id={styles.problemDesc}
-                name="desc"
-                defaultValue={this.state.desc}
-              ></textarea>
+          <div class={styles.subtitle}>Problem Details</div>
+          <div class={styles.details}>
+            <form onSubmit={this.updateProblem}>
+              <div class={styles.problemName}>
+                <div class={styles.category}>Name</div>
+                <input
+                  type={String}
+                  defaultValue={problemName}
+                  class={styles.nameInput}
+                  name="name"
+                ></input>
+              </div>
+              <div class={styles.problemDesc}>
+                <div class={styles.category}>Description</div>
+                <textarea
+                  id={styles.problemDesc}
+                  name="desc"
+                  defaultValue={this.state.desc}
+                ></textarea>
+              </div>
+              <div class={styles.problemDifficulty}>
+                <div class={styles.category}>Difficulty</div>
+                <select
+                  id={styles.options}
+                  name="difficulty"
+                  defaultValue={difficulty}
+                >
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+              </div>
+              <br />
               <button class={styles.button} type="submit">
                 Save
               </button>

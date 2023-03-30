@@ -14,6 +14,7 @@ import PaymentHook from "./pages/Payment/Payment-Hook";
 import Problems from "./pages/Problems/Problems";
 import NotFound from "./pages/Not-Found/Not-Found";
 import { AuthenticationGuard } from "./components/authentication-guard";
+import AdminProblems from "./pages/Admin/Problems/Problems.js";
 
 class App extends Component {
   render() {
@@ -28,6 +29,10 @@ class App extends Component {
             <Route
               path="/dashboard"
               element={<AuthenticationGuard component={Dashboard} />}
+            />
+            <Route
+              path="/dashboard/admin/problems"
+              element={<AuthenticationGuard component={AdminProblems} />}
             />
             <Route
               path="/coding"

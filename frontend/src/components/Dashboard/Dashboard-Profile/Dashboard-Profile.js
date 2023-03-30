@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Dashboard-Profile.module.css";
-import profile from "../../assets/profile.svg";
-import dashboardStyles from "../../pages/Dashboard/Dashboard.module.css";
+import profile from "../../../assets/profile.svg";
+import dashboardStyles from "../../../pages/Dashboard/Dashboard.module.css";
 import * as userService from "../../services/api/Users.js";
 import * as paymentService from "../../services/api/Payments.js";
 import { Modal, Button } from "react-bootstrap";

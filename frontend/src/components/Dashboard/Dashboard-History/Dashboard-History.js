@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Dashboard-History.module.css";
-import image from "../../assets/dashboard_history.svg";
-import dashboardStyles from "../../pages/Dashboard/Dashboard.module.css";
+import image from "../../../assets/dashboard_history.svg";
+import dashboardStyles from "../../../pages/Dashboard/Dashboard.module.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 

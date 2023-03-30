@@ -17,6 +17,8 @@ import { AuthenticationGuard } from "./components/authentication-guard";
 import AdminProblems from "./pages/Admin/AllProblems/AllProblems.js";
 import ProblemHook from "./pages/Admin/Problem/Problem-Hook";
 import Profile from "./pages/Profile/Profile";
+import History from "./pages/History/History";
+import Competition from "./pages/Competition/Competition";
 
 class App extends Component {
   render() {
@@ -35,6 +37,14 @@ class App extends Component {
             <Route
               path="/dashboard/profile"
               element={<AuthenticationGuard component={Profile} />}
+            />
+            <Route
+              path="/dashboard/history"
+              element={<AuthenticationGuard component={History} />}
+            />
+            <Route
+              path="/dashboard/competition"
+              element={<AuthenticationGuard component={Competition} />}
             />
             <Route
               path="/dashboard/admin/problems"

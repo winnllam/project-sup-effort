@@ -101,7 +101,7 @@ const Navbar = () => {
             </Col>
             <LobbyModal show={showModal} handleClose={handleCloseModal} />
           </>
-          <Col md={{ span: "auto", offset: 2 }}>
+          <Col md={{ span: "auto", offset: 1 }}>
             {!isAuthenticated && !isLoading && (
               <div
                 id={navbarStyles.login}

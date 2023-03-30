@@ -28,7 +28,7 @@ class DashboardPannel extends React.Component {
   }
 
   render() {
-    const { name, userPic, lastLoginDate, userId } = this.state;
+    const { name, userPic, lastLoginDate, userStatus } = this.state;
     return (
       <div className={styles.pannel}>
         <div id={styles.user}>
@@ -43,25 +43,23 @@ class DashboardPannel extends React.Component {
             </button>
           )}
           <br />
-          {this.state.userStatus === "basic" && (
-            <button
-              class={styles.button}
-              onClick={() => this.setState({ section: "history" })}
-            >
-              History
+          {userStatus === "basic" && (
+            <button class={styles.button}>
+              <Link to={"/dashboard/history"} class={styles.options}>
+                History
+              </Link>
             </button>
           )}
           <br />
-          {this.state.userStatus === "basic" && (
-            <button
-              class={styles.button}
-              onClick={() => this.setState({ section: "compete" })}
-            >
-              Competition
+          {userStatus === "basic" && (
+            <button class={styles.button}>
+              <Link to={"/dashboard/competition"} class={styles.options}>
+                Competition
+              </Link>
             </button>
           )}
 
-          {this.state.userStatus === "admin" && (
+          {userStatus === "admin" && (
             <button class={styles.button}>
               <Link to="/dashboard/admin/problems" class={styles.options}>
                 Problems
@@ -69,13 +67,9 @@ class DashboardPannel extends React.Component {
             </button>
           )}
           <br />
-          {this.state.userStatus === "admin" && (
-            <button
-              class={styles.button}
-              onClick={() => this.setState({ section: "admin-users" })}
-            >
-              Users
-            </button>
+          {userStatus === "admin" && (
+            // TODO: Do this when doing admin invite
+            <button class={styles.button}>Users</button>
           )}
           <br />
           {/* {this.state.userStatus === "admin" && (

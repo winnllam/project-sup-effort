@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Premium from "./pages/Premium/Premium";
 import Credits from "./pages/Credits/Credits";
 import CodingHook from "./pages/Coding/Coding-Hook";
+import CodingLobbyHook from "./pages/Coding/Coding-Lobby-Hook";
 import Problems from "./pages/Problems/Problems";
 import { AuthenticationGuard } from "./components/authentication-guard";
 
@@ -29,6 +30,10 @@ class App extends Component {
             <Route
               path="/coding"
               element={<AuthenticationGuard component={CodingHook} />}
+            />
+            <Route
+              path="/coding/:id"
+              element={<AuthenticationGuard component={CodingLobbyHook} />}
             />
             <Route
               path="/problems"

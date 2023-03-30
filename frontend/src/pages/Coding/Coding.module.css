@@ -6,14 +6,29 @@
 }
 
 .leftPane {
-  width: 50%;
+  width: 20%;
   text-align: left;
   margin-left: 50px;
   margin-right: 50px;
 }
 
+.middlePane {
+  width: 60%;
+}
+
 .rightPane {
-  width: 50%;
+  width: 20%;
+}
+
+.infoBox {
+  height: 50%;
+  background-color: #eee;
+}
+
+
+.chatBox {
+  height: 50%;
+  background-color: #ccc;
 }
 
 .subtitle {

@@ -1,10 +1,12 @@
 import React from "react";
 import codingStyles from "./Coding.module.css";
 import { withAuth0 } from "@auth0/auth0-react";
+import { useLocation } from "react-router-dom";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import Monaco from "../../components/Monaco/Monaco";
 import * as problemService from "../../services/api/Problems.js";
+import ChatBox from "../../components/ChatBox/ChatBox";
 
 const options = [
   { value: "python", label: "Python3" },
@@ -17,6 +19,7 @@ const defaultOption = options[0];
 class Coding extends React.Component {
   constructor(props) {
     super(props);
+    this.id = props.id;
     this.state = {
       number: props.number,
       name: null,
@@ -47,7 +50,6 @@ class Coding extends React.Component {
 
   render() {
     const { number, name, description, difficulty, language } = this.state;
-
     return (
       <div className={codingStyles.coding}>
         <div className={codingStyles.leftPane}>
@@ -58,7 +60,7 @@ class Coding extends React.Component {
           <div>{description}</div>
         </div>
 
-        <div className={codingStyles.rightPane}>
+        <div className={codingStyles.middlePane}>
           <Dropdown
             options={options}
             onChange={this.updateLanguage}
@@ -66,6 +68,10 @@ class Coding extends React.Component {
             placeholder="Select a language"
           />
           <Monaco number={number} language={language} />
+        </div>
+        <div className={codingStyles.rightPane}>
+          <div className={codingStyles.infoBox}>{this.props.id}</div>
+          <ChatBox />
         </div>
       </div>
     );

@@ -1,0 +1,44 @@
+.chatbox {
+    height: 100%;
+    overflow-y: scroll;
+    display: flex;
+  }
+  
+  .messagesList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    word-break: break-all;
+    text-align: left;
+  }
+  
+  .messagesListLi {
+    margin-bottom: 10px;
+    width: 90%;
+    padding: 5px;
+    border-radius: 5px;
+  }
+
+
+  .messageForm {
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 0px;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .messageInput {
+    flex: 1;
+    margin-right: 0px;
+    width: 50%;
+  }
+  
+  .sendButton {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }

@@ -10,6 +10,7 @@ import { Server } from "socket.io";
 import { usersRouter } from "./routers/users_router.js";
 import { problemsRouter } from "./routers/problems_router.js";
 import { compilersRouter } from "./routers/compilers_router.js";
+import { lobbyRouter } from "./routers/lobby_router.js";
 
 const PORT = 9000;
 export const app = express();
@@ -30,7 +31,7 @@ database.once("connected", () => {
 });
 
 const corsOptions = {
-  origin: ["http://localhost:3000", "https://divideandconquer.me/"],
+  origin: ["http://localhost:3000", "https://divideandconquer.me/", "http://localhost:9000"],
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -46,31 +47,47 @@ app.use(
 app.use("/api/users", usersRouter);
 app.use("/api/problems", problemsRouter);
 app.use("/api/compilers", compilersRouter);
+app.use("/api/lobby", lobbyRouter);
 
-app.listen(PORT, (err) => {
-  if (err) console.log(err);
-  else console.log("HTTP server on http://localhost:%s", PORT);
-});
+// app.listen(PORT, (err) => {
+//   if (err) console.log(err);
+//   else console.log("HTTP server on http://localhost:%s", PORT);
+// });
 
 const httpServer = createServer(app);
 
-const io = new Server(httpServer, {
+const io = new Server(httpServer, {  
   cors: {
-    origin: ["http://localhost:3000", "https://divideandconquer.me/"],
+    origin: ["http://localhost:3000", "https://divideandconquer.me/", "http://localhost:9000"],
     methods: ["GET", "POST"],
-  },
-});
+    credentials: true
+    }
+  });
 
-httpServer.listen(process.env.PORT || 9001, () => {
-  console.log(`Socket server on ${process.env.PORT || 9001}`);
+
+httpServer.listen(process.env.PORT || 9000, () => {
+  console.log(`Server listening on port ${PORT}`);
 });
 
 io.on("connection", (socket) => {
-  console.log("New client connected");
-  socket.on("send-code", (code) => {
-    socket.broadcast.emit("receive-code", code);
+  console.log("New client connected " + socket.id);
+
+  socket.on("user-connected", (message) => {
+    socket.broadcast.emit("user-connected", message);
   });
+
+  socket.on("send-message", (message) => {
+    socket.broadcast.emit("receive-message", message);
+  });
+
+  socket.on("send-code", (id, code) => {
+    console.log(id, code);
+    socket.broadcast.emit("receive-code", id, code);
+  });
+
   socket.on("disconnect", () => {
     console.log("Client disconnected");
   });
 });
+
+io.listen(httpServer);

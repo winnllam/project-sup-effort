@@ -4,6 +4,8 @@ import monacoStyles from "./Monaco.module.css";
 import * as compilerService from "../../services/api/JDoodle.js";
 import * as problemService from "../../services/api/Problems.js";
 import { io } from "socket.io-client";
+import getLobbyName from "../../lobby/lobbyName";
+
 
 // const height = "90vh";
 const width = "100%";
@@ -13,7 +15,8 @@ let editorCode = null;
 class Monaco extends React.Component {
   constructor(props) {
     super(props);
-    this.socket = io("https://divideandconquer.me/");
+    this.prevValue = "";
+    this.socket = io("http://localhost:9000");
     this.state = {
       number: null,
       code: null,
@@ -39,15 +42,17 @@ class Monaco extends React.Component {
   }
 
   componentWillMount() {
+    console.log(getLobbyName());
     this.socket.on("connect", () => {
       console.log(`Connected to socket server with id ${this.socket.id}`);
     });
 
-    this.socket.on("receive-code", (code) => {
-      this.setState(() => {
-        return {
-          code: code,
-        };
+    this.socket.on("receive-code", (id, code) => {
+        this.prevValue = code;
+        this.setState(() => {
+          return {
+            code: code,
+          };
       });
     });
   }
@@ -111,7 +116,11 @@ class Monaco extends React.Component {
   }
 
   handleEditorChange(value, event) {
-    this.socket.emit("send-code", value);
+    console.log(value === this.prevValue);
+    if (value !== this.prevValue) {
+      this.socket.emit("send-code",this.socket.id, value);
+      this.prevValue = value;
+    }
   }
 
   render() {

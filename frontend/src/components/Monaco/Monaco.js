@@ -1,11 +1,11 @@
 import React from "react";
 import Editor from "@monaco-editor/react";
+import { MutatingDots } from "react-loader-spinner";
 import monacoStyles from "./Monaco.module.css";
 import * as compilerService from "../../services/api/JDoodle.js";
 import * as problemService from "../../services/api/Problems.js";
 import { io } from "socket.io-client";
 
-// const height = "90vh";
 const width = "100%";
 let language = "";
 
@@ -21,25 +21,35 @@ class Monaco extends React.Component {
       height: "75vh",
       results: [],
       showResults: false,
+      setSpinner: false,
     };
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.submit = this.submit.bind(this);
   }
 
   componentWillReceiveProps(props) {
+    sessionStorage.setItem(language, editorCode?.getValue());
+
     if (props.language !== null) {
       language = props.language;
     }
     if (props.number !== null) {
       this.setState({ number: props.number });
-      problemService
-        .getStarterCode(props.number, language)
-        .then((res) => {
-          this.setState({ code: res.code, methodName: res.methodName });
-        })
-        .catch((error) => {
-          this.setState({ code: "Language not supported!" });
-        });
+
+      // if the language has modified code from previous attempt
+      if (sessionStorage.getItem(language) !== null) {
+        // restore the code from storage
+        this.setState({ code: sessionStorage.getItem(language) });
+      } else {
+        problemService
+          .getStarterCode(props.number, language)
+          .then((res) => {
+            this.setState({ code: res.code, methodName: res.methodName });
+          })
+          .catch((error) => {
+            this.setState({ code: "Language not supported!" });
+          });
+      }
     }
   }
 
@@ -166,6 +176,7 @@ class Monaco extends React.Component {
   }
 
   submit() {
+    this.setState({ setSpinner: true });
     problemService.getTestCases(this.state.number).then((res) => {
       const total = res.total;
       const tests = res.test;
@@ -182,7 +193,12 @@ class Monaco extends React.Component {
 
       compilerService.executeCode(addTests, language).then((test) => {
         const result = test.output.split(/\r?\n/);
-        this.setState({ height: "40vh", results: result, showResults: true });
+        this.setState({
+          height: "40vh",
+          results: result,
+          showResults: true,
+          setSpinner: false,
+        });
       });
     });
   }
@@ -192,9 +208,26 @@ class Monaco extends React.Component {
   }
 
   render() {
-    const { code, height, results, showResults } = this.state;
+    const { code, height, results, showResults, setSpinner } = this.state;
     return (
       <>
+        {setSpinner && (
+          <div className={monacoStyles.spinnerOverlay}>
+            <div className={monacoStyles.spinner}>
+              <MutatingDots
+                height="100"
+                width="100"
+                color="#4fa94d"
+                secondaryColor="#4fa94d"
+                radius="12.5"
+                ariaLabel="mutating-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+              />
+            </div>
+          </div>
+        )}
         <Editor
           height={height}
           width={width}

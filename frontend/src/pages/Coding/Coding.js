@@ -36,7 +36,6 @@ class Coding extends React.Component {
 
     lobbyService.getLobby(props.id).then((res) => {
       this.setState({ number: res.problem });
-      console.log(res);
 
       problemService.getProblem(res.problem).then((problem) => {
         this.setState({

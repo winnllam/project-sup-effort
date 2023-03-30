@@ -5,11 +5,13 @@ import { io } from "socket.io-client";
 class ChatBox extends React.Component {
   constructor(props) {
     super(props);
+
     let url = process.env.REACT_APP_BACKEND_LOCALHOST;
     if (process.env.NODE_ENV === "production") {
       url = process.env.REACT_APP_PRODUCTION_URL;
     }
     this.socket = io(url);
+
     this.state = {
       messages: [],
     };

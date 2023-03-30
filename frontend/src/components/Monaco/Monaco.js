@@ -7,7 +7,6 @@ import * as problemService from "../../services/api/Problems.js";
 import { io } from "socket.io-client";
 import getLobbyName from "../../lobby/lobbyName";
 
-
 const width = "100%";
 let language = "";
 
@@ -16,7 +15,13 @@ class Monaco extends React.Component {
   constructor(props) {
     super(props);
     this.prevValue = "";
-    this.socket = io("http://localhost:9000");
+
+    let url = process.env.REACT_APP_BACKEND_LOCALHOST;
+    if (process.env.NODE_ENV === "production") {
+      url = process.env.REACT_APP_PRODUCTION_URL;
+    }
+    this.socket = io(url);
+
     this.state = {
       number: null,
       code: null,
@@ -63,11 +68,11 @@ class Monaco extends React.Component {
     });
 
     this.socket.on("receive-code", (id, code) => {
-        this.prevValue = code;
-        this.setState(() => {
-          return {
-            code: code,
-          };
+      this.prevValue = code;
+      this.setState(() => {
+        return {
+          code: code,
+        };
       });
     });
   }
@@ -211,7 +216,7 @@ class Monaco extends React.Component {
   handleEditorChange(value, event) {
     console.log(value === this.prevValue);
     if (value !== this.prevValue) {
-      this.socket.emit("send-code",this.socket.id, value);
+      this.socket.emit("send-code", this.socket.id, value);
       this.prevValue = value;
     }
   }

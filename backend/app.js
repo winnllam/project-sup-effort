@@ -65,8 +65,8 @@ const io = new Server(httpServer, {
     }
   });
 
-httpServer.listen(process.env.PORT || 9001, () => {
-  console.log(`Socket server on ${process.env.PORT || 9001}`);
+httpServer.listen(process.env.PORT || 9000, () => {
+  console.log(`Socket server on ${process.env.PORT || 9000}`);
 });
 
 io.on("connection", (socket) => {

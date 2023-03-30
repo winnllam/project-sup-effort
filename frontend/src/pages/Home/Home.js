@@ -27,12 +27,13 @@ const Home = () => {
                 A new way to practice coding
               </div>
               <div class={homeStyles.textBlock}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-                ac ultricies lorem. In eget lectus at velit molestie scelerisque
-                id eget risus. Fusce dictum, urna sed condimentum tincidunt,
-                ante purus pellentesque metus, quis rhoncus magna lorem eu
-                metus. Aliquam malesuada porttitor orci, eget molestie risus
-                posuere vitae.
+                Gone are the days of tedious exercises and repetitive drills.
+                Our platform offers a fun and engaging way to sharpen your
+                coding skills through exciting coding challenges and
+                competitions. With our innovative approach, you'll be able to
+                improve your coding abilities while enjoying the thrill of
+                friendly competition. Join us today and discover a whole new
+                world of coding practice!
               </div>
             </div>
           </Col>
@@ -46,12 +47,12 @@ const Home = () => {
                 Compete in real time against users
               </div>
               <div class={homeStyles.textBlock}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-                ac ultricies lorem. In eget lectus at velit molestie scelerisque
-                id eget risus. Fusce dictum, urna sed condimentum tincidunt,
-                ante purus pellentesque metus, quis rhoncus magna lorem eu
-                metus. Aliquam malesuada porttitor orci, eget molestie risus
-                posuere vitae.
+                Are you ready for the ultimate coding challenge? Our coding
+                competition site offers a unique opportunity to compete in
+                real-time against your friends! With our state-of-the-art
+                platform, you'll be able to test your coding skills and strategy
+                under pressure, as you compete head-to-head against other
+                talented programmers you know.
               </div>
             </div>
           </Col>
@@ -72,12 +73,10 @@ const Home = () => {
                 Compete in popular languages
               </div>
               <div class={homeStyles.textBlock}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-                ac ultricies lorem. In eget lectus at velit molestie scelerisque
-                id eget risus. Fusce dictum, urna sed condimentum tincidunt,
-                ante purus pellentesque metus, quis rhoncus magna lorem eu
-                metus. Aliquam malesuada porttitor orci, eget molestie risus
-                posuere vitae.
+                Are you a Java guru or a Python mastermind? Our coding
+                competition site offers challenges and competitions in popular
+                programming languages like Java, Python, C, and more, allowing
+                you to showcase your skills in the language of your choice.
               </div>
             </div>
           </Col>
@@ -92,12 +91,11 @@ const Home = () => {
             <div class={homeStyles.introText}>
               <div class={homeStyles.subtitle}>Win award badges</div>
               <div class={homeStyles.textBlock}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-                ac ultricies lorem. In eget lectus at velit molestie scelerisque
-                id eget risus. Fusce dictum, urna sed condimentum tincidunt,
-                ante purus pellentesque metus, quis rhoncus magna lorem eu
-                metus. Aliquam malesuada porttitor orci, eget molestie risus
-                posuere vitae.
+                Winning is not just about bragging rights. Our platform offers a
+                variety of badges and awards to recognize your achievements and
+                progress as a coder. From beginner to expert levels, our badges
+                provide a tangible way to track your growth and show off your
+                coding skills to the world.
               </div>
             </div>
           </Col>

@@ -23,12 +23,11 @@ class About extends React.Component {
                   Made by developers for developers
                 </div>
                 <div class={aboutStyles.textBlock}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Vivamus ac ultricies lorem. In eget lectus at velit molestie
-                  scelerisque id eget risus. Fusce dictum, urna sed condimentum
-                  tincidunt, ante purus pellentesque metus, quis rhoncus magna
-                  lorem eu metus. Aliquam malesuada porttitor orci, eget
-                  molestie risus posuere vitae.
+                  With a deep understanding of the coding world and the needs of
+                  our community. We are committed to creating a platform that
+                  provides a fun, challenging, and engaging environment for
+                  coders of all skill levels, designed specifically with our
+                  fellow developers in mind.
                 </div>
               </div>
             </Col>

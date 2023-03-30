@@ -24,7 +24,7 @@ class About extends React.Component {
                 </div>
                 <div class={aboutStyles.textBlock}>
                   With a deep understanding of the coding world and the needs of
-                  our community. We are committed to creating a platform that
+                  our community, we are committed to creating a platform that
                   provides a fun, challenging, and engaging environment for
                   coders of all skill levels, designed specifically with our
                   fellow developers in mind.

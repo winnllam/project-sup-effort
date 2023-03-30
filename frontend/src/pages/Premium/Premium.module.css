@@ -74,10 +74,14 @@ ul {
 }
 
 .featureList {
+  font-family: "Alegreya";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
   background: #fffdf7;
   border-radius: 30px;
-  width: 70%;
+  width: 50%;
   margin: 0px auto;
-  height: 500px;
-  padding: 20px 0px;
+  height: auto;
+  padding: 30px;
 }

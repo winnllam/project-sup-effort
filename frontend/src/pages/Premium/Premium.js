@@ -20,9 +20,9 @@ const Premium = () => {
               <div class={premiumStyles.planTitle}>Monthly Plan</div>
               <div class={premiumStyles.info}>
                 <ul>
-                  <li>Some info</li>
-                  <li>Some info</li>
-                  <li>Some info</li>
+                  <li>Pay on a monthly basis</li>
+                  <li>Total of $119.88 for the year</li>
+                  <li>No commitment, cancel anytime!</li>
                 </ul>
               </div>
               <div class={premiumStyles.price}>$9.99</div>
@@ -36,9 +36,9 @@ const Premium = () => {
               <div class={premiumStyles.planTitle}>Yearly Plan</div>
               <div class={premiumStyles.info}>
                 <ul>
-                  <li>Some info</li>
-                  <li>Some info</li>
-                  <li>Some info</li>
+                  <li>Pay on a yearly basis</li>
+                  <li>Save 16% with a yearly plan!</li>
+                  <li>No commitment, cancel anytime!</li>
                 </ul>
               </div>
               <div class={premiumStyles.price}>$99.99</div>
@@ -49,7 +49,18 @@ const Premium = () => {
       </div>
       <div class={premiumStyles.features}>
         <div class={premiumStyles.planTitle}>Premium Features</div>
-        <div class={premiumStyles.featureList}>TO BE DONE</div>
+        <div class={premiumStyles.featureList}>
+          Upgrade your coding game with our premium features! Our coding
+          competition site offers a range of premium features, including access
+          to exclusive challenges, advanced analytics and insights, and
+          personalized coaching and support to help you take your coding skills
+          to the next level. Join our premium membership today and unlock the
+          full potential of our platform!
+          <ul>
+            Our premium includes:
+            <li>Solutions to coding problems</li>
+          </ul>
+        </div>
       </div>
       <div>
         <img

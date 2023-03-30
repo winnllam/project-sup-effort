@@ -57,13 +57,17 @@ app.use("/api/premium", premiumRouter);
 
 const httpServer = createServer(app);
 
-const io = new Server(httpServer, {  
+const io = new Server(httpServer, {
   cors: {
-    origin: ["http://localhost:3000", "https://divideandconquer.me/", "http://localhost:9000"],
+    origin: [
+      "http://localhost:3000",
+      "https://divideandconquer.me/",
+      "http://localhost:9000",
+    ],
     methods: ["GET", "POST"],
-    credentials: true
-    }
-  });
+    credentials: true,
+  },
+});
 
 httpServer.listen(process.env.PORT || 9000, () => {
   console.log(`Socket server on ${process.env.PORT || 9000}`);

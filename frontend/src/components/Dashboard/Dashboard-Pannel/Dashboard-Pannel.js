@@ -28,7 +28,7 @@ class DashboardPannel extends React.Component {
   }
 
   render() {
-    const { name, userPic, lastLoginDate } = this.state;
+    const { name, userPic, lastLoginDate, userId } = this.state;
     return (
       <div className={styles.pannel}>
         <div id={styles.user}>
@@ -36,11 +36,10 @@ class DashboardPannel extends React.Component {
           <div class={styles.username}>{name}</div>
           <div id={styles.lastLogin}>Last Login: {lastLoginDate}</div>
           {this.state.userStatus === "basic" && (
-            <button
-              class={styles.button}
-              onClick={() => this.setState({ section: "profile" })}
-            >
-              Profile
+            <button class={styles.button}>
+              <Link to={"/dashboard/profile"} class={styles.options}>
+                Profile
+              </Link>
             </button>
           )}
           <br />
@@ -63,11 +62,7 @@ class DashboardPannel extends React.Component {
           )}
 
           {this.state.userStatus === "admin" && (
-            <button
-              class={styles.button}
-              onClick={() => this.setState({ section: "admin-problems" })}
-            >
-              {/* Problems */}
+            <button class={styles.button}>
               <Link to="/dashboard/admin/problems" class={styles.options}>
                 Problems
               </Link>

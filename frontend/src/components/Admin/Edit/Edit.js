@@ -274,6 +274,7 @@ class Edit extends React.Component {
                 value={this.state.starterCode}
                 onMount={this.handleStarterEditorDidMount}
               />
+              <div class={styles.category}>Method Name</div>
               <input
                 type="text"
                 id={styles.methodName}

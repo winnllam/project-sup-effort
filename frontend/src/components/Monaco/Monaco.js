@@ -1,6 +1,6 @@
 import React from "react";
 import Editor from "@monaco-editor/react";
-import { Circles } from "react-loader-spinner";
+import { MutatingDots } from "react-loader-spinner";
 import monacoStyles from "./Monaco.module.css";
 import * as compilerService from "../../services/api/JDoodle.js";
 import * as problemService from "../../services/api/Problems.js";
@@ -214,9 +214,13 @@ class Monaco extends React.Component {
         {setSpinner && (
           <div className={monacoStyles.spinnerOverlay}>
             <div className={monacoStyles.spinner}>
-              <Circles
+              <MutatingDots
+                height="100"
+                width="100"
                 color="#4fa94d"
-                ariaLabel="circles-loading"
+                secondaryColor="#4fa94d"
+                radius="12.5"
+                ariaLabel="mutating-dots-loading"
                 wrapperStyle={{}}
                 wrapperClass=""
                 visible={true}

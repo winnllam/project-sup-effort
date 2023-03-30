@@ -88,3 +88,12 @@
   font-weight: 400;
   color: #000000;
 }
+
+.options {
+  text-decoration: none;
+  font-family: "Alegreya";
+  font-style: normal;
+  font-size: 20px;
+  font-weight: 400;
+  color: #000000;
+}

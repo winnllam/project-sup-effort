@@ -1,0 +1,18 @@
+.problem {
+  background: rgba(222, 226, 230, 0.8);
+  min-height: 80vh;
+  display: flex;
+}
+
+#pannel {
+  width: 35%;
+  height: 100%;
+  min-height: 100vh;
+}
+
+#problemDetail {
+  width: 65%;
+  height: auto;
+  float: left;
+  border-left: 2px solid #000000;
+}

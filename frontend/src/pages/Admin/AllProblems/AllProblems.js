@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Problems.module.css";
+import styles from "./AllProblems.module.css";
 import { withAuth0 } from "@auth0/auth0-react";
 import DashboardPannel from "../../../components/Dashboard/Dashboard-Pannel/Dashboard-Pannel";
 import ProblemList from "../../../components/Admin/Problem-List/Problem-List";

@@ -13,13 +13,19 @@
 .buttonBar {
   background-color: white;
 }
+
 .submitBtn {
   padding: 10px 20px;
   margin: 10px;
-  border: none;
+  border: solid 2px rgb(117, 180, 117);
   border-radius: 10px;
   background-color: rgb(117, 180, 117);
   color: white;
+}
+
+.submitBtn:hover {
+  background-color: white;
+  color: rgb(117, 180, 117);
 }
 
 .spinnerOverlay {

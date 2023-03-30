@@ -4,7 +4,45 @@
 
 .testResults {
   background-color: white;
-  border-radius: 10px;
   padding: 20px;
   text-align: left;
+  max-height: 35vh;
+  overflow-y: scroll;
+}
+
+.buttonBar {
+  background-color: white;
+}
+
+.submitBtn {
+  padding: 10px 20px;
+  margin: 10px;
+  border: solid 2px rgb(117, 180, 117);
+  border-radius: 10px;
+  background-color: rgb(117, 180, 117);
+  color: white;
+}
+
+.submitBtn:hover {
+  background-color: white;
+  color: rgb(117, 180, 117);
+}
+
+.spinnerOverlay {
+  height: 75vh;
+  width: 50%;
+  background-color: rgba(0, 0, 0, 0.25);
+  position: absolute;
+  z-index: 2;
+}
+
+.spinner {
+  margin: auto;
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

@@ -1,5 +1,4 @@
 import express from "express";
-import path from "path";
 import bodyParser from "body-parser";
 import session from "express-session";
 import cors from "cors";
@@ -10,7 +9,12 @@ import { Server } from "socket.io";
 import { usersRouter } from "./routers/users_router.js";
 import { problemsRouter } from "./routers/problems_router.js";
 import { compilersRouter } from "./routers/compilers_router.js";
+<<<<<<< HEAD
 import { lobbyRouter } from "./routers/lobby_router.js";
+=======
+import { emailsRouter } from "./routers/email_router.js";
+import { premiumRouter } from "./routers/premium_router.js";
+>>>>>>> main
 
 const PORT = 9000;
 export const app = express();
@@ -38,7 +42,7 @@ app.use(cors(corsOptions));
 
 app.use(
   session({
-    secret: process.env.SECRET_KEY || "test",
+    secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: true,
   })
@@ -48,6 +52,8 @@ app.use("/api/users", usersRouter);
 app.use("/api/problems", problemsRouter);
 app.use("/api/compilers", compilersRouter);
 app.use("/api/lobby", lobbyRouter);
+app.use("/api/emails", emailsRouter);
+app.use("/api/premium", premiumRouter);
 
 // app.listen(PORT, (err) => {
 //   if (err) console.log(err);
@@ -58,15 +64,18 @@ const httpServer = createServer(app);
 
 const io = new Server(httpServer, {  
   cors: {
-    origin: ["http://localhost:3000", "https://divideandconquer.me/", "http://localhost:9000"],
+    origin: [
+      "http://localhost:3000",
+      "https://divideandconquer.me/",
+      "http://localhost:9000",
+    ],
     methods: ["GET", "POST"],
-    credentials: true
-    }
-  });
-
+    credentials: true,
+  },
+});
 
 httpServer.listen(process.env.PORT || 9000, () => {
-  console.log(`Server listening on port ${PORT}`);
+  console.log(`Socket server on ${process.env.PORT || 9000}`);
 });
 
 io.on("connection", (socket) => {

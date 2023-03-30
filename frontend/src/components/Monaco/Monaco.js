@@ -1,5 +1,6 @@
 import React from "react";
 import Editor from "@monaco-editor/react";
+import { MutatingDots } from "react-loader-spinner";
 import monacoStyles from "./Monaco.module.css";
 import * as compilerService from "../../services/api/JDoodle.js";
 import * as problemService from "../../services/api/Problems.js";
@@ -7,7 +8,6 @@ import { io } from "socket.io-client";
 import getLobbyName from "../../lobby/lobbyName";
 
 
-// const height = "90vh";
 const width = "100%";
 let language = "";
 
@@ -21,23 +21,38 @@ class Monaco extends React.Component {
       number: null,
       code: null,
       methodName: null,
-      height: "80vh",
+      height: "75vh",
       results: [],
       showResults: false,
+      setSpinner: false,
     };
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.submit = this.submit.bind(this);
   }
 
   componentWillReceiveProps(props) {
+    sessionStorage.setItem(language, editorCode?.getValue());
+
     if (props.language !== null) {
       language = props.language;
     }
     if (props.number !== null) {
       this.setState({ number: props.number });
-      problemService.getStarterCode(props.number, language).then((res) => {
-        this.setState({ code: res.code, methodName: res.methodName });
-      });
+
+      // if the language has modified code from previous attempt
+      if (sessionStorage.getItem(language) !== null) {
+        // restore the code from storage
+        this.setState({ code: sessionStorage.getItem(language) });
+      } else {
+        problemService
+          .getStarterCode(props.number, language)
+          .then((res) => {
+            this.setState({ code: res.code, methodName: res.methodName });
+          })
+          .catch((error) => {
+            this.setState({ code: "Language not supported!" });
+          });
+      }
     }
   }
 
@@ -67,7 +82,6 @@ class Monaco extends React.Component {
 
   runPython(total, tests) {
     let addTests = editorCode?.getValue();
-    console.log(addTests);
     addTests = addTests.concat("\r\npassCounter = 0");
 
     for (let i = 0; i < total; i++) {
@@ -96,21 +110,100 @@ class Monaco extends React.Component {
       "\r\nprint('Passed: ' + str(passCounter) + '/" + total + "')"
     );
 
-    console.log(addTests);
     return addTests;
   }
 
+  runJavascript(total, tests) {
+    let addTests = editorCode?.getValue();
+    addTests = addTests.concat("let passCounter = 0;");
+
+    for (let i = 0; i < total; i++) {
+      const functionCall = this.state.methodName + "(" + tests[i].input + ")";
+      addTests = addTests.concat("testCallResult = " + functionCall + ";");
+      addTests = addTests.concat(
+        'console.log("Expected: ' +
+          tests[i].output +
+          '; Actual: " + testCallResult + "; Pass: " + (' +
+          tests[i].output +
+          "=== testCallResult));"
+      );
+      addTests = addTests.concat(
+        "if (" + tests[i].output + " === testCallResult) { passCounter++; }"
+      );
+    }
+
+    addTests = addTests.concat(
+      'console.log("Passed: " + passCounter + "/' + total + '")'
+    );
+
+    return addTests;
+  }
+
+  runJava(total, tests) {
+    let main =
+      "public class mainClass { public static void main(String args[]) { Solution sol = new Solution();";
+    main = main.concat("int passCounter = 0;");
+    for (let i = 0; i < total; i++) {
+      const functionCall =
+        "sol." + this.state.methodName + "(" + tests[i].input + ")";
+
+      // print out comparisons
+      main = main.concat(
+        'System.out.println("Expected: ' +
+          tests[i].output +
+          '; Actual: " + ' +
+          functionCall +
+          ' + "; Pass: " + (' +
+          tests[i].output +
+          " == " +
+          functionCall +
+          "));"
+      );
+
+      // increase counter if test passed
+      main = main.concat(
+        "if (" +
+          tests[i].output +
+          " == " +
+          functionCall +
+          ") { passCounter++; }"
+      );
+    }
+
+    main = main.concat(
+      'System.out.println("Passed: " + passCounter + "/' + total + '");'
+    );
+    main = main.concat("}}");
+
+    let solutionCode = editorCode?.getValue();
+    main = main.concat(solutionCode);
+    return main;
+  }
+
   submit() {
-    // TODO: this is for python only right now, need to account for the other languages
+    this.setState({ setSpinner: true });
     problemService.getTestCases(this.state.number).then((res) => {
       const total = res.total;
       const tests = res.test;
 
-      const addTests = this.runPython(total, tests);
+      let addTests = "";
+      if (language === "python") {
+        addTests = this.runPython(total, tests);
+      } else if (language === "java") {
+        addTests = this.runJava(total, tests);
+      } else if (language === "javascript") {
+        addTests = this.runJavascript(total, tests);
+      }
+      console.log(addTests);
 
       compilerService.executeCode(addTests, language).then((test) => {
         const result = test.output.split(/\r?\n/);
-        this.setState({ height: "45vh", results: result, showResults: true });
+        this.setState({
+          height: "40vh",
+          results: result,
+          showResults: true,
+          setSpinner: false,
+        });
       });
     });
   }
@@ -124,25 +217,47 @@ class Monaco extends React.Component {
   }
 
   render() {
-    const { code, height, results, showResults } = this.state;
+    const { code, height, results, showResults, setSpinner } = this.state;
     return (
       <>
+        {setSpinner && (
+          <div className={monacoStyles.spinnerOverlay}>
+            <div className={monacoStyles.spinner}>
+              <MutatingDots
+                height="100"
+                width="100"
+                color="#4fa94d"
+                secondaryColor="#4fa94d"
+                radius="12.5"
+                ariaLabel="mutating-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+              />
+            </div>
+          </div>
+        )}
         <Editor
           height={height}
           width={width}
-          defaultLanguage={language}
+          language={language}
           value={code}
           onMount={this.handleEditorDidMount}
           onChange={this.handleEditorChange}
         />
-        <button onClick={this.submit}>Submit Code</button>
         {showResults ? (
           <div className={monacoStyles.testResults}>
+            <h2>Test Results</h2>
             {results.map((test) => (
               <p key={test}>{test}</p>
             ))}
           </div>
         ) : null}
+        <div className={monacoStyles.buttonBar}>
+          <button onClick={this.submit} className={monacoStyles.submitBtn}>
+            Submit Code
+          </button>
+        </div>
       </>
     );
   }

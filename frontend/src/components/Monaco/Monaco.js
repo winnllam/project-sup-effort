@@ -1,5 +1,6 @@
 import React from "react";
 import Editor from "@monaco-editor/react";
+import { Circles } from "react-loader-spinner";
 import monacoStyles from "./Monaco.module.css";
 import * as compilerService from "../../services/api/JDoodle.js";
 import * as problemService from "../../services/api/Problems.js";
@@ -20,6 +21,7 @@ class Monaco extends React.Component {
       height: "75vh",
       results: [],
       showResults: false,
+      setSpinner: false,
     };
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.submit = this.submit.bind(this);
@@ -174,6 +176,7 @@ class Monaco extends React.Component {
   }
 
   submit() {
+    this.setState({ setSpinner: true });
     problemService.getTestCases(this.state.number).then((res) => {
       const total = res.total;
       const tests = res.test;
@@ -190,7 +193,12 @@ class Monaco extends React.Component {
 
       compilerService.executeCode(addTests, language).then((test) => {
         const result = test.output.split(/\r?\n/);
-        this.setState({ height: "40vh", results: result, showResults: true });
+        this.setState({
+          height: "40vh",
+          results: result,
+          showResults: true,
+          setSpinner: false,
+        });
       });
     });
   }
@@ -200,9 +208,22 @@ class Monaco extends React.Component {
   }
 
   render() {
-    const { code, height, results, showResults } = this.state;
+    const { code, height, results, showResults, setSpinner } = this.state;
     return (
       <>
+        {setSpinner && (
+          <div className={monacoStyles.spinnerOverlay}>
+            <div className={monacoStyles.spinner}>
+              <Circles
+                color="#4fa94d"
+                ariaLabel="circles-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+              />
+            </div>
+          </div>
+        )}
         <Editor
           height={height}
           width={width}

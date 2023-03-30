@@ -9,12 +9,9 @@ import { Server } from "socket.io";
 import { usersRouter } from "./routers/users_router.js";
 import { problemsRouter } from "./routers/problems_router.js";
 import { compilersRouter } from "./routers/compilers_router.js";
-<<<<<<< HEAD
 import { lobbyRouter } from "./routers/lobby_router.js";
-=======
 import { emailsRouter } from "./routers/email_router.js";
 import { premiumRouter } from "./routers/premium_router.js";
->>>>>>> main
 
 const PORT = 9000;
 export const app = express();
@@ -35,7 +32,11 @@ database.once("connected", () => {
 });
 
 const corsOptions = {
-  origin: ["http://localhost:3000", "https://divideandconquer.me/", "http://localhost:9000"],
+  origin: [
+    "http://localhost:3000",
+    "https://divideandconquer.me/",
+    "http://localhost:9000",
+  ],
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -62,7 +63,7 @@ app.use("/api/premium", premiumRouter);
 
 const httpServer = createServer(app);
 
-const io = new Server(httpServer, {  
+const io = new Server(httpServer, {
   cors: {
     origin: [
       "http://localhost:3000",

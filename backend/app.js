@@ -50,22 +50,23 @@ app.use("/api/compilers", compilersRouter);
 app.use("/api/emails", emailsRouter);
 app.use("/api/premium", premiumRouter);
 
-app.listen(PORT, (err) => {
-  if (err) console.log(err);
-  else console.log("HTTP server on http://localhost:%s", PORT);
-});
+// app.listen(PORT, (err) => {
+//   if (err) console.log(err);
+//   else console.log("HTTP server on http://localhost:%s", PORT);
+// });
 
 const httpServer = createServer(app);
 
-const io = new Server(httpServer, {
+const io = new Server(httpServer, {  
   cors: {
-    origin: ["http://localhost:3000", "https://divideandconquer.me/"],
+    origin: ["http://localhost:3000", "https://divideandconquer.me/", "http://localhost:9000"],
     methods: ["GET", "POST"],
-  },
-});
+    credentials: true
+    }
+  });
 
-httpServer.listen(process.env.PORT || 9001, () => {
-  console.log(`Socket server on ${process.env.PORT || 9001}`);
+httpServer.listen(process.env.PORT || 9000, () => {
+  console.log(`Socket server on ${process.env.PORT || 9000}`);
 });
 
 io.on("connection", (socket) => {
@@ -77,3 +78,5 @@ io.on("connection", (socket) => {
     console.log("Client disconnected");
   });
 });
+
+io.listen(httpServer);

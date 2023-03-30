@@ -36,18 +36,27 @@ class Coding extends React.Component {
 
     lobbyService.getLobby(props.id).then((res) => {
       this.setState({ number: res.problem });
+      console.log(res);
+
+      problemService.getProblem(res.problem).then((problem) => {
+        this.setState({
+          name: problem.name,
+          description: problem.description,
+          difficulty: problem.difficulty,
+        });
+      });
     });
 
     this.updateLanguage = this.updateLanguage.bind(this);
     this.updateSolutionLanguage = this.updateSolutionLanguage.bind(this);
 
-    problemService.getProblem(this.state.number).then((res) => {
-      this.setState({
-        name: res.name,
-        description: res.description,
-        difficulty: res.difficulty,
-      });
-    });
+    // problemService.getProblem(this.state.number).then((res) => {
+    //   this.setState({
+    //     name: res.name,
+    //     description: res.description,
+    //     difficulty: res.difficulty,
+    //   });
+    // });
   }
 
   componentDidMount() {

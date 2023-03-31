@@ -7,11 +7,11 @@ export const lobbyRouter = Router();
 lobbyRouter.post("/:id", async function (req, res, next) {
   const lobby = new Lobby({
     id: req.params.id,
-    host:  "abc",
+    host: "abc",
     players: ["abc"],
     status: "Waiting",
     problem: 1,
-    });
+  });
 
   try {
     await lobby.save();

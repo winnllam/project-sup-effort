@@ -84,17 +84,22 @@ httpServer.listen(process.env.PORT || 9000, () => {
 io.on("connection", (socket) => {
   console.log("New client connected " + socket.id);
 
-  socket.on("user-connected", (message) => {
-    socket.broadcast.emit("user-connected", message);
+  socket.on("join-room", (room) => {
+    console.log("Joining room: " + room);
+    socket.join(room);
   });
 
-  socket.on("send-message", (message) => {
-    socket.broadcast.emit("receive-message", message);
+  socket.on("user-connected", (message, room) => {
+    socket.to(room).emit("user-connected", message);
   });
 
-  socket.on("send-code", (id, code) => {
+  socket.on("send-message", (message, room) => {
+    socket.to(room).emit("receive-message", message);
+  });
+
+  socket.on("send-code", (id, code, room) => {
     console.log(id, code);
-    socket.broadcast.emit("receive-code", id, code);
+    socket.to(room).emit("receive-code", id, code);
   });
 
   socket.on("disconnect", () => {

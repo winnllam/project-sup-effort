@@ -120,11 +120,11 @@ class Coding extends React.Component {
             value={defaultOption}
             placeholder="Select a language"
           />
-          <Monaco number={number} language={language} />
+          <Monaco number={number} language={language} lobby={this.props.id} />
         </div>
         <div className={codingStyles.rightPane}>
           <div className={codingStyles.infoBox}>{this.props.id}</div>
-          <ChatBox />
+          <ChatBox lobby={this.props.id} />
         </div>
       </div>
     );

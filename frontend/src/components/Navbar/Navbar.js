@@ -5,7 +5,7 @@ import navbarStyles from "./Navbar.module.css";
 import logoUrl from "../../assets/logo.png";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import {Modal, Button} from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import { HashLink as Link } from "react-router-hash-link";
 import homeStyles from "../../pages/Home/Home.module.css";
 import aboutStyles from "../About/About.module.css";
@@ -89,16 +89,18 @@ const Navbar = () => {
             )}
           </Col>
           <>
-          <Col md={"auto"}>
-            {isAuthenticated && !isLoading && (
-              <div id={navbarStyles.dashboard} 
-              class={navbarStyles.options}
-              onClick={handleShowModal}>
+            <Col md={"auto"}>
+              {isAuthenticated && !isLoading && (
+                <div
+                  id={navbarStyles.dashboard}
+                  class={navbarStyles.options}
+                  onClick={handleShowModal}
+                >
                   Create Lobby
-              </div>
-            )}
-          </Col>
-          <LobbyModal show={showModal} handleClose={handleCloseModal} />
+                </div>
+              )}
+            </Col>
+            <LobbyModal show={showModal} handleClose={handleCloseModal} />
           </>
           <Col md={{ span: "auto", offset: 2 }}>
             {!isAuthenticated && !isLoading && (

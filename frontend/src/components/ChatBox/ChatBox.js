@@ -1,6 +1,7 @@
 import React from "react";
 import chatboxStyles from "./ChatBox.module.css";
 import { io } from "socket.io-client";
+import * as userService from "../../services/api/Users.js";
 
 class ChatBox extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class ChatBox extends React.Component {
     }
     this.socket = io(url);
     this.lobby = this.props.lobby;
+    this.userId = "";
     this.state = {
       messages: [],
     };
@@ -19,11 +21,16 @@ class ChatBox extends React.Component {
   }
 
   componentWillMount() {
+    userService.getMe().then((res) => {
+      this.userId = res._id;
+      console.log(this.userId);
+    });
+    
     this.socket.on("connect", () => {
       console.log(`Connected to socket server with id ${this.socket.id}`);
       this.socket.emit("join-room", this.lobby);
-      this.socket.emit("user-connected", this.socket.id, this.lobby);
-      let newMessage = this.socket.id + " has joined the chat";
+      this.socket.emit("user-connected", this.userId, this.lobby);
+      let newMessage = this.userId + " has joined the chat";
       this.setState({
         messages: [...this.state.messages, newMessage],
       });
@@ -48,7 +55,7 @@ class ChatBox extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const messageInput = document.getElementById("message-input");
-    const newMessage = this.socket.id + ": " + messageInput.value;
+    const newMessage = this.userId + ": " + messageInput.value;
     this.setState({
       messages: [...this.state.messages, newMessage],
     });

@@ -5,6 +5,7 @@ import Coding from "./Coding";
 
 const CodingLobbyHook = () => {
   const location = useLocation();
+  console.log(location);
   const splitter = location.pathname.split("/");
   return <Coding id={splitter[splitter.length - 1]} />;
 };

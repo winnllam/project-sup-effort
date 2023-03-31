@@ -9,7 +9,6 @@ const lobbyName = getLobbyName();
 const handleCreateLobby = () => {
   console.log("Create Lobby");
   lobbyService.createLobby(lobbyName).then((res) => {
-    console.log(res);
     window.location.href = "/coding/" + lobbyName;
   });
 };

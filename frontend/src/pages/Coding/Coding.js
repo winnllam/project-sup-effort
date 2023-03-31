@@ -1,7 +1,6 @@
 import React from "react";
 import codingStyles from "./Coding.module.css";
 import { withAuth0 } from "@auth0/auth0-react";
-import { useLocation } from "react-router-dom";
 import Editor from "@monaco-editor/react";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
@@ -11,6 +10,7 @@ import ChatBox from "../../components/ChatBox/ChatBox";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import * as userService from "../../services/api/Users.js";
+import * as lobbyService from "../../services/api/Lobby.js";
 
 const options = [
   { value: "python", label: "Python3" },
@@ -34,16 +34,28 @@ class Coding extends React.Component {
       premium: false,
     };
 
+    lobbyService.getLobby(props.id).then((res) => {
+      this.setState({ number: res.problem });
+
+      problemService.getProblem(res.problem).then((problem) => {
+        this.setState({
+          name: problem.name,
+          description: problem.description,
+          difficulty: problem.difficulty,
+        });
+      });
+    });
+
     this.updateLanguage = this.updateLanguage.bind(this);
     this.updateSolutionLanguage = this.updateSolutionLanguage.bind(this);
 
-    problemService.getProblem(props.number).then((res) => {
-      this.setState({
-        name: res.name,
-        description: res.description,
-        difficulty: res.difficulty,
-      });
-    });
+    // problemService.getProblem(this.state.number).then((res) => {
+    //   this.setState({
+    //     name: res.name,
+    //     description: res.description,
+    //     difficulty: res.difficulty,
+    //   });
+    // });
   }
 
   componentDidMount() {

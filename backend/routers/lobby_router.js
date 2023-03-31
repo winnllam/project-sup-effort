@@ -20,3 +20,14 @@ lobbyRouter.post("/:id", async function (req, res, next) {
   }
   return res.json({ lobby });
 });
+
+lobbyRouter.get("/:id", async function (req, res, next) {
+  const lobby = await Lobby.findOne({ id: req.params.id });
+  if (!lobby) {
+    return res
+      .status(404)
+      .json({ error: "lobby:" + req.params.id + " does not exist" });
+  }
+
+  return res.json({ lobby });
+});

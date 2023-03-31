@@ -22,10 +22,10 @@ class ChatBox extends React.Component {
 
   componentWillMount() {
     userService.getMe().then((res) => {
-      this.userId = res._id;
+      this.userId = res.userId;
       console.log(this.userId);
     });
-    
+
     this.socket.on("connect", () => {
       console.log(`Connected to socket server with id ${this.socket.id}`);
       this.socket.emit("join-room", this.lobby);

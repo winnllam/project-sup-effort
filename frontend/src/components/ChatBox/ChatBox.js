@@ -13,7 +13,7 @@ class ChatBox extends React.Component {
     }
     this.socket = io(url);
     this.lobby = this.props.lobby;
-    this.userId = "";
+    this.username = "";
     this.state = {
       messages: [],
     };
@@ -22,15 +22,15 @@ class ChatBox extends React.Component {
 
   componentWillMount() {
     userService.getMe().then((res) => {
-      this.userId = res.userId;
-      console.log(this.userId);
+      this.username = res.username;
+      console.log(this.username);
     });
 
     this.socket.on("connect", () => {
       console.log(`Connected to socket server with id ${this.socket.id}`);
       this.socket.emit("join-room", this.lobby);
-      this.socket.emit("user-connected", this.userId, this.lobby);
-      let newMessage = this.userId + " has joined the chat";
+      this.socket.emit("user-connected", this.username, this.lobby);
+      let newMessage = this.username + " has joined the chat";
       this.setState({
         messages: [...this.state.messages, newMessage],
       });
@@ -55,7 +55,7 @@ class ChatBox extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const messageInput = document.getElementById("message-input");
-    const newMessage = this.userId + ": " + messageInput.value;
+    const newMessage = this.username + ": " + messageInput.value;
     this.setState({
       messages: [...this.state.messages, newMessage],
     });

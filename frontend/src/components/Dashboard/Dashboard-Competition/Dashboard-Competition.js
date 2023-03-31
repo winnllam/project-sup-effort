@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Dashboard-Competition.module.css";
-import image from "../../assets/dashboard_competition.svg";
-import dashboardStyles from "../../pages/Dashboard/Dashboard.module.css";
+import image from "../../../assets/dashboard_competition.svg";
+import dashboardStyles from "../../../pages/Dashboard/Dashboard.module.css";
 
 const DashboardCompetition = () => {
   return (

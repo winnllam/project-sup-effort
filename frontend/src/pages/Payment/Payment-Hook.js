@@ -10,7 +10,6 @@ const PaymentHook = () => {
     const { upgradeType, upgradeTotal } = location.state;
     return <Payment upgradeType={upgradeType} upgradeTotal={upgradeTotal} />;
   } else {
-    //TODO: Change this
     return <Dashboard />;
   }
 };

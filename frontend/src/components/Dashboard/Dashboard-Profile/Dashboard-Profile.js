@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Dashboard-Profile.module.css";
-import profile from "../../assets/profile.svg";
-import dashboardStyles from "../../pages/Dashboard/Dashboard.module.css";
-import * as userService from "../../services/api/Users.js";
-import * as paymentService from "../../services/api/Payments.js";
+import profile from "../../../assets/profile.svg";
+import dashboardStyles from "../../../pages/Dashboard/Dashboard.module.css";
+import * as userService from "../../../services/api/Users.js";
+import * as paymentService from "../../../services/api/Payments.js";
 import { Modal, Button } from "react-bootstrap";
 import { HashLink as Link } from "react-router-hash-link";
 import Row from "react-bootstrap/Row";
@@ -83,12 +83,14 @@ class DashboardProfile extends React.Component {
       upgradeType,
       upgradeTotal,
       timeToRenew,
+      upgrade,
+      cancel,
     } = this.state;
 
     return (
       <div className={styles.profile}>
         <Modal
-          show={this.state.upgrade}
+          show={upgrade}
           onHide={this.closeUpgradeModal}
           class={styles.modal}
         >
@@ -104,7 +106,7 @@ class DashboardProfile extends React.Component {
               <select
                 id={styles.planType}
                 name="planType"
-                defaultValue={this.state.upgradeType}
+                defaultValue={upgradeType}
                 onChange={this.handleChange}
               >
                 <option value="Monthly">Monthly</option>
@@ -112,7 +114,7 @@ class DashboardProfile extends React.Component {
               </select>
               <hr />
               <div class={styles.modalText}>
-                <b>Total: </b>${this.state.upgradeTotal / 100}
+                <b>Total: </b>${upgradeTotal / 100}
               </div>
             </Modal.Body>
             <Modal.Footer>
@@ -123,7 +125,7 @@ class DashboardProfile extends React.Component {
           </form>
         </Modal>
         <Modal
-          show={this.state.cancel}
+          show={cancel}
           onHide={this.closeCancelModal}
           class={styles.modal}
         >
@@ -148,11 +150,9 @@ class DashboardProfile extends React.Component {
         <div class={styles.section}>
           <div class={styles.subtitle}>User Profile</div>
           <div class={styles.box}>
-            <b>Name:</b> {this.props.name} <br />
             <b>Username:</b> {username}
             <br />
             <b>Email:</b> {email} <br />
-            <b>Connection:</b> Email <br />
             <b>Member Since:</b> {creationDate}
           </div>
         </div>

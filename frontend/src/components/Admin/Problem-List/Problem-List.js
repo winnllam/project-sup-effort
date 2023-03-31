@@ -3,6 +3,7 @@ import Edit from "../Edit/Edit";
 import styles from "./Problem-List.module.css";
 import { Modal, Button } from "react-bootstrap";
 import * as problemService from "../../../services/api/Problems.js";
+import { HashLink as Link } from "react-router-hash-link";
 
 class ProblemList extends React.Component {
   constructor(props) {
@@ -107,19 +108,18 @@ class ProblemList extends React.Component {
                   <i> {problem.description}</i>
                 </div>
                 <div class={styles.editProblem}>
-                  <button
-                    class={styles.button}
-                    onClick={() => this.setState({ problemId: problem.number })}
-                  >
-                    Edit
+                  <button class={styles.button}>
+                    <Link
+                      to={"/dashboard/admin/problems/" + problem.number}
+                      class={styles.options}
+                    >
+                      Edit
+                    </Link>
                   </button>
                 </div>
               </div>
             ))}
           </div>
-        )}
-        {this.state.problemId !== null && (
-          <Edit problemId={this.state.problemId} />
         )}
       </div>
     );

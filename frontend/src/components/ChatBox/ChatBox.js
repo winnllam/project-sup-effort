@@ -11,7 +11,7 @@ class ChatBox extends React.Component {
       url = process.env.REACT_APP_PRODUCTION_URL;
     }
     this.socket = io(url);
-
+    this.lobby = this.props.lobby;
     this.state = {
       messages: [],
     };
@@ -21,7 +21,8 @@ class ChatBox extends React.Component {
   componentWillMount() {
     this.socket.on("connect", () => {
       console.log(`Connected to socket server with id ${this.socket.id}`);
-      this.socket.emit("user-connected", this.socket.id);
+      this.socket.emit("join-room", this.lobby);
+      this.socket.emit("user-connected", this.socket.id, this.lobby);
       let newMessage = this.socket.id + " has joined the chat";
       this.setState({
         messages: [...this.state.messages, newMessage],
@@ -51,7 +52,7 @@ class ChatBox extends React.Component {
     this.setState({
       messages: [...this.state.messages, newMessage],
     });
-    this.socket.emit("send-message", newMessage);
+    this.socket.emit("send-message", newMessage, this.lobby);
     messageInput.value = "";
   }
 

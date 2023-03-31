@@ -15,7 +15,7 @@ class Monaco extends React.Component {
   constructor(props) {
     super(props);
     this.prevValue = "";
-
+    this.lobby = this.props.lobby;
     let url = process.env.REACT_APP_BACKEND_LOCALHOST;
     if (process.env.NODE_ENV === "production") {
       url = process.env.REACT_APP_PRODUCTION_URL;
@@ -65,6 +65,7 @@ class Monaco extends React.Component {
     console.log(getLobbyName());
     this.socket.on("connect", () => {
       console.log(`Connected to socket server with id ${this.socket.id}`);
+      this.socket.emit("join-room", this.lobby);
     });
 
     this.socket.on("receive-code", (id, code) => {
@@ -216,7 +217,7 @@ class Monaco extends React.Component {
   handleEditorChange(value, event) {
     console.log(value === this.prevValue);
     if (value !== this.prevValue) {
-      this.socket.emit("send-code", this.socket.id, value);
+      this.socket.emit("send-code", this.socket.id, value, this.lobby);
       this.prevValue = value;
     }
   }

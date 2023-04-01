@@ -2,17 +2,25 @@ import React, { useState } from "react";
 import styles from "./Dashboard-Competition.module.css";
 import image from "../../../assets/dashboard_competition.svg";
 import dashboardStyles from "../../../pages/Dashboard/Dashboard.module.css";
+import getLobbyName from "../../../lobby/lobbyName";
 import * as lobbyService from "../../../services/api/Lobby.js";
+
+const lobbyName = getLobbyName();
 
 const DashboardCompetition = () => {
   const [lobbyId, setLobbyId] = useState("");
+
+  const handleCreateLobby = () => {
+    lobbyService.createLobby(lobbyName).then((res) => {
+      window.location.href = "/coding/" + lobbyName;
+    });
+  };
 
   const onChangeHandler = (event) => {
     setLobbyId(event.target.value);
   };
 
   const redirectToLobby = () => {
-    console.log(lobbyId);
     lobbyService.getAllLobbies().then((res) => {
       if (res.lobbies.includes(lobbyId)) {
         window.location.href = "/coding/" + lobbyId;
@@ -29,7 +37,7 @@ const DashboardCompetition = () => {
       <div class={styles.section}>
         <div class={styles.subtitle}>New Competition</div>
         <div class={styles.box}>
-          <b>Question:</b>{" "}
+          <b>Difficulty:</b>{" "}
           <select class={styles.dropdown}>
             <option
               value=""
@@ -38,19 +46,21 @@ const DashboardCompetition = () => {
               hidden
               class={styles.optionTitle}
             >
-              Choose a question
+              Choose a difficulty
             </option>
-            <option value="fruit" class={styles.option}>
-              Fruit
+            <option value="easy" class={styles.option}>
+              Easy
             </option>
-            <option value="vegetable" class={styles.option}>
-              Vegetable
+            <option value="medium" class={styles.option}>
+              Medium
             </option>
-            <option value="meat" class={styles.option}>
-              Meat
+            <option value="hard" class={styles.option}>
+              Hard
             </option>
           </select>{" "}
-          <button class={styles.button}>Start</button>
+          <button class={styles.button} onClick={handleCreateLobby}>
+            Generate
+          </button>
         </div>
       </div>
 

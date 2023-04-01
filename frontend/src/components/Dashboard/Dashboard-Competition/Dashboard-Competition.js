@@ -1,9 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Dashboard-Competition.module.css";
 import image from "../../../assets/dashboard_competition.svg";
 import dashboardStyles from "../../../pages/Dashboard/Dashboard.module.css";
+import * as lobbyService from "../../../services/api/Lobby.js";
 
 const DashboardCompetition = () => {
+  const [lobbyId, setLobbyId] = useState("");
+
+  const onChangeHandler = (event) => {
+    setLobbyId(event.target.value);
+  };
+
+  const redirectToLobby = () => {
+    console.log(lobbyId);
+    lobbyService.getAllLobbies().then((res) => {
+      if (res.lobbies.includes(lobbyId)) {
+        window.location.href = "/coding/" + lobbyId;
+      } else {
+        alert("Lobby does not exist!");
+      }
+    });
+  };
+
   return (
     <div className={styles.competition}>
       <div class={styles.title}>Competition</div>
@@ -44,10 +62,14 @@ const DashboardCompetition = () => {
             type="text"
             id={styles.contestCode}
             name="contest"
-            placeholder="divideandconquer.me/dsada"
+            placeholder="Enter Lobby ID"
+            onChange={onChangeHandler}
+            value={lobbyId}
           ></input>
           <br />
-          <button class={styles.button}>Start</button>
+          <button class={styles.button} onClick={redirectToLobby}>
+            Start
+          </button>
         </div>
       </div>
       <img

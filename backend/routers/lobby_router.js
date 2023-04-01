@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { Lobby } from "../models/lobby.js";
-import { Sequence } from "../models/sequence.js";
 
 export const lobbyRouter = Router();
 
@@ -30,4 +29,18 @@ lobbyRouter.get("/:id", async function (req, res, next) {
   }
 
   return res.json({ lobby });
+});
+
+lobbyRouter.get("/", async function (req, res, next) {
+  const lobbies = await Lobby.find({}, { id: 1 });
+
+  let lobbyList = [];
+  for (let i = 0; i < lobbies.length; i++) {
+    lobbyList.push(lobbies[i].id);
+  }
+
+  return res.json({
+    total: lobbies.length,
+    lobbies: lobbyList,
+  });
 });

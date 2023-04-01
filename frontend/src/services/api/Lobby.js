@@ -1,4 +1,4 @@
-import { post, get, patch } from "./base.js";
+import { post, get } from "./base.js";
 
 const URL = "/lobby";
 
@@ -8,4 +8,8 @@ export const createLobby = function (lobbyId) {
 
 export const getLobby = function (lobbyId) {
   return get(URL + `/${lobbyId}`).then((res) => res.data.lobby);
+};
+
+export const getAllLobbies = function () {
+  return get(URL + "/").then((res) => res.data);
 };

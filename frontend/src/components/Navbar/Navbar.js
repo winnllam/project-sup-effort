@@ -10,6 +10,7 @@ import homeStyles from "../../pages/Home/Home.module.css";
 import aboutStyles from "../About/About.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import LobbyModal from "./LobbyModal";
+import * as userService from "../../services/api/Users.js";
 
 const Navbar = () => {
   const { loginWithRedirect, isAuthenticated, logout, isLoading } = useAuth0();
@@ -22,6 +23,14 @@ const Navbar = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+  };
+
+  const handleLogOut = () => {
+    userService.signOut().then(() => {
+      logout({
+        logoutParams: { returnTo: window.location.origin },
+      });
+    });
   };
 
   return (
@@ -115,11 +124,7 @@ const Navbar = () => {
               <div
                 id={navbarStyles.login}
                 class={navbarStyles.options}
-                onClick={() =>
-                  logout({
-                    logoutParams: { returnTo: window.location.origin },
-                  })
-                }
+                onClick={handleLogOut}
               >
                 Logout
               </div>

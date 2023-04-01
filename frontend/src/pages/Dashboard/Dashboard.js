@@ -9,6 +9,9 @@ import DashboardPannel from "../../components/Dashboard/Dashboard-Pannel/Dashboa
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isLoaded: false,
+    };
 
     const { user } = this.props.auth0;
 
@@ -36,19 +39,29 @@ class Dashboard extends React.Component {
           "<p>Welcome to the D&C community!</p><br>";
         emailService.sendEmail(user.email, subject, text, html);
       }
+      this.setState({ isLoaded: true });
     });
   }
 
   render() {
+    const { isLoaded } = this.state;
     return (
-      <div className={dashboardStyles.dashboard}>
-        <div id={dashboardStyles.pannel}>
-          {" "}
-          <DashboardPannel />
-        </div>
-        <div id={dashboardStyles.screen}>
-          <DashboardWelcome />
-        </div>
+      <div className={dashboardStyles.page}>
+        {isLoaded && (
+          <div class={dashboardStyles.dashboard}>
+            <div id={dashboardStyles.pannel}>
+              <DashboardPannel />
+            </div>
+            <div id={dashboardStyles.screen}>
+              <DashboardWelcome />
+            </div>
+          </div>
+        )}
+        {!isLoaded && (
+          <div class={dashboardStyles.dashboard}>
+            <h3>Loading</h3>
+          </div>
+        )}
       </div>
     );
   }

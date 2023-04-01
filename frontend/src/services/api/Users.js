@@ -25,3 +25,7 @@ export const getUser = function (userId) {
 export const getMe = function () {
   return get(URL + "/me").then((res) => res.data);
 };
+
+export const signOut = function () {
+  return get(URL + "/signout").then((res) => res.data);
+};

@@ -68,13 +68,13 @@ class ChatBox extends React.Component {
 
     return (
       <div className={chatboxStyles.chatbox}>
-        <ul className={chatboxStyles.messagesList}>
-          {messages.map((message, index) => (
-            <li key={index} className={chatboxStyles.mesagesListLi}>
-              {message}
-            </li>
-          ))}
-        </ul>
+        {/* <ul className={chatboxStyles.messagesList}> */}
+        {messages.map((message, index) => (
+          <p key={index} className={chatboxStyles.messagesListLi}>
+            {message}
+          </p>
+        ))}
+        {/* </ul> */}
         <div className={chatboxStyles.messageForm}>
           <form id="message-form" onSubmit={this.handleSubmit}>
             <input

@@ -1,7 +1,11 @@
 .chatbox {
-  height: 100%;
+  height: 70%;
   overflow-y: scroll;
   display: flex;
+  flex-direction: column;
+  word-break: break-all;
+  text-align: left;
+  padding: 10px;
 }
 
 .messagesList {
@@ -14,30 +18,37 @@
 
 .messagesListLi {
   margin-bottom: 10px;
-  width: 90%;
-  padding: 5px;
+  width: 100%;
+  padding: 0 5px;
   border-radius: 5px;
 }
 
 .messageForm {
   position: absolute;
   bottom: 0;
-  padding-bottom: 0px;
+  padding-bottom: 30px;
+  margin: 10px auto;
   display: flex;
   flex-direction: row;
 }
 
 .messageInput {
-  flex: 1;
-  margin-right: 0px;
-  width: 50%;
+  border: none;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
 }
 
 .sendButton {
-  background-color: #4caf50;
+  padding: 10px 20px;
+  margin: 10px;
+  border: solid 2px rgb(117, 180, 117);
+  border-radius: 10px;
+  background-color: rgb(117, 180, 117);
   color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
+}
+
+.sendButton:hover {
+  background-color: white;
+  color: rgb(117, 180, 117);
 }

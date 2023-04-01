@@ -135,7 +135,12 @@ class Coding extends React.Component {
           <Monaco number={number} language={language} lobby={this.props.id} />
         </div>
         <div className={codingStyles.rightPane}>
-          <div className={codingStyles.infoBox}>{this.props.id}</div>
+          <div className={codingStyles.infoBox}>
+            <div className={codingStyles.subtitle}>
+              Lobby<hr></hr>
+            </div>
+            {this.props.id}
+          </div>
           <ChatBox lobby={this.props.id} />
         </div>
       </div>

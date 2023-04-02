@@ -43,11 +43,19 @@ problemsRouter.patch("/:id", isAdmin, async function (req, res, next) {
   return res.json({ problem });
 });
 
-problemsRouter.get("/", isAuthenticated, async function (req, res, next) {
-  const problems = await Problem.find(
-    {},
-    { starterCode: 0, sampleSolution: 0, testCases: 0 }
-  );
+problemsRouter.get("/", async function (req, res, next) {
+  const exclusion = { starterCode: 0, sampleSolution: 0, testCases: 0 };
+
+  let problems;
+  if (req.body.difficulty) {
+    problems = await Problem.find(
+      { difficulty: req.body.difficulty },
+      exclusion
+    );
+  } else {
+    problems = await Problem.find({}, exclusion);
+  }
+
   return res.json({ problems });
 });
 

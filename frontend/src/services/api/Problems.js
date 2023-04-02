@@ -6,8 +6,8 @@ export const getProblem = function (problemId) {
   return get(URL + `/${problemId}`).then((res) => res.data.problem);
 };
 
-export const getProblems = function () {
-  return get(URL + `/`).then((res) => res.data.problems);
+export const getProblems = function (difficulty) {
+  return get(URL + `/`, { difficulty }).then((res) => res.data.problems);
 };
 
 export const addStarterCode = function (problemId, language, code, methodName) {

@@ -13,20 +13,24 @@
 }
 
 .middlePane {
-  width: 60%;
+  width: 55%;
 }
 
 .rightPane {
-  width: 20%;
+  width: 25%;
 }
 
 .infoBox {
+  height: 30%;
+  background-color: #eee;
+}
+
+.lobbyInfo {
   font-family: "Raleway";
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
-  height: 30%;
-  background-color: #eee;
+  margin: auto 20px;
 }
 
 .subtitle {
@@ -35,9 +39,32 @@
   font-weight: 500;
   font-size: 28px;
   color: #274c77;
-  padding: 30px;
+  padding-top: 30px;
 }
 
 .tabs {
   text-align: center;
+}
+
+.emailInviteInput {
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  margin: 10px;
+  padding: 10px;
+  width: 60%;
+}
+
+.sendBtn {
+  padding: 5px 15px;
+  margin: 5px;
+  border: solid 2px rgb(117, 180, 117);
+  border-radius: 10px;
+  background-color: rgb(117, 180, 117);
+  color: white;
+}
+
+.sendBtn:hover {
+  background-color: white;
+  color: rgb(117, 180, 117);
 }

@@ -5,7 +5,6 @@ import monacoStyles from "./Monaco.module.css";
 import * as compilerService from "../../services/api/JDoodle.js";
 import * as problemService from "../../services/api/Problems.js";
 import { io } from "socket.io-client";
-import getLobbyName from "../../lobby/lobbyName";
 
 const width = "100%";
 let language = "";
@@ -62,7 +61,6 @@ class Monaco extends React.Component {
   }
 
   componentWillMount() {
-    console.log(getLobbyName());
     this.socket.on("connect", () => {
       console.log(`Connected to socket server with id ${this.socket.id}`);
       this.socket.emit("join-room", this.lobby);

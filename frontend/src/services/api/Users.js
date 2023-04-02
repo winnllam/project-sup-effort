@@ -1,4 +1,4 @@
-import { get, post } from "./base.js";
+import { get, post, patch } from "./base.js";
 
 const URL = "/users";
 
@@ -28,4 +28,10 @@ export const getMe = function () {
 
 export const signOut = function () {
   return get(URL + "/signout").then((res) => res.data);
+};
+
+export const changeRole = function (userId, action) {
+  return patch(URL + `/${userId}`, {
+    action,
+  }).then((res) => res.data);
 };

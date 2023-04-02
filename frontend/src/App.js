@@ -14,16 +14,15 @@ import PaymentHook from "./pages/Payment/Payment-Hook";
 import Problems from "./pages/Problems/Problems";
 import NotFound from "./pages/Not-Found/Not-Found";
 import { AuthenticationGuard } from "./components/authentication-guard";
-import * as userService from "./services/api/Users.js";
 import AdminProblems from "./pages/Admin/AllProblems/AllProblems.js";
 import ProblemHook from "./pages/Admin/Problem/Problem-Hook";
 import Profile from "./pages/Profile/Profile";
 import History from "./pages/History/History";
 import Competition from "./pages/Competition/Competition";
+import AllUsers from "./pages/Admin/AllUsers/AllUsers";
 
 class App extends Component {
   render() {
-    const { adminPrivilge, userPrivilge } = this.state;
     return (
       <div className="App">
         <Router>
@@ -55,6 +54,10 @@ class App extends Component {
             <Route
               path="/dashboard/admin/problems/:id"
               element={<AuthenticationGuard component={ProblemHook} />}
+            />
+            <Route
+              path="/dashboard/admin/users"
+              element={<AuthenticationGuard component={AllUsers} />}
             />
             <Route
               path="/coding"

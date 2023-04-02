@@ -1,0 +1,63 @@
+.title {
+  font-family: "Alegreya";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 48px;
+  color: #274c77;
+  margin-top: 20px;
+}
+
+.subtitle {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  color: #274c77;
+  margin-top: 50px;
+}
+
+.user {
+  background: #ffffff;
+  border-radius: 25px;
+  font-family: "Alegreya";
+  font-style: normal;
+  font-size: 24px;
+  font-weight: 400;
+  color: #000000;
+  padding: 15px 5px;
+  width: 600px;
+  margin: 15px auto;
+  text-align: left;
+  padding: 15px 25px;
+  height: auto;
+}
+
+.button {
+  background: #ffffff;
+  border: 3px solid #284b63;
+  border-radius: 15px;
+  font-size: 20px;
+  width: 200px;
+  height: auto;
+  margin: 10px 0px;
+}
+
+.userModal {
+  width: 500px;
+}
+
+.modalTitle {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  color: #274c77;
+}
+
+.userName {
+  font-family: "Alegreya";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  color: #274c77;
+}

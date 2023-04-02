@@ -3,7 +3,7 @@ import styles from "./Dashboard-Competition.module.css";
 import image from "../../../assets/dashboard_competition.svg";
 import dashboardStyles from "../../../pages/Dashboard/Dashboard.module.css";
 import getLobbyName from "../../../lobby/lobbyName";
-import * as lobbyService from "../../../services/api/Lobby.js";
+import * as lobbyService from "../../../services/api/Lobbies.js";
 
 const lobbyName = getLobbyName();
 

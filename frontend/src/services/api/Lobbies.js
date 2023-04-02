@@ -1,6 +1,6 @@
 import { post, get } from "./base.js";
 
-const URL = "/lobby";
+const URL = "/lobbies";
 
 export const createLobby = function (lobbyId) {
   return post(URL + `/${lobbyId}`).then((res) => res.data);

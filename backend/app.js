@@ -9,7 +9,7 @@ import { Server } from "socket.io";
 import { usersRouter } from "./routers/users_router.js";
 import { problemsRouter } from "./routers/problems_router.js";
 import { compilersRouter } from "./routers/compilers_router.js";
-import { lobbyRouter } from "./routers/lobby_router.js";
+import { lobbiesRouter } from "./routers/lobbies_router.js";
 import { emailsRouter } from "./routers/email_router.js";
 import { premiumRouter } from "./routers/premium_router.js";
 
@@ -52,7 +52,7 @@ app.use(
 app.use("/api/users", usersRouter);
 app.use("/api/problems", problemsRouter);
 app.use("/api/compilers", compilersRouter);
-app.use("/api/lobby", lobbyRouter);
+app.use("/api/lobbies", lobbiesRouter);
 app.use("/api/emails", emailsRouter);
 app.use("/api/premium", premiumRouter);
 

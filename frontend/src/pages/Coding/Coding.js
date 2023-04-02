@@ -10,7 +10,7 @@ import ChatBox from "../../components/ChatBox/ChatBox";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import * as userService from "../../services/api/Users.js";
-import * as lobbyService from "../../services/api/Lobby.js";
+import * as lobbyService from "../../services/api/Lobbies.js";
 
 const options = [
   { value: "python", label: "Python3" },

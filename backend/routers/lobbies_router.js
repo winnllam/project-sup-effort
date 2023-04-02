@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { Lobby } from "../models/lobby.js";
 
-export const lobbyRouter = Router();
+export const lobbiesRouter = Router();
 
-lobbyRouter.post("/:id", async function (req, res, next) {
+lobbiesRouter.post("/:id", async function (req, res, next) {
   const lobby = new Lobby({
     id: req.params.id,
     host: "abc",
@@ -20,7 +20,7 @@ lobbyRouter.post("/:id", async function (req, res, next) {
   return res.json({ lobby });
 });
 
-lobbyRouter.get("/:id", async function (req, res, next) {
+lobbiesRouter.get("/:id", async function (req, res, next) {
   const lobby = await Lobby.findOne({ id: req.params.id });
   if (!lobby) {
     return res
@@ -31,7 +31,7 @@ lobbyRouter.get("/:id", async function (req, res, next) {
   return res.json({ lobby });
 });
 
-lobbyRouter.get("/", async function (req, res, next) {
+lobbiesRouter.get("/", async function (req, res, next) {
   const lobbies = await Lobby.find({}, { id: 1 });
 
   let lobbyList = [];

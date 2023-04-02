@@ -107,12 +107,13 @@ const Home = () => {
               programmers you know.
             </div>
           </div>
-
-          <img
-            src={codeTyping}
-            alt="Code Typing"
-            class={homeStyles.graphicsMobile}
-          />
+          <div class={homeStyles.graphicsBoxMobile}>
+            <img
+              src={codeTyping}
+              alt="Code Typing"
+              class={homeStyles.graphicsMobile}
+            />
+          </div>
         </MediaQuery>
       </div>
       <div id={homeStyles.techFeature}>

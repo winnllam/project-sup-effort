@@ -9,6 +9,17 @@
   padding: 30px 0px;
 }
 
+.graphicsMobile {
+  width: 300px;
+  margin-top: 20px;
+}
+
+.graphicsBoxMobile {
+  text-align: left;
+  padding-left: 50px;
+  padding-bottom: 10px;
+}
+
 #title {
   font-family: "Josefin Sans";
   font-style: normal;
@@ -25,6 +36,23 @@
   color: #000000;
 }
 
+#titleMobile {
+  font-family: "Josefin Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 40px;
+  color: #000000;
+  padding: 0px 5px;
+}
+
+#taglineMobile {
+  font-family: "Source Sans Pro";
+  font-style: italic;
+  font-weight: 300;
+  font-size: 24px;
+  color: #000000;
+}
+
 .plans {
   margin-top: 20px;
 }
@@ -38,6 +66,15 @@
   height: auto;
 }
 
+.planMobile {
+  background: #fffdf7;
+  border-radius: 30px;
+  height: 150px;
+  width: 75%;
+  margin: 20px auto;
+  height: auto;
+}
+
 .planTitle,
 .price {
   font-family: "Abril Fatface";
@@ -47,11 +84,35 @@
   text-align: center;
   color: #001d3d;
 }
+
+.planTitleMobile,
+.priceMobile {
+  font-family: "Abril Fatface";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 26px;
+  text-align: center;
+  color: #001d3d;
+}
+
 .price {
   font-size: 28px;
 }
 
+.priceMobile {
+  font-size: 24px;
+}
+
 .priceDets {
+  font-family: "Alegreya";
+  font-style: italic;
+  font-size: 20px;
+  text-align: center;
+  color: #001d3d;
+  padding-top: 5px;
+}
+
+.priceDetsMobile {
   font-family: "Alegreya";
   font-style: italic;
   font-size: 20px;
@@ -69,6 +130,16 @@
   margin: 10px auto;
 }
 
+.infoMobile {
+  font-family: "Alegreya";
+  text-align: left;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #000000;
+  margin: 10px auto;
+}
+
 ul {
   list-style-position: inside;
 }
@@ -81,6 +152,19 @@ ul {
   background: #fffdf7;
   border-radius: 30px;
   width: 50%;
+  margin: 0px auto;
+  height: auto;
+  padding: 30px;
+}
+
+.featureListMobile {
+  font-family: "Alegreya";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  background: #fffdf7;
+  border-radius: 30px;
+  width: 80%;
   margin: 0px auto;
   height: auto;
   padding: 30px;

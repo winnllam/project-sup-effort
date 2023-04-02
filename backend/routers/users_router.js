@@ -155,3 +155,19 @@ usersRouter.get("/:id/codingHistory", isAuthenticated, async (req, res) => {
     history: codingHistory,
   });
 });
+
+usersRouter.patch("/:id/", isAuthenticated, async (req, res, next) => {
+  const userId = req.params.id;
+  const user = await User.findById(userId);
+  if (user === null) {
+    return res.status(404).json({ errors: "User not found." });
+  }
+
+  if (req.body.action === "upgrade") {
+    user.userStatus = "admin";
+  } else if (req.body.action === "downgrade") {
+    user.userStatus = "basic";
+  }
+  user.save();
+  return res.json(user);
+});

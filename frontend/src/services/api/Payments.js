@@ -1,4 +1,4 @@
-import { post, get, patch } from "./base.js";
+import { post, patch } from "./base.js";
 
 const URL = "/premium";
 

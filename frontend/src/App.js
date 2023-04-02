@@ -14,33 +14,15 @@ import PaymentHook from "./pages/Payment/Payment-Hook";
 import Problems from "./pages/Problems/Problems";
 import NotFound from "./pages/Not-Found/Not-Found";
 import { AuthenticationGuard } from "./components/authentication-guard";
-import * as userService from "./services/api/Users.js";
 import AdminProblems from "./pages/Admin/AllProblems/AllProblems.js";
 import ProblemHook from "./pages/Admin/Problem/Problem-Hook";
 import Profile from "./pages/Profile/Profile";
 import History from "./pages/History/History";
 import Competition from "./pages/Competition/Competition";
+import AllUsers from "./pages/Admin/AllUsers/AllUsers";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      adminPrivilge: false,
-      userPrivilge: false,
-    };
-  }
-
-  componentDidMount() {
-    userService.getMe().then((res) => {
-      this.setState({
-        adminPrivilge: res.userStatus === "admin",
-        userPrivilge: res.userStatus !== "admin",
-      });
-    });
-  }
-
   render() {
-    const { adminPrivilge, userPrivilge } = this.state;
     return (
       <div className="App">
         <Router>
@@ -57,28 +39,26 @@ class App extends Component {
               path="/dashboard/profile"
               element={<AuthenticationGuard component={Profile} />}
             />
-            {userPrivilge && (
-              <Route
-                path="/dashboard/history"
-                element={<AuthenticationGuard component={History} />}
-              />
-            )}
+            <Route
+              path="/dashboard/history"
+              element={<AuthenticationGuard component={History} />}
+            />
             <Route
               path="/dashboard/competition"
               element={<AuthenticationGuard component={Competition} />}
             />
-            {adminPrivilge && (
-              <Route
-                path="/dashboard/admin/problems"
-                element={<AuthenticationGuard component={AdminProblems} />}
-              />
-            )}
-            {adminPrivilge && (
-              <Route
-                path="/dashboard/admin/problems/:id"
-                element={<AuthenticationGuard component={ProblemHook} />}
-              />
-            )}
+            <Route
+              path="/dashboard/admin/problems"
+              element={<AuthenticationGuard component={AdminProblems} />}
+            />
+            <Route
+              path="/dashboard/admin/problems/:id"
+              element={<AuthenticationGuard component={ProblemHook} />}
+            />
+            <Route
+              path="/dashboard/admin/users"
+              element={<AuthenticationGuard component={AllUsers} />}
+            />
             <Route
               path="/coding"
               element={<AuthenticationGuard component={CodingHook} />}
@@ -91,7 +71,6 @@ class App extends Component {
               path="/problems"
               element={<AuthenticationGuard component={Problems} />}
             />
-
             <Route
               path="/payment"
               element={<AuthenticationGuard component={PaymentHook} />}

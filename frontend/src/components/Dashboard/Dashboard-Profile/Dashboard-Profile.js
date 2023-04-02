@@ -63,13 +63,14 @@ class DashboardProfile extends React.Component {
   closeCancelModal = () => this.setState({ cancel: false });
 
   cancelSubscription = () => {
-    paymentService.downgradeUser().then((res) => {
+    paymentService.downgradeUser().then(() => {
       this.setState({
         premiumStatus: "Inactive",
         expirationDate: "--",
         renewalStatus: "--",
       });
     });
+    this.closeCancelModal();
   };
 
   render() {
@@ -129,23 +130,21 @@ class DashboardProfile extends React.Component {
           onHide={this.closeCancelModal}
           class={styles.modal}
         >
-          <form onSubmit={this.cancelSubscription}>
-            <Modal.Header closeButton>
-              <Modal.Title>Cancel Subscription</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <div class={styles.modalTitle}>
-                Confirm Subscription Cancellation
-              </div>
-              <div class={styles.modalText}>
-                You will immediatly lose access to premium features if you
-                proceed to cancel
-              </div>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button type={"submit"}>Confirm</Button>
-            </Modal.Footer>
-          </form>
+          <Modal.Header closeButton>
+            <Modal.Title>Cancel Subscription</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div class={styles.modalTitle}>
+              Confirm Subscription Cancellation
+            </div>
+            <div class={styles.modalText}>
+              You will immediatly lose access to premium features if you proceed
+              to cancel
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.cancelSubscription}>Confirm</Button>
+          </Modal.Footer>
         </Modal>
         <div class={styles.section}>
           <div class={styles.subtitle}>User Profile</div>

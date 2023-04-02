@@ -1,5 +1,4 @@
 import React from "react";
-import Edit from "../Edit/Edit";
 import styles from "./Problem-List.module.css";
 import { Modal, Button } from "react-bootstrap";
 import * as problemService from "../../../services/api/Problems.js";
@@ -45,10 +44,11 @@ class ProblemList extends React.Component {
   };
 
   render() {
+    const { problems, newProblem, problemId } = this.state;
     return (
       <div className={styles.problems}>
         <Modal
-          show={this.state.newProblem}
+          show={newProblem}
           onHide={this.closeNewProblemModal}
           class={styles.editModal}
         >
@@ -85,7 +85,7 @@ class ProblemList extends React.Component {
             </Modal.Footer>
           </form>
         </Modal>
-        {this.state.problemId === null && (
+        {problemId === null && (
           <div id={styles.screen}>
             <div class={styles.title}>Problems</div>
             <div id={styles.newProblem}>
@@ -97,7 +97,7 @@ class ProblemList extends React.Component {
                 New Problem
               </button>
             </div>
-            {this.state.problems.map((problem) => (
+            {problems.map((problem) => (
               <div class={styles.problem}>
                 <div class={styles.problemName}>
                   <b>

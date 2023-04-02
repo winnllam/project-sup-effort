@@ -1,14 +1,15 @@
 import React from "react";
-import styles from "./AllProblems.module.css";
-import { withAuth0 } from "@auth0/auth0-react";
+import styles from "./AllUsers.module.css";
 import DashboardPannel from "../../../components/Dashboard/Dashboard-Pannel/Dashboard-Pannel";
-import ProblemList from "../../../components/Admin/Problem-List/Problem-List";
 import NotFound from "../../Not-Found/Not-Found.js";
 import * as userService from "../../../services/api/Users.js";
+import { withAuth0 } from "@auth0/auth0-react";
+import UserList from "../../../components/Admin/User-List/User-List.js";
 
-class AdminProblems extends React.Component {
+class AllUsers extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       adminPrivilge: false,
     };
@@ -27,12 +28,12 @@ class AdminProblems extends React.Component {
     return (
       <div className={styles.page}>
         {adminPrivilge && (
-          <div class={styles.problems}>
+          <div class={styles.users}>
             <div id={styles.pannel}>
               <DashboardPannel />
             </div>
-            <div id={styles.problemList}>
-              <ProblemList />
+            <div id={styles.userList}>
+              <UserList />
             </div>
           </div>
         )}
@@ -42,4 +43,4 @@ class AdminProblems extends React.Component {
   }
 }
 
-export default withAuth0(AdminProblems);
+export default withAuth0(AllUsers);

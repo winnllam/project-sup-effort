@@ -68,18 +68,13 @@ class DashboardPannel extends React.Component {
           )}
           <br />
           {userStatus === "admin" && (
-            // TODO: Do this when doing admin invite
-            <button class={styles.button}>Users</button>
+            <button class={styles.button}>
+              <Link to="/dashboard/admin/users" class={styles.options}>
+                Users
+              </Link>
+            </button>
           )}
           <br />
-          {/* {this.state.userStatus === "admin" && (
-            <button
-              class={styles.button}
-              onClick={() => this.setState({ section: "admin-settings" })}
-            >
-              Settings
-            </button>
-          )} */}
         </div>
       </div>
     );

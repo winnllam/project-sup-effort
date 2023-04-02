@@ -1,4 +1,4 @@
-import { get, post } from "./base.js";
+import { get, post, patch } from "./base.js";
 
 const URL = "/users";
 
@@ -24,4 +24,14 @@ export const getUser = function (userId) {
 
 export const getMe = function () {
   return get(URL + "/me").then((res) => res.data);
+};
+
+export const signOut = function () {
+  return get(URL + "/signout").then((res) => res.data);
+};
+
+export const changeRole = function (userId, action) {
+  return patch(URL + `/${userId}`, {
+    action,
+  }).then((res) => res.data);
 };

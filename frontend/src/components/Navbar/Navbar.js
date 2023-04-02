@@ -9,20 +9,9 @@ import { HashLink as Link } from "react-router-hash-link";
 import homeStyles from "../../pages/Home/Home.module.css";
 import aboutStyles from "../About/About.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
-import LobbyModal from "./LobbyModal";
 
 const Navbar = () => {
   const { loginWithRedirect, isAuthenticated, logout, isLoading } = useAuth0();
-
-  const [showModal, setShowModal] = useState(false);
-
-  const handleShowModal = () => {
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
 
   return (
     <div className={navbarStyles.header}>
@@ -87,20 +76,6 @@ const Navbar = () => {
               </div>
             )}
           </Col>
-          <>
-            <Col md={"auto"}>
-              {isAuthenticated && !isLoading && (
-                <div
-                  id={navbarStyles.dashboard}
-                  class={navbarStyles.options}
-                  onClick={handleShowModal}
-                >
-                  Create Lobby
-                </div>
-              )}
-            </Col>
-            <LobbyModal show={showModal} handleClose={handleCloseModal} />
-          </>
           <Col md={{ span: "auto", offset: 1 }}>
             {!isAuthenticated && !isLoading && (
               <div

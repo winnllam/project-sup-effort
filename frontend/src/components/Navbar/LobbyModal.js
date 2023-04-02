@@ -2,7 +2,6 @@ import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import getLobbyName from "../../lobby/lobbyName";
 import * as lobbyService from "../../services/api/Lobbies.js";
-import { useHistory } from "react-router-dom";
 import navbarStyles from "./Navbar.module.css";
 
 const lobbyName = getLobbyName();

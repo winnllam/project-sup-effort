@@ -27,7 +27,7 @@ const Navbar = () => {
 
   return (
     <div className={navbarStyles.page}>
-      <MediaQuery minWidth={1224}>
+      <MediaQuery minWidth={1090}>
         <div className={navbarStyles.header}>
           <Container fluid>
             <Row>
@@ -114,7 +114,7 @@ const Navbar = () => {
           </Container>
         </div>
       </MediaQuery>
-      <MediaQuery maxWidth={500}>
+      <MediaQuery maxWidth={1089}>
         <div
           class={navbarStyles.mobileHeader}
           onClick={() => {

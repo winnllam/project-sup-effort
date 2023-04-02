@@ -1,19 +1,19 @@
 #intro {
   background: #284b63;
-  height: 500px;
-  padding-top: 50px;
+  height: auto;
+  padding: 50px 0px;
 }
 
 #feature {
   background: #cce3de;
-  height: 450px;
-  padding-top: 60px;
+  height: auto;
+  padding: 50px 0px;
 }
 
 #techFeature {
   background: #4f5d75;
-  height: 500px;
-  padding-top: 80px;
+  height: auto;
+  padding: 50px 0px;
 }
 
 h1,
@@ -39,11 +39,30 @@ h3 {
   margin-top: 50px;
 }
 
+.graphicsMobile {
+  width: 300px;
+  margin-top: 20px;
+}
+
+.graphicsBoxMobile {
+  text-align: left;
+  padding-left: 50px;
+}
+
 .subtitle {
   font-family: "Alegreya";
   font-style: normal;
   font-weight: 400;
   font-size: 36px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.subtitleMobile {
+  font-family: "Alegreya";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 25px;
   color: #ffffff;
   text-align: center;
 }
@@ -63,10 +82,30 @@ h3 {
   padding: 10px;
 }
 
+.textBlockMobile {
+  font-family: "Alegreya";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  color: #000000;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 10px;
+  width: 80%;
+  margin: 0px auto;
+}
+
 .introText {
   white-space: pre-wrap;
   overflow-wrap: break-word;
   width: 525px;
+}
+
+.introTextMobile {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  width: 525px;
+  display: contents;
 }
 
 #techFeature .graphics {

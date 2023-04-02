@@ -1,7 +1,7 @@
 #aboutBox {
   background: #ece4db;
-  height: 500px;
-  padding-top: 50px;
+  height: auto;
+  padding: 50px 0px;
 }
 
 .graphics {
@@ -34,4 +34,43 @@
   overflow-wrap: break-word;
   width: 700px;
   padding-top: 50px;
+}
+
+.graphicsMobile {
+  width: 300px;
+  margin-top: 20px;
+}
+
+.graphicsBoxMobile {
+  text-align: left;
+  padding-left: 50px;
+}
+
+#aboutTitleMobile {
+  font-family: "Lora";
+  font-style: italic;
+  font-weight: 700;
+  font-size: 25px;
+  color: #274c77;
+  text-align: center;
+}
+
+.textBlockMobile {
+  font-family: "Alegreya";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  color: #000000;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 10px;
+  width: 80%;
+  margin: 0px auto;
+}
+
+.introTextMobile {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  width: 525px;
+  display: contents;
 }

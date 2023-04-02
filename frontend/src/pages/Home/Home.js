@@ -83,11 +83,13 @@ const Home = () => {
               </div>
             </Col>
             <Col md={{ span: 4 }}>
-              <img
-                src={codeTyping}
-                alt="Code Typing"
-                class={homeStyles.graphics}
-              />
+              <div class={homeStyles.graphicsBoxMobile}>
+                <img
+                  src={codeTyping}
+                  alt="Code Typing"
+                  class={homeStyles.graphics}
+                />
+              </div>
             </Col>
           </Row>
         </MediaQuery>
@@ -162,12 +164,13 @@ const Home = () => {
               your skills in the language of your choice.
             </div>
           </div>
-
-          <img
-            src={hackerMindset}
-            alt="Hacker Mindset"
-            class={homeStyles.graphicsMobile}
-          />
+          <div class={homeStyles.graphicsBoxMobile}>
+            <img
+              src={hackerMindset}
+              alt="Hacker Mindset"
+              class={homeStyles.graphicsMobile}
+            />
+          </div>
 
           <div class={homeStyles.introTexMobile}>
             <div class={homeStyles.subtitleMobile}>Win award badges</div>

@@ -8,7 +8,6 @@ import { HashLink as Link } from "react-router-hash-link";
 import homeStyles from "../../pages/Home/Home.module.css";
 import aboutStyles from "../About/About.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
-import LobbyModal from "./LobbyModal";
 import * as userService from "../../services/api/Users.js";
 
 const Navbar = () => {

@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import Container from "react-bootstrap/Container";
 import navbarStyles from "./Navbar.module.css";
 import logoUrl from "../../assets/logo.png";

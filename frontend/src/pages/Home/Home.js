@@ -41,7 +41,7 @@ const Home = () => {
       </div>
       <div id={homeStyles.feature}>
         <Row>
-          <Col md={{ span: 7, offset: 1 }}>
+          <Col md={{ span: 6, offset: 1 }}>
             <div class={homeStyles.introText}>
               <div class={homeStyles.subtitle}>
                 Compete in real time against users

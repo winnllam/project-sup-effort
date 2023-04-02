@@ -11,6 +11,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import * as userService from "../../services/api/Users.js";
 import * as lobbyService from "../../services/api/Lobbies.js";
+import * as emailService from "../../services/api/Emails.js";
 
 const options = [
   { value: "python", label: "Python3" },
@@ -23,8 +24,11 @@ const defaultOption = options[0];
 class Coding extends React.Component {
   constructor(props) {
     super(props);
+    const { user } = this.props.auth0;
     this.id = props.id;
+
     this.state = {
+      id: props.id,
       number: props.number,
       name: null,
       description: null,
@@ -32,6 +36,8 @@ class Coding extends React.Component {
       language: defaultOption.value,
       solutionCode: "",
       premium: false,
+      email: "",
+      userName: user.nickname,
     };
 
     lobbyService.getLobby(props.id).then((res) => {
@@ -46,16 +52,10 @@ class Coding extends React.Component {
       });
     });
 
+    this.updateEmail = this.updateEmail.bind(this);
+    this.sendCompetitionInvite = this.sendCompetitionInvite.bind(this);
     this.updateLanguage = this.updateLanguage.bind(this);
     this.updateSolutionLanguage = this.updateSolutionLanguage.bind(this);
-
-    // problemService.getProblem(this.state.number).then((res) => {
-    //   this.setState({
-    //     name: res.name,
-    //     description: res.description,
-    //     difficulty: res.difficulty,
-    //   });
-    // });
   }
 
   componentDidMount() {
@@ -81,6 +81,32 @@ class Coding extends React.Component {
       .catch((error) => {
         this.setState({ solutionCode: "No solution in this language" });
       });
+  }
+
+  updateEmail(e) {
+    this.setState({ email: e.target.value });
+  }
+
+  sendCompetitionInvite() {
+    const url =
+      process.env.REACT_APP_PRODUCTION_URL + "/coding/" + this.state.id;
+    const subject = "Competition Invite";
+    const text =
+      "Hello! " +
+      this.state.userName +
+      " is challenging you to a coding competition! Click here to join!" +
+      "Or, copy and paste this link to join: " +
+      url;
+    const html =
+      "<p>Hello!</p> <p><b>" +
+      this.state.userName +
+      '</b> is challenging you to a coding competition! Click <a href="' +
+      url +
+      '">here</a> to join!</p>' +
+      "<p>Or, copy and paste this link to join: " +
+      url +
+      "</p>";
+    emailService.sendEmail(this.state.email, subject, text, html);
   }
 
   render() {
@@ -136,11 +162,26 @@ class Coding extends React.Component {
         </div>
         <div className={codingStyles.rightPane}>
           <div className={codingStyles.infoBox}>
-            <div className={codingStyles.subtitle}>
-              Lobby<hr></hr>
+            <div className={codingStyles.lobbyInfo}>
+              <div className={codingStyles.subtitle}>Lobby</div>
+              {this.props.id}
+              <hr></hr>
             </div>
-            {this.props.id}
+            <input
+              type="text"
+              className={codingStyles.emailInviteInput}
+              name="invite"
+              placeholder="Enter email"
+              onChange={this.updateEmail}
+            ></input>
+            <button
+              className={codingStyles.sendBtn}
+              onClick={this.sendCompetitionInvite}
+            >
+              Send Invite
+            </button>
           </div>
+
           <ChatBox lobby={this.props.id} />
         </div>
       </div>

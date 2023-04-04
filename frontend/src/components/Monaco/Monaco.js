@@ -127,25 +127,35 @@ class Monaco extends React.Component {
 
   runJavascript(total, tests) {
     let addTests = editorCode?.getValue();
-    addTests = addTests.concat("let passCounter = 0;");
+    addTests = addTests.concat("\r\nlet passCounter = 0;");
 
     for (let i = 0; i < total; i++) {
-      const functionCall = this.state.methodName + "(" + tests[i].input + ")";
-      addTests = addTests.concat("testCallResult = " + functionCall + ";");
+      let functionCall;
+      let output;
+      if (isNaN(parseInt(tests[i].input))) {
+        // is not a number
+        functionCall = this.state.methodName + '("' + tests[i].input + '")';
+        output = "'" + tests[i].output + "'";
+      } else {
+        functionCall = this.state.methodName + "(" + tests[i].input + ")";
+        output = tests[i].output;
+      }
+
+      addTests = addTests.concat("\r\ntestCallResult = " + functionCall + ";");
       addTests = addTests.concat(
-        'console.log("Expected: ' +
-          tests[i].output +
+        '\r\nconsole.log("Expected: ' +
+          output +
           '; Actual: " + testCallResult + "; Pass: " + (' +
-          tests[i].output +
+          output +
           "=== testCallResult));"
       );
       addTests = addTests.concat(
-        "if (" + tests[i].output + " === testCallResult) { passCounter++; }"
+        "\r\nif (" + output + " === testCallResult) { passCounter++; }"
       );
     }
 
     addTests = addTests.concat(
-      'console.log("Passed: " + passCounter + "/' + total + '")'
+      '\r\nconsole.log("Passed: " + passCounter + "/' + total + '")'
     );
 
     return addTests;

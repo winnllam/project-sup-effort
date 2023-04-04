@@ -8,6 +8,7 @@ import { io } from "socket.io-client";
 
 const width = "100%";
 let language = "";
+let firstLoad = true;
 
 let editorCode = null;
 class Monaco extends React.Component {
@@ -24,7 +25,7 @@ class Monaco extends React.Component {
     this.state = {
       number: null,
       code: null,
-      methodName: "double",
+      methodName: "",
       height: "75vh",
       results: [],
       showResults: false,
@@ -35,7 +36,10 @@ class Monaco extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    sessionStorage.setItem(language, editorCode?.getValue());
+    // not first page load, can re-set the code
+    if (!firstLoad) {
+      sessionStorage.setItem(language, editorCode?.getValue());
+    }
 
     if (props.language !== null) {
       language = props.language;
@@ -46,12 +50,19 @@ class Monaco extends React.Component {
       // if the language has modified code from previous attempt
       if (sessionStorage.getItem(language) !== null) {
         // restore the code from storage
-        this.setState({ code: sessionStorage.getItem(language) });
+        this.setState({
+          code: sessionStorage.getItem(language),
+          methodName: sessionStorage.getItem(language + "MethodName"),
+        });
       } else {
         problemService
           .getStarterCode(props.number, language)
           .then((res) => {
+            console.log(res);
             this.setState({ code: res.code, methodName: res.methodName });
+            sessionStorage.setItem(language, res.code);
+            sessionStorage.setItem(language + "MethodName", res.methodName);
+            firstLoad = false;
           })
           .catch((error) => {
             this.setState({ code: "Language not supported!" });
@@ -74,10 +85,6 @@ class Monaco extends React.Component {
         };
       });
     });
-  }
-
-  shouldComponentUpdate(nextState) {
-    return this.state !== nextState;
   }
 
   handleEditorDidMount(editor, monaco) {
@@ -163,20 +170,30 @@ class Monaco extends React.Component {
 
   runJava(total, tests) {
     let main =
-      "public class mainClass { public static void main(String args[]) { Solution sol = new Solution();";
-    main = main.concat("int passCounter = 0;");
+      "public class mainClass { \r\npublic static void main(String args[]) { \r\nSolution sol = new Solution();";
+    main = main.concat("\r\nint passCounter = 0;");
     for (let i = 0; i < total; i++) {
-      const functionCall =
-        "sol." + this.state.methodName + "(" + tests[i].input + ")";
+      let functionCall;
+      let output;
+      if (isNaN(parseInt(tests[i].input))) {
+        // is not a number
+        functionCall =
+          "sol." + this.state.methodName + '("' + tests[i].input + '")';
+        output = '"' + tests[i].output + '"';
+      } else {
+        functionCall =
+          "sol." + this.state.methodName + "(" + tests[i].input + ")";
+        output = tests[i].output;
+      }
 
       // print out comparisons
       main = main.concat(
-        'System.out.println("Expected: ' +
+        '\r\nSystem.out.println("Expected: ' +
           tests[i].output +
           '; Actual: " + ' +
           functionCall +
           ' + "; Pass: " + (' +
-          tests[i].output +
+          output +
           " == " +
           functionCall +
           "));"
@@ -184,21 +201,17 @@ class Monaco extends React.Component {
 
       // increase counter if test passed
       main = main.concat(
-        "if (" +
-          tests[i].output +
-          " == " +
-          functionCall +
-          ") { passCounter++; }"
+        "\r\nif (" + output + " == " + functionCall + ") { passCounter++; }"
       );
     }
 
     main = main.concat(
-      'System.out.println("Passed: " + passCounter + "/' + total + '");'
+      '\r\nSystem.out.println("Passed: " + passCounter + "/' + total + '");'
     );
     main = main.concat("}}");
 
     let solutionCode = editorCode?.getValue();
-    main = main.concat(solutionCode);
+    main = main.concat("\r\n" + solutionCode);
     return main;
   }
 

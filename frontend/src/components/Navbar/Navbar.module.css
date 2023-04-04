@@ -6,6 +6,15 @@
   z-index: 999;
 }
 
+.mobileHeader {
+  text-align: center;
+  background: #495057;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  padding: 10px;
+}
+
 .header img {
   width: 80px;
   height: 80px;
@@ -48,4 +57,63 @@
 .myModal {
   width: 897px;
   height: 802px;
+}
+
+.hamburger {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: space-around;
+  flex-flow: column nowrap;
+  z-index: 10;
+  margin: 10px 0px;
+}
+
+.burger {
+  width: 2rem;
+  height: 0.25rem;
+  border-radius: 10px;
+  background-color: #ffffff;
+  transform-origin: 1px;
+  transition: all 0.3s linear;
+}
+
+.logoMobile {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+#mobileTitle {
+  font-family: "Alegreya Sans SC";
+  font-style: normal;
+  color: #ffffff;
+  font-size: 30px;
+  text-decoration: none;
+  padding-top: 5px;
+}
+
+.navlink {
+  font-family: "Alegreya Sans SC";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.nav {
+  padding: 10px 0px;
+  font-family: "Alegreya Sans SC";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.disclaimer {
+  font-size: 14px;
+  color: #ffffff;
+  padding-top: 10px;
 }

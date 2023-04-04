@@ -13,7 +13,6 @@ const DashboardCompetition = () => {
 
   const handleCreateLobby = () => {
     userService.getMe().then((res) => {
-      console.log(res.username);
       lobbyService.createLobby(lobbyName, res.username).then(() => {
         window.location.href = "/coding/" + lobbyName;
       });

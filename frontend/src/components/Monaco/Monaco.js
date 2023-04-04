@@ -24,7 +24,7 @@ class Monaco extends React.Component {
     this.state = {
       number: null,
       code: null,
-      methodName: null,
+      methodName: "",
       height: "75vh",
       results: [],
       showResults: false,
@@ -51,7 +51,13 @@ class Monaco extends React.Component {
         problemService
           .getStarterCode(props.number, language)
           .then((res) => {
+            console.log(res);
             this.setState({ code: res.code, methodName: res.methodName });
+            sessionStorage.setItem("cur" + language + this.lobby, res.code);
+            sessionStorage.setItem(
+              language + "MethodName" + this.lobby,
+              res.methodName
+            );
           })
           .catch((error) => {
             this.setState({ code: "Language not supported!" });
@@ -66,10 +72,6 @@ class Monaco extends React.Component {
     });
   }
 
-  shouldComponentUpdate(nextState) {
-    return this.state !== nextState;
-  }
-
   handleEditorDidMount(editor, monaco) {
     editorCode = editor;
   }
@@ -80,7 +82,17 @@ class Monaco extends React.Component {
 
     for (let i = 0; i < total; i++) {
       // what the function call looks like using the test input
-      const functionCall = this.state.methodName + "(" + tests[i].input + ")";
+      let functionCall;
+      let output;
+      if (isNaN(parseInt(tests[i].input))) {
+        // is not a number
+        functionCall = this.state.methodName + '("' + tests[i].input + '")';
+        output = '"' + tests[i].output + '"';
+      } else {
+        functionCall = this.state.methodName + "(" + tests[i].input + ")";
+        output = tests[i].output;
+      }
+
       // calling the function and save results
       addTests = addTests.concat(
         "\r\ntestCallResult = str(" + functionCall + ")"
@@ -88,16 +100,14 @@ class Monaco extends React.Component {
       // print out info line about pass/fail
       addTests = addTests.concat(
         "\r\nprint('Expected: " +
-          tests[i].output +
+          output +
           "; Actual: ' + testCallResult + '; Pass: ', str(" +
-          tests[i].output +
+          output +
           ") == testCallResult)"
       );
       // increase pass counter if passed
       addTests = addTests.concat(
-        "\r\nif str(" +
-          tests[i].output +
-          ") == testCallResult: passCounter += 1"
+        "\r\nif str(" + output + ") == testCallResult: passCounter += 1"
       );
     }
     addTests = addTests.concat(
@@ -109,25 +119,35 @@ class Monaco extends React.Component {
 
   runJavascript(total, tests) {
     let addTests = editorCode?.getValue();
-    addTests = addTests.concat("let passCounter = 0;");
+    addTests = addTests.concat("\r\nlet passCounter = 0;");
 
     for (let i = 0; i < total; i++) {
-      const functionCall = this.state.methodName + "(" + tests[i].input + ")";
-      addTests = addTests.concat("testCallResult = " + functionCall + ";");
+      let functionCall;
+      let output;
+      if (isNaN(parseInt(tests[i].input))) {
+        // is not a number
+        functionCall = this.state.methodName + '("' + tests[i].input + '")';
+        output = "'" + tests[i].output + "'";
+      } else {
+        functionCall = this.state.methodName + "(" + tests[i].input + ")";
+        output = tests[i].output;
+      }
+
+      addTests = addTests.concat("\r\ntestCallResult = " + functionCall + ";");
       addTests = addTests.concat(
-        'console.log("Expected: ' +
-          tests[i].output +
+        '\r\nconsole.log("Expected: ' +
+          output +
           '; Actual: " + testCallResult + "; Pass: " + (' +
-          tests[i].output +
+          output +
           "=== testCallResult));"
       );
       addTests = addTests.concat(
-        "if (" + tests[i].output + " === testCallResult) { passCounter++; }"
+        "\r\nif (" + output + " === testCallResult) { passCounter++; }"
       );
     }
 
     addTests = addTests.concat(
-      'console.log("Passed: " + passCounter + "/' + total + '")'
+      '\r\nconsole.log("Passed: " + passCounter + "/' + total + '")'
     );
 
     return addTests;
@@ -135,20 +155,30 @@ class Monaco extends React.Component {
 
   runJava(total, tests) {
     let main =
-      "public class mainClass { public static void main(String args[]) { Solution sol = new Solution();";
-    main = main.concat("int passCounter = 0;");
+      "public class mainClass { \r\npublic static void main(String args[]) { \r\nSolution sol = new Solution();";
+    main = main.concat("\r\nint passCounter = 0;");
     for (let i = 0; i < total; i++) {
-      const functionCall =
-        "sol." + this.state.methodName + "(" + tests[i].input + ")";
+      let functionCall;
+      let output;
+      if (isNaN(parseInt(tests[i].input))) {
+        // is not a number
+        functionCall =
+          "sol." + this.state.methodName + '("' + tests[i].input + '")';
+        output = '"' + tests[i].output + '"';
+      } else {
+        functionCall =
+          "sol." + this.state.methodName + "(" + tests[i].input + ")";
+        output = tests[i].output;
+      }
 
       // print out comparisons
       main = main.concat(
-        'System.out.println("Expected: ' +
+        '\r\nSystem.out.println("Expected: ' +
           tests[i].output +
           '; Actual: " + ' +
           functionCall +
           ' + "; Pass: " + (' +
-          tests[i].output +
+          output +
           " == " +
           functionCall +
           "));"
@@ -156,21 +186,17 @@ class Monaco extends React.Component {
 
       // increase counter if test passed
       main = main.concat(
-        "if (" +
-          tests[i].output +
-          " == " +
-          functionCall +
-          ") { passCounter++; }"
+        "\r\nif (" + output + " == " + functionCall + ") { passCounter++; }"
       );
     }
 
     main = main.concat(
-      'System.out.println("Passed: " + passCounter + "/' + total + '");'
+      '\r\nSystem.out.println("Passed: " + passCounter + "/' + total + '");'
     );
     main = main.concat("}}");
 
     let solutionCode = editorCode?.getValue();
-    main = main.concat(solutionCode);
+    main = main.concat("\r\n" + solutionCode);
     return main;
   }
 

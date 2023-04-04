@@ -24,7 +24,7 @@ class Monaco extends React.Component {
     this.state = {
       number: null,
       code: null,
-      methodName: null,
+      methodName: "double",
       height: "75vh",
       results: [],
       showResults: false,
@@ -90,7 +90,17 @@ class Monaco extends React.Component {
 
     for (let i = 0; i < total; i++) {
       // what the function call looks like using the test input
-      const functionCall = this.state.methodName + "(" + tests[i].input + ")";
+      let functionCall;
+      let output;
+      if (isNaN(parseInt(tests[i].input))) {
+        // is not a number
+        functionCall = this.state.methodName + '("' + tests[i].input + '")';
+        output = '"' + tests[i].output + '"';
+      } else {
+        functionCall = this.state.methodName + "(" + tests[i].input + ")";
+        output = tests[i].output;
+      }
+
       // calling the function and save results
       addTests = addTests.concat(
         "\r\ntestCallResult = str(" + functionCall + ")"
@@ -98,16 +108,14 @@ class Monaco extends React.Component {
       // print out info line about pass/fail
       addTests = addTests.concat(
         "\r\nprint('Expected: " +
-          tests[i].output +
+          output +
           "; Actual: ' + testCallResult + '; Pass: ', str(" +
-          tests[i].output +
+          output +
           ") == testCallResult)"
       );
       // increase pass counter if passed
       addTests = addTests.concat(
-        "\r\nif str(" +
-          tests[i].output +
-          ") == testCallResult: passCounter += 1"
+        "\r\nif str(" + output + ") == testCallResult: passCounter += 1"
       );
     }
     addTests = addTests.concat(

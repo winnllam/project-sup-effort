@@ -12,6 +12,7 @@ import { compilersRouter } from "./routers/compilers_router.js";
 import { lobbiesRouter } from "./routers/lobbies_router.js";
 import { emailsRouter } from "./routers/email_router.js";
 import { premiumRouter } from "./routers/premium_router.js";
+import { useParams } from "react-router";
 
 const PORT = 9000;
 export const app = express();
@@ -97,9 +98,9 @@ io.on("connection", (socket) => {
     socket.to(room).emit("receive-message", message);
   });
 
-  socket.on("send-code", (id, code, room) => {
-    console.log(id, code);
-    socket.to(room).emit("receive-code", id, code);
+  socket.on("send-code", (id, code, room, language, user) => {
+    console.log(id, code, language, user);
+    socket.to(room).emit("receive-code", code, language, user);
   });
 
   socket.on("disconnect", () => {

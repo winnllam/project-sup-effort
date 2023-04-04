@@ -4,6 +4,7 @@ import image from "../../../assets/dashboard_competition.svg";
 import dashboardStyles from "../../../pages/Dashboard/Dashboard.module.css";
 import getLobbyName from "../../../lobby/lobbyName";
 import * as lobbyService from "../../../services/api/Lobbies.js";
+import * as userService from "../../../services/api/Users.js";
 
 const lobbyName = getLobbyName();
 
@@ -11,8 +12,11 @@ const DashboardCompetition = () => {
   const [lobbyId, setLobbyId] = useState("");
 
   const handleCreateLobby = () => {
-    lobbyService.createLobby(lobbyName).then((res) => {
-      window.location.href = "/coding/" + lobbyName;
+    userService.getMe().then((res) => {
+      console.log(res.username);
+      lobbyService.createLobby(lobbyName, res.username).then(() => {
+        window.location.href = "/coding/" + lobbyName;
+      });
     });
   };
 

@@ -5,6 +5,7 @@ import Editor from "@monaco-editor/react";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import Monaco from "../../components/Monaco/Monaco";
+import MonacoTabs from "../../components/Monaco/MonacoTabs";
 import * as problemService from "../../services/api/Problems.js";
 import ChatBox from "../../components/ChatBox/ChatBox";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
@@ -59,6 +60,9 @@ class Coding extends React.Component {
   }
 
   componentDidMount() {
+    lobbyService
+      .joinLobby(this.props.id, this.state.userName)
+      .then((res) => {});
     userService.getMe().then((res) => {
       this.setState({
         premium: res.premium.status === "Active",
@@ -158,7 +162,12 @@ class Coding extends React.Component {
             value={defaultOption}
             placeholder="Select a language"
           />
-          <Monaco number={number} language={language} lobby={this.props.id} />
+          <MonacoTabs
+            number={number}
+            language={language}
+            lobby={this.props.id}
+            user={this.state.userName}
+          />
         </div>
         <div className={codingStyles.rightPane}>
           <div className={codingStyles.infoBox}>

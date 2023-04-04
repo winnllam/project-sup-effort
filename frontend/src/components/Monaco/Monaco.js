@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import Editor from "@monaco-editor/react";
 import { MutatingDots } from "react-loader-spinner";
 import monacoStyles from "./Monaco.module.css";
@@ -8,14 +8,13 @@ import { io } from "socket.io-client";
 
 const width = "100%";
 let language = "";
-let firstLoad = true;
 
 let editorCode = null;
 class Monaco extends React.Component {
   constructor(props) {
     super(props);
-    this.prevValue = "";
     this.lobby = this.props.lobby;
+    this.user = this.props.user;
     let url = process.env.REACT_APP_BACKEND_LOCALHOST;
     if (process.env.NODE_ENV === "production") {
       url = process.env.REACT_APP_PRODUCTION_URL;
@@ -36,11 +35,6 @@ class Monaco extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    // not first page load, can re-set the code
-    if (!firstLoad) {
-      sessionStorage.setItem(language, editorCode?.getValue());
-    }
-
     if (props.language !== null) {
       language = props.language;
     }
@@ -48,11 +42,10 @@ class Monaco extends React.Component {
       this.setState({ number: props.number });
 
       // if the language has modified code from previous attempt
-      if (sessionStorage.getItem(language) !== null) {
+      if (sessionStorage.getItem("cur" + language + this.lobby) !== null) {
         // restore the code from storage
         this.setState({
-          code: sessionStorage.getItem(language),
-          methodName: sessionStorage.getItem(language + "MethodName"),
+          code: sessionStorage.getItem("cur" + language + this.lobby),
         });
       } else {
         problemService
@@ -60,9 +53,11 @@ class Monaco extends React.Component {
           .then((res) => {
             console.log(res);
             this.setState({ code: res.code, methodName: res.methodName });
-            sessionStorage.setItem(language, res.code);
-            sessionStorage.setItem(language + "MethodName", res.methodName);
-            firstLoad = false;
+            sessionStorage.setItem("cur" + language + this.lobby, res.code);
+            sessionStorage.setItem(
+              language + "MethodName" + this.lobby,
+              res.methodName
+            );
           })
           .catch((error) => {
             this.setState({ code: "Language not supported!" });
@@ -73,17 +68,7 @@ class Monaco extends React.Component {
 
   componentWillMount() {
     this.socket.on("connect", () => {
-      console.log(`Connected to socket server with id ${this.socket.id}`);
       this.socket.emit("join-room", this.lobby);
-    });
-
-    this.socket.on("receive-code", (id, code) => {
-      this.prevValue = code;
-      this.setState(() => {
-        return {
-          code: code,
-        };
-      });
     });
   }
 
@@ -244,11 +229,18 @@ class Monaco extends React.Component {
   }
 
   handleEditorChange(value, event) {
-    console.log(value === this.prevValue);
-    if (value !== this.prevValue) {
-      this.socket.emit("send-code", this.socket.id, value, this.lobby);
-      this.prevValue = value;
-    }
+    this.socket.emit(
+      "send-code",
+      this.socket.id,
+      value,
+      this.lobby,
+      language,
+      this.user
+    );
+    sessionStorage.setItem(
+      "cur" + language + this.lobby,
+      editorCode?.getValue()
+    );
   }
 
   render() {

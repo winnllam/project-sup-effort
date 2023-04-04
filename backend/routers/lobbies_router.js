@@ -6,8 +6,8 @@ export const lobbiesRouter = Router();
 lobbiesRouter.post("/:id", async function (req, res, next) {
   const lobby = new Lobby({
     id: req.params.id,
-    host: "abc",
-    players: ["abc"],
+    host: "req.body.username",
+    players: [],
     status: "Waiting",
     problem: 1,
   });
@@ -28,6 +28,32 @@ lobbiesRouter.get("/:id", async function (req, res, next) {
       .json({ error: "lobby:" + req.params.id + " does not exist" });
   }
 
+  return res.json({ lobby });
+});
+
+lobbiesRouter.post("/:id/join", async function (req, res, next) {
+  const lobby = await Lobby.findOne({ id: req.params.id });
+  if (!lobby) {
+    return res
+      .status(404)
+      .json({ error: "lobby:" + req.params.id + " does not exist" });
+  }
+
+  if (lobby.players.includes(req.body.username) === false) {
+    console.log(lobby.players);
+    lobby.players.push(req.body.username);
+    console.log(lobby.players);
+  } else {
+    if (lobby.players.length >= 4) {
+      return res.status(422).json({ message: "Lobby is full" });
+    }
+  }
+
+  try {
+    await lobby.save();
+  } catch (error) {
+    return res.status(422).json({ message: error.message });
+  }
   return res.json({ lobby });
 });
 

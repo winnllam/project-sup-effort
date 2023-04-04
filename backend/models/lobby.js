@@ -4,6 +4,7 @@ const lobbySchema = new mongoose.Schema({
   id: {
     required: true,
     type: String,
+    unique: true,
   },
   host: {
     required: true,

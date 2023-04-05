@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import Editor from "@monaco-editor/react";
 import { MutatingDots } from "react-loader-spinner";
 import monacoStyles from "./Monaco.module.css";

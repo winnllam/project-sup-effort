@@ -13,12 +13,15 @@ class UserList extends React.Component {
       userStatus: "",
       userId: null,
       currentId: null,
+      page: 0,
+      limit: 15,
+      totalUsers: 0,
     };
   }
 
   componentDidMount() {
-    userService.getAllUsers().then((res) => {
-      this.setState({ users: res.users });
+    userService.getAllUsers(this.state.page, this.state.limit).then((res) => {
+      this.setState({ users: res.users, totalUsers: res.total });
     });
 
     userService.getMe().then((res) => {
@@ -43,8 +46,33 @@ class UserList extends React.Component {
     this.closeChangeRoleModal();
   };
 
+  nextPage = () => {
+    this.setState({ page: this.state.page + 1 }, () => {
+      userService.getAllUsers(this.state.page, this.state.limit).then((res) => {
+        this.setState({ users: res.users, totalUsers: res.total });
+      });
+    });
+  };
+
+  prevPage = () => {
+    this.setState({ page: this.state.page - 1 }, () => {
+      userService.getAllUsers(this.state.page, this.state.limit).then((res) => {
+        this.setState({ users: res.users, totalUsers: res.total });
+      });
+    });
+  };
+
   render() {
-    const { users, openModal, userStatus, userName, currentId } = this.state;
+    const {
+      users,
+      openModal,
+      userStatus,
+      userName,
+      currentId,
+      page,
+      limit,
+      totalUsers,
+    } = this.state;
     return (
       <div className={styles.users}>
         <Modal
@@ -144,6 +172,24 @@ class UserList extends React.Component {
               </div>
             </div>
           ))}
+          {page > 0 && (
+            <button
+              class={styles.button}
+              id={styles.prevButton}
+              onClick={this.prevPage}
+            >
+              Previous
+            </button>
+          )}
+          {totalUsers - page * limit > limit && (
+            <button
+              class={styles.button}
+              id={styles.nextButton}
+              onClick={this.nextPage}
+            >
+              Next
+            </button>
+          )}
         </div>
       </div>
     );

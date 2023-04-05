@@ -1,6 +1,6 @@
 .coding {
   background: rgba(222, 226, 230, 0.8);
-  min-height: 80vh;
+  min-height: 75vh;
   display: flex;
   flex-direction: row;
 }
@@ -21,7 +21,7 @@
 }
 
 .infoBox {
-  height: 30%;
+  height: 45%;
   background-color: #eee;
 }
 

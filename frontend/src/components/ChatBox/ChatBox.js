@@ -55,24 +55,47 @@ class ChatBox extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const messageInput = document.getElementById("message-input");
-    const newMessage = this.username + ": " + messageInput.value;
-    this.setState({
-      messages: [...this.state.messages, newMessage],
-    });
-    this.socket.emit("send-message", newMessage, this.lobby);
-    messageInput.value = "";
+    if (messageInput.value !== "") {
+      const newMessage = this.username + ": " + messageInput.value;
+      this.setState({
+        messages: [...this.state.messages, newMessage],
+      });
+      this.socket.emit("send-message", newMessage, this.lobby);
+      messageInput.value = "";
+    }
+  }
+
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  };
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
   }
 
   render() {
     const { messages } = this.state;
 
     return (
-      <div className={chatboxStyles.chatbox}>
-        {messages.map((message, index) => (
-          <p key={index} className={chatboxStyles.messagesListLi}>
-            {message}
-          </p>
-        ))}
+      <>
+        {" "}
+        <div className={chatboxStyles.chatbox}>
+          {messages.map((message, index) => (
+            <p key={index} className={chatboxStyles.messagesListLi}>
+              {message}
+            </p>
+          ))}
+          <div
+            style={{ float: "left", clear: "both" }}
+            ref={(el) => {
+              this.messagesEnd = el;
+            }}
+          ></div>
+        </div>
         <div className={chatboxStyles.messageForm}>
           <form id="message-form" onSubmit={this.handleSubmit}>
             <input
@@ -90,7 +113,7 @@ class ChatBox extends React.Component {
             </button>
           </form>
         </div>
-      </div>
+      </>
     );
   }
 }

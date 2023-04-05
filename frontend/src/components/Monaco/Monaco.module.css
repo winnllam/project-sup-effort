@@ -1,7 +1,3 @@
-.editor {
-  height: 100%;
-}
-
 .testResults {
   background-color: white;
   padding: 20px;
@@ -29,8 +25,8 @@
 }
 
 .spinnerOverlay {
-  height: 75vh;
-  width: 50%;
+  height: 70vh;
+  width: 55%;
   background-color: rgba(0, 0, 0, 0.25);
   position: absolute;
   z-index: 2;

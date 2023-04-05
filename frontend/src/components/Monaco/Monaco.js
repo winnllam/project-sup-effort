@@ -25,7 +25,7 @@ class Monaco extends React.Component {
       number: null,
       code: null,
       methodName: "",
-      height: "75vh",
+      height: "70vh",
       results: [],
       showResults: false,
       setSpinner: false,
@@ -219,7 +219,7 @@ class Monaco extends React.Component {
       compilerService.executeCode(addTests, language).then((test) => {
         const result = test.output.split(/\r?\n/);
         this.setState({
-          height: "40vh",
+          height: "35vh",
           results: result,
           showResults: true,
           setSpinner: false,
@@ -246,7 +246,7 @@ class Monaco extends React.Component {
   render() {
     const { code, height, results, showResults, setSpinner } = this.state;
     return (
-      <>
+      <div>
         {setSpinner && (
           <div className={monacoStyles.spinnerOverlay}>
             <div className={monacoStyles.spinner}>
@@ -285,7 +285,7 @@ class Monaco extends React.Component {
             Submit Code
           </button>
         </div>
-      </>
+      </div>
     );
   }
 }

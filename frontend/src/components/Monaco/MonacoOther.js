@@ -1,9 +1,7 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import Editor from "@monaco-editor/react";
 import { MutatingDots } from "react-loader-spinner";
 import monacoStyles from "./Monaco.module.css";
-import * as compilerService from "../../services/api/JDoodle.js";
-import * as problemService from "../../services/api/Problems.js";
 import { io } from "socket.io-client";
 
 const width = "100%";

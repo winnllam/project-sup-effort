@@ -1,9 +1,10 @@
 import { Router } from "express";
 import { Lobby } from "../models/lobby.js";
+import { isAuthenticated } from "../middleware/auth.js";
 
 export const lobbiesRouter = Router();
 
-lobbiesRouter.post("/:id", async function (req, res, next) {
+lobbiesRouter.post("/:id", isAuthenticated, async function (req, res, next) {
   const lobby = new Lobby({
     id: req.params.id,
     host: "req.body.username",
@@ -20,7 +21,7 @@ lobbiesRouter.post("/:id", async function (req, res, next) {
   return res.json({ lobby });
 });
 
-lobbiesRouter.get("/:id", async function (req, res, next) {
+lobbiesRouter.get("/:id", isAuthenticated, async function (req, res, next) {
   const lobby = await Lobby.findOne({ id: req.params.id });
   if (!lobby) {
     return res
@@ -31,33 +32,37 @@ lobbiesRouter.get("/:id", async function (req, res, next) {
   return res.json({ lobby });
 });
 
-lobbiesRouter.post("/:id/join", async function (req, res, next) {
-  const lobby = await Lobby.findOne({ id: req.params.id });
-  if (!lobby) {
-    return res
-      .status(404)
-      .json({ error: "lobby:" + req.params.id + " does not exist" });
-  }
-
-  if (lobby.players.includes(req.body.username) === false) {
-    console.log(lobby.players);
-    lobby.players.push(req.body.username);
-    console.log(lobby.players);
-  } else {
-    if (lobby.players.length >= 4) {
-      return res.status(422).json({ message: "Lobby is full" });
+lobbiesRouter.post(
+  "/:id/join",
+  isAuthenticated,
+  async function (req, res, next) {
+    const lobby = await Lobby.findOne({ id: req.params.id });
+    if (!lobby) {
+      return res
+        .status(404)
+        .json({ error: "lobby:" + req.params.id + " does not exist" });
     }
-  }
 
-  try {
-    await lobby.save();
-  } catch (error) {
-    return res.status(422).json({ message: error.message });
-  }
-  return res.json({ lobby });
-});
+    if (lobby.players.includes(req.body.username) === false) {
+      console.log(lobby.players);
+      lobby.players.push(req.body.username);
+      console.log(lobby.players);
+    } else {
+      if (lobby.players.length >= 4) {
+        return res.status(422).json({ message: "Lobby is full" });
+      }
+    }
 
-lobbiesRouter.get("/", async function (req, res, next) {
+    try {
+      await lobby.save();
+    } catch (error) {
+      return res.status(422).json({ message: error.message });
+    }
+    return res.json({ lobby });
+  }
+);
+
+lobbiesRouter.get("/", isAuthenticated, async function (req, res, next) {
   const lobbies = await Lobby.find({}, { id: 1 });
 
   let lobbyList = [];

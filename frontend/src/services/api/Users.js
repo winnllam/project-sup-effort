@@ -2,8 +2,8 @@ import { get, post, patch } from "./base.js";
 
 const URL = "/users";
 
-export const getAllUsers = function () {
-  return get(URL + "/").then((res) => res.data);
+export const getAllUsers = function (page = 0, limit = 10) {
+  return get(URL + `/?page=${page}&limit=${limit}`).then((res) => res.data);
 };
 
 export const signOnUser = function (email, username) {

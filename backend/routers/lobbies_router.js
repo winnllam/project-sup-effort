@@ -7,7 +7,7 @@ export const lobbiesRouter = Router();
 lobbiesRouter.post("/:id", isAuthenticated, async function (req, res, next) {
   const lobby = new Lobby({
     id: req.params.id,
-    host: "req.body.username",
+    host: req.body.username,
     players: [],
     status: "Waiting",
     problem: 1,

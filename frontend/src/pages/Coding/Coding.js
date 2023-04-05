@@ -36,6 +36,7 @@ class Coding extends React.Component {
       solutionCode: "",
       premium: false,
       email: "",
+      isLoading: true,
       userName: user.nickname,
     };
 
@@ -58,9 +59,9 @@ class Coding extends React.Component {
   }
 
   componentDidMount() {
-    lobbyService
-      .joinLobby(this.props.id, this.state.userName)
-      .then((res) => {});
+    lobbyService.joinLobby(this.props.id, this.state.userName).then((res) => {
+      this.setState({ isLoading: false });
+    });
     userService.getMe().then((res) => {
       this.setState({
         premium: res.premium.status === "Active",
@@ -112,8 +113,19 @@ class Coding extends React.Component {
   }
 
   render() {
-    const { number, name, description, difficulty, language, premium } =
-      this.state;
+    const {
+      number,
+      name,
+      description,
+      difficulty,
+      language,
+      premium,
+      isLoading,
+    } = this.state;
+
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
 
     return (
       <div className={codingStyles.coding}>

@@ -202,7 +202,7 @@ class Monaco extends React.Component {
 
   submit() {
     this.setState({ setSpinner: true });
-    problemService.getTestCases(this.state.number).then((res) => {
+    problemService.getTestCases(this.state.number, 0, 100).then((res) => {
       const total = res.total;
       const tests = res.test;
 

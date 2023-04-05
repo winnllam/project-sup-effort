@@ -20,66 +20,69 @@ import Profile from "./pages/Profile/Profile";
 import History from "./pages/History/History";
 import Competition from "./pages/Competition/Competition";
 import AllUsers from "./pages/Admin/AllUsers/AllUsers";
+import { socket, SocketContext } from "./context/socket";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Router>
-          <Navbar />
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route path="/premium" element={<Premium />} />
-            <Route path="/credits" element={<Credits />} />
-            <Route
-              path="/dashboard"
-              element={<AuthenticationGuard component={Dashboard} />}
-            />
-            <Route
-              path="/dashboard/profile"
-              element={<AuthenticationGuard component={Profile} />}
-            />
-            <Route
-              path="/dashboard/history"
-              element={<AuthenticationGuard component={History} />}
-            />
-            <Route
-              path="/dashboard/competition"
-              element={<AuthenticationGuard component={Competition} />}
-            />
-            <Route
-              path="/dashboard/admin/problems"
-              element={<AuthenticationGuard component={AdminProblems} />}
-            />
-            <Route
-              path="/dashboard/admin/problems/:id"
-              element={<AuthenticationGuard component={ProblemHook} />}
-            />
-            <Route
-              path="/dashboard/admin/users"
-              element={<AuthenticationGuard component={AllUsers} />}
-            />
-            <Route
-              path="/coding"
-              element={<AuthenticationGuard component={CodingHook} />}
-            />
-            <Route
-              path="/coding/:id"
-              element={<AuthenticationGuard component={CodingLobbyHook} />}
-            />
-            <Route
-              path="/problems"
-              element={<AuthenticationGuard component={Problems} />}
-            />
-            <Route
-              path="/payment"
-              element={<AuthenticationGuard component={PaymentHook} />}
-            />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <Footer />
-        </Router>
-      </div>
+      <SocketContext.Provider value={socket}>
+        <div className="App">
+          <Router>
+            <Navbar />
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              <Route path="/premium" element={<Premium />} />
+              <Route path="/credits" element={<Credits />} />
+              <Route
+                path="/dashboard"
+                element={<AuthenticationGuard component={Dashboard} />}
+              />
+              <Route
+                path="/dashboard/profile"
+                element={<AuthenticationGuard component={Profile} />}
+              />
+              <Route
+                path="/dashboard/history"
+                element={<AuthenticationGuard component={History} />}
+              />
+              <Route
+                path="/dashboard/competition"
+                element={<AuthenticationGuard component={Competition} />}
+              />
+              <Route
+                path="/dashboard/admin/problems"
+                element={<AuthenticationGuard component={AdminProblems} />}
+              />
+              <Route
+                path="/dashboard/admin/problems/:id"
+                element={<AuthenticationGuard component={ProblemHook} />}
+              />
+              <Route
+                path="/dashboard/admin/users"
+                element={<AuthenticationGuard component={AllUsers} />}
+              />
+              <Route
+                path="/coding"
+                element={<AuthenticationGuard component={CodingHook} />}
+              />
+              <Route
+                path="/coding/:id"
+                element={<AuthenticationGuard component={CodingLobbyHook} />}
+              />
+              <Route
+                path="/problems"
+                element={<AuthenticationGuard component={Problems} />}
+              />
+              <Route
+                path="/payment"
+                element={<AuthenticationGuard component={PaymentHook} />}
+              />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <Footer />
+          </Router>
+        </div>
+      </SocketContext.Provider>
     );
   }
 }

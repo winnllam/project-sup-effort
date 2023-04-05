@@ -1,82 +1,56 @@
-import React, { PureComponent } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Editor from "@monaco-editor/react";
 import { MutatingDots } from "react-loader-spinner";
 import monacoStyles from "./Monaco.module.css";
 import * as compilerService from "../../services/api/JDoodle.js";
 import * as problemService from "../../services/api/Problems.js";
-import { io } from "socket.io-client";
+import { SocketContext } from "../../context/socket.js";
 
 const width = "100%";
-let language = "";
 
-let editorCode = null;
-class Monaco extends React.Component {
-  constructor(props) {
-    super(props);
-    this.lobby = this.props.lobby;
-    this.user = this.props.user;
-    let url = process.env.REACT_APP_BACKEND_LOCALHOST;
-    if (process.env.NODE_ENV === "production") {
-      url = process.env.REACT_APP_PRODUCTION_URL;
-    }
-    this.socket = io(url);
+const Monaco = ({ lobby, user, language, number }) => {
+  const [editorCode, setEditorCode] = useState(null);
+  const [methodName, setMethodName] = useState("");
+  const [height, setHeight] = useState("75vh");
+  const [code, setCode] = useState(null);
+  const [results, setResults] = useState([]);
+  const [showResults, setShowResults] = useState(false);
+  const [setSpinner, setSetSpinner] = useState(false);
 
-    this.state = {
-      number: null,
-      code: null,
-      methodName: "",
-      height: "75vh",
-      results: [],
-      showResults: false,
-      setSpinner: false,
-    };
-    this.handleEditorChange = this.handleEditorChange.bind(this);
-    this.submit = this.submit.bind(this);
-  }
+  const socket = useContext(SocketContext);
 
-  componentWillReceiveProps(props) {
-    if (props.language !== null) {
-      language = props.language;
-    }
-    if (props.number !== null) {
-      this.setState({ number: props.number });
-
-      // if the language has modified code from previous attempt
-      if (sessionStorage.getItem("cur" + language + this.lobby) !== null) {
-        // restore the code from storage
-        this.setState({
-          code: sessionStorage.getItem("cur" + language + this.lobby),
-        });
+  useEffect(() => {
+    socket.emit("join-room", lobby);
+    console.log(socket.id + " joined room " + lobby);
+    if (number !== null) {
+      if (sessionStorage.getItem("cur" + language + lobby) !== null) {
+        console.log("restoring code from storage");
+        setCode(sessionStorage.getItem("cur" + language + lobby));
       } else {
         problemService
-          .getStarterCode(props.number, language)
+          .getStarterCode(number, language)
           .then((res) => {
             console.log(res);
-            this.setState({ code: res.code, methodName: res.methodName });
-            sessionStorage.setItem("cur" + language + this.lobby, res.code);
+            setCode(res.code);
+            setMethodName(res.methodName);
+            sessionStorage.setItem("cur" + language + lobby, res.code);
             sessionStorage.setItem(
-              language + "MethodName" + this.lobby,
+              language + "MethodName" + lobby,
               res.methodName
             );
           })
           .catch((error) => {
-            this.setState({ code: "Language not supported!" });
+            setCode("Language not supported!");
           });
       }
     }
-  }
+  }, [language, lobby, number]);
 
-  componentWillMount() {
-    this.socket.on("connect", () => {
-      this.socket.emit("join-room", this.lobby);
-    });
-  }
+  const handleEditorDidMount = (editor, monaco) => {
+    setEditorCode(editor);
+  };
 
-  handleEditorDidMount(editor, monaco) {
-    editorCode = editor;
-  }
-
-  runPython(total, tests) {
+  const runPython = (total, tests) => {
     let addTests = editorCode?.getValue();
     addTests = addTests.concat("\r\npassCounter = 0");
 
@@ -115,9 +89,9 @@ class Monaco extends React.Component {
     );
 
     return addTests;
-  }
+  };
 
-  runJavascript(total, tests) {
+  const runJavascript = (total, tests) => {
     let addTests = editorCode?.getValue();
     addTests = addTests.concat("\r\nlet passCounter = 0;");
 
@@ -151,9 +125,9 @@ class Monaco extends React.Component {
     );
 
     return addTests;
-  }
+  };
 
-  runJava(total, tests) {
+  const runJava = (total, tests) => {
     let main =
       "public class mainClass { \r\npublic static void main(String args[]) { \r\nSolution sol = new Solution();";
     main = main.concat("\r\nint passCounter = 0;");
@@ -198,95 +172,81 @@ class Monaco extends React.Component {
     let solutionCode = editorCode?.getValue();
     main = main.concat("\r\n" + solutionCode);
     return main;
-  }
+  };
 
-  submit() {
-    this.setState({ setSpinner: true });
-    problemService.getTestCases(this.state.number).then((res) => {
+  const submit = () => {
+    setSetSpinner(true);
+    problemService.getTestCases(number).then((res) => {
       const total = res.total;
       const tests = res.test;
 
       let addTests = "";
       if (language === "python") {
-        addTests = this.runPython(total, tests);
+        addTests = runPython(total, tests);
       } else if (language === "java") {
-        addTests = this.runJava(total, tests);
+        addTests = runJava(total, tests);
       } else if (language === "javascript") {
-        addTests = this.runJavascript(total, tests);
+        addTests = runJavascript(total, tests);
       }
       console.log(addTests);
 
       compilerService.executeCode(addTests, language).then((test) => {
         const result = test.output.split(/\r?\n/);
-        this.setState({
-          height: "40vh",
-          results: result,
-          showResults: true,
-          setSpinner: false,
-        });
+        setHeight("40vh");
+        setResults(result);
+        setShowResults(true);
+        setSetSpinner(false);
       });
     });
-  }
+  };
 
-  handleEditorChange(value, event) {
-    this.socket.emit(
-      "send-code",
-      this.socket.id,
-      value,
-      this.lobby,
-      language,
-      this.user
-    );
-    sessionStorage.setItem(
-      "cur" + language + this.lobby,
-      editorCode?.getValue()
-    );
-  }
+  const handleEditorChange = (value, event) => {
+    socket.emit("send-code", socket.id, value, lobby, language, user);
+    sessionStorage.setItem("cur" + language + lobby, editorCode?.getValue());
+  };
 
-  render() {
-    const { code, height, results, showResults, setSpinner } = this.state;
-    return (
-      <>
-        {setSpinner && (
-          <div className={monacoStyles.spinnerOverlay}>
-            <div className={monacoStyles.spinner}>
-              <MutatingDots
-                height="100"
-                width="100"
-                color="#4fa94d"
-                secondaryColor="#4fa94d"
-                radius="12.5"
-                ariaLabel="mutating-dots-loading"
-                wrapperStyle={{}}
-                wrapperClass=""
-                visible={true}
-              />
-            </div>
+  return (
+    <div>
+      {setSpinner && (
+        <div className={monacoStyles.spinnerOverlay}>
+          <div className={monacoStyles.spinner}>
+            <MutatingDots
+              height="100"
+              width="100"
+              color="#4fa94d"
+              secondaryColor="#4fa94d"
+              radius="12.5"
+              ariaLabel="mutating-dots-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+            />
           </div>
-        )}
-        <Editor
-          height={height}
-          width={width}
-          language={language}
-          value={code}
-          onMount={this.handleEditorDidMount}
-          onChange={this.handleEditorChange}
-        />
-        {showResults ? (
-          <div className={monacoStyles.testResults}>
-            <h2>Test Results</h2>
-            {results.map((test) => (
-              <p key={test}>{test}</p>
-            ))}
-          </div>
-        ) : null}
-        <div className={monacoStyles.buttonBar}>
-          <button onClick={this.submit} className={monacoStyles.submitBtn}>
-            Submit Code
-          </button>
         </div>
-      </>
-    );
-  }
-}
+      )}
+      <Editor
+        height={height}
+        width={width}
+        language={language}
+        value={code}
+        onMount={handleEditorDidMount}
+        onChange={handleEditorChange}
+      />
+      {showResults ? (
+        <div className={monacoStyles.testResults}>
+          <h2>Test Results</h2>
+          {results.map((test) => (
+            <p key={test}>{test}</p>
+          ))}
+        </div>
+      ) : null}
+      <div className={monacoStyles.buttonBar}>
+        <button onClick={submit} className={monacoStyles.submitBtn}>
+          Submit Code
+        </button>
+      </div>
+    </div>
+  );
+};
+
 export default Monaco;

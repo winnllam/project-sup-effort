@@ -8,35 +8,47 @@ import MonacoOther from "./MonacoOther";
 function MonacoTabs({ number, language, lobby, user }) {
   const [tabIndex, setTabIndex] = useState(0);
   const [users, setUsers] = useState([]);
+  const [tabs, setTabs] = useState([]);
+  const [tabPanels, setTabPanels] = useState([]);
 
-  const handleTabSelect = (index) => {
-    setTabIndex(index);
-  };
-
-  let tabPanels = [];
-  let tabs = [];
-
-  function updateUsers() {
+  useEffect(() => {
+    let userTab = [<Tab key={0}>{`${user}`}</Tab>];
+    setTabs(userTab);
+    let userTabPanel = [
+      <TabPanel key={0}>
+        <Monaco number={number} language={language} lobby={lobby} user={user} />
+      </TabPanel>,
+    ];
+    setTabPanels(userTabPanel);
     lobbyService.getLobby(lobby).then((res) => {
       let arr = res.players;
+      console.log(arr);
       const foundIdx = arr.findIndex((el) => el === user);
       arr.splice(foundIdx, 1);
       arr.unshift(user);
       setUsers(arr);
+      console.log(arr);
     });
+  }, []);
 
-    for (let i = 0; i < users.length; i++) {
-      tabs.push(<Tab key={i}>{`${users[i]}`}</Tab>);
+  useEffect(() => {
+    if (users.length === 0) {
+      return;
     }
 
-    tabPanels.push(
+    let curTabs = [];
+    for (let i = 0; i < users.length; i++) {
+      curTabs.push(<Tab key={i}>{`${users[i]}`}</Tab>);
+    }
+    setTabs(curTabs);
+    let curTabPanels = [];
+    curTabPanels.push(
       <TabPanel key={0}>
         <Monaco number={number} language={language} lobby={lobby} user={user} />
       </TabPanel>
     );
-
     for (let i = 1; i < users.length; i++) {
-      tabPanels.push(
+      curTabPanels.push(
         <TabPanel key={i}>
           <MonacoOther
             number={number}
@@ -47,14 +59,14 @@ function MonacoTabs({ number, language, lobby, user }) {
         </TabPanel>
       );
     }
-  }
 
-  updateUsers();
+    console.log(curTabs, curTabPanels);
+    setTabPanels(curTabPanels);
+  }, [users, language, lobby, number, user]);
 
   return (
-    <Tabs selectedIndex={tabIndex} onSelect={handleTabSelect}>
+    <Tabs selectedIndex={tabIndex} onSelect={setTabIndex}>
       <TabList>{tabs}</TabList>
-
       {tabPanels}
     </Tabs>
   );

@@ -5,6 +5,7 @@ import dashboardStyles from "../../../pages/Dashboard/Dashboard.module.css";
 import getLobbyName from "../../../lobby/lobbyName";
 import * as lobbyService from "../../../services/api/Lobbies.js";
 import * as userService from "../../../services/api/Users.js";
+import * as problemsService from "../../../services/api/Problems.js";
 
 const lobbyName = getLobbyName();
 
@@ -12,10 +13,15 @@ const DashboardCompetition = () => {
   const [lobbyId, setLobbyId] = useState("");
 
   const handleCreateLobby = () => {
+    const dropdown = document.querySelector(`.${styles.dropdown}`);
+    const selectedDifficulty = dropdown.value;
+
     userService.getMe().then((res) => {
-      lobbyService.createLobby(lobbyName, res.username).then(() => {
-        window.location.href = "/coding/" + lobbyName;
-      });
+      lobbyService
+        .createLobby(lobbyName, res.username, selectedDifficulty)
+        .then(() => {
+          window.location.href = "/coding/" + lobbyName;
+        });
     });
   };
 

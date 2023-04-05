@@ -12,7 +12,6 @@ const options = [
   { value: "python", label: "Python3" },
   { value: "java", label: "Java" },
   { value: "javascript", label: "JavaScript" },
-  { value: "c", label: "C" },
 ];
 const defaultOption = options[0];
 let starterEditorCode = null;

@@ -5,7 +5,7 @@ const codeSchema = new mongoose.Schema({
     required: true,
     type: String,
     enum: {
-      values: ["javascript", "java", "python", "c"],
+      values: ["javascript", "java", "python"],
       message: "{VALUE} is not supported",
     },
   },

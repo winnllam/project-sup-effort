@@ -24,8 +24,10 @@ export const getStarterCode = function (problemId, language) {
   );
 };
 
-export const getTestCases = function (problemId) {
-  return get(URL + `/${problemId}/testCases`).then((res) => res.data);
+export const getTestCases = function (problemId, page = 0, limit = 10) {
+  return get(URL + `/${problemId}/testCases?page=${page}&limit=${limit}`).then(
+    (res) => res.data
+  );
 };
 
 export const updateProblem = function (problemId, name, desc, difficulty) {

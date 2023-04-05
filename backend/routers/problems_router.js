@@ -235,7 +235,11 @@ problemsRouter.get(
   "/:id/testCases",
   isAuthenticated,
   async function (req, res, next) {
+    const limit = req.query.limit ? req.query.limit : 10;
+    const offset = req.query.page ? req.query.page * limit : 0;
+
     const problem = await Problem.findOne({ number: req.params.id });
+
     if (!problem) {
       return res
         .status(404)
@@ -243,7 +247,8 @@ problemsRouter.get(
     }
 
     const testCases = problem.testCases;
-    return res.json({ total: testCases.length, test: testCases });
+    const paginated = testCases.slice(offset, offset + limit);
+    return res.json({ total: testCases.length, test: paginated });
   }
 );
 

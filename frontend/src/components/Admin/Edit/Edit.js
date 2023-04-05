@@ -136,30 +136,22 @@ class Edit extends React.Component {
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
 
-    problemService
-      .addStarterCode(
-        this.state.problemId,
-        this.state.starterLanguage,
-        starterEditorCode?.getValue(),
-        formJson.methodName
-      )
-      .then((res) => {
-        console.log(res);
-      });
+    problemService.addStarterCode(
+      this.state.problemId,
+      this.state.starterLanguage,
+      starterEditorCode?.getValue(),
+      formJson.methodName
+    );
   };
 
   saveSolutionCode = (e) => {
     e.preventDefault();
 
-    problemService
-      .addSolutionCode(
-        this.state.problemId,
-        this.state.solutionLanguage,
-        solutionEditorCode?.getValue()
-      )
-      .then((res) => {
-        console.log(res);
-      });
+    problemService.addSolutionCode(
+      this.state.problemId,
+      this.state.solutionLanguage,
+      solutionEditorCode?.getValue()
+    );
   };
 
   handleStarterEditorDidMount(editor, monaco) {

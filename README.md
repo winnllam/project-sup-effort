@@ -80,3 +80,14 @@ Email: admin@email.com
 Password: Admin123!
 
 More admin accounts can be generated/granted access by first having them sign-up for a regular basic account. Then an admin once logged in can go to the dashboard and under users promote various users to admin previliges.
+
+### Admin User
+
+An adminastartive user can login in to the site and have the following priviliges:
+
+- adding and/or editing problems
+- adding and/or editing test cases for a particular problem
+- viewing all users on the site
+- promoting or downgrading user priviliges (basic to admin or admin to basic)
+
+The above is all done via the Admin dashboard on the site.

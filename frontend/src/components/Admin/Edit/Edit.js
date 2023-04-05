@@ -5,7 +5,7 @@ import Dropdown from "react-dropdown";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import TestCase from "../Test-Case/Test-Case";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import * as problemService from "../../../services/api/Problems.js";
 
 const options = [

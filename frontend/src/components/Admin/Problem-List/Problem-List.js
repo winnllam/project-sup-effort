@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Problem-List.module.css";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import * as problemService from "../../../services/api/Problems.js";
 import { HashLink as Link } from "react-router-hash-link";
 

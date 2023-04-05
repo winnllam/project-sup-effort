@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./User-List.module.css";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import * as userService from "../../../services/api/Users.js";
 
 class UserList extends React.Component {

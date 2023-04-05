@@ -1,16 +1,20 @@
 import { Router } from "express";
 import { Lobby } from "../models/lobby.js";
+import { Problem } from "../models/problem.js";
 import { isAuthenticated } from "../middleware/auth.js";
 
 export const lobbiesRouter = Router();
 
 lobbiesRouter.post("/:id", isAuthenticated, async function (req, res, next) {
+  const problems = await Problem.find({ difficulty: req.body.difficulty });
+  const randomProblem = problems[Math.floor(Math.random() * problems.length)];
+
   const lobby = new Lobby({
     id: req.params.id,
     host: req.body.username,
     players: [],
     status: "Waiting",
-    problem: 1,
+    problem: randomProblem.number,
   });
 
   try {

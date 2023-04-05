@@ -2,8 +2,10 @@ import { post, get } from "./base.js";
 
 const URL = "/lobbies";
 
-export const createLobby = function (lobbyId, username) {
-  return post(URL + `/${lobbyId}`, { username }).then((res) => res.data);
+export const createLobby = function (lobbyId, username, difficulty) {
+  return post(URL + `/${lobbyId}`, { username, difficulty }).then(
+    (res) => res.data
+  );
 };
 
 export const getLobby = function (lobbyId) {

@@ -40,7 +40,7 @@ const DashboardCompetition = () => {
       <div class={styles.section}>
         <div class={styles.subtitle}>New Competition</div>
         <div class={styles.box}>
-          <b>Difficulty:</b>{" "}
+          <b>Difficulty: </b>{" "}
           <select class={styles.dropdown}>
             <option
               value=""
@@ -70,7 +70,7 @@ const DashboardCompetition = () => {
       <div class={styles.section}>
         <div class={styles.subtitle}>Join Competition</div>
         <div class={styles.box}>
-          <b>Contest URL:</b>{" "}
+          <b>Contest URL: </b>{" "}
           <input
             type="text"
             id={styles.contestCode}

@@ -36,22 +36,29 @@
   background: #ffffff;
   border: 1px solid #000000;
   border-radius: 10px;
+  font-size: 20px;
 }
 
 .button {
   background: #ffffff;
   border: 3px solid #284b63;
-  border-radius: 15px;
+  border-radius: 10px;
   font-size: 20px;
-  width: auto;
-  height: auto;
+  color: #284b63;
   margin: 10px 0px;
   padding: 3px 25px;
+}
+
+.button:hover {
+  background: #284b63;
+  color: #ffffff;
 }
 
 #contestCode {
   width: 70%;
   border-radius: 10px;
+  padding: 3px 5px;
+  font-size: 20px;
 }
 
 input::placeholder {

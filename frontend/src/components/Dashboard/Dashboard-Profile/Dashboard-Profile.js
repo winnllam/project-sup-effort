@@ -102,7 +102,7 @@ class DashboardProfile extends React.Component {
                 <Modal.Title>Upgrade to Premium</Modal.Title>
               )}
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className={styles.modalBody}>
               <div class={styles.modalTitle}>Subscription Type</div>
               <select
                 id={styles.planType}
@@ -120,7 +120,7 @@ class DashboardProfile extends React.Component {
             </Modal.Body>
             <Modal.Footer>
               <Link to="/payment" state={{ upgradeType, upgradeTotal }}>
-                Submit
+                <button className={styles.submitButton}>Submit</button>
               </Link>
             </Modal.Footer>
           </form>

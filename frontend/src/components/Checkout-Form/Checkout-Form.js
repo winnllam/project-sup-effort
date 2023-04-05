@@ -97,7 +97,7 @@ class CheckoutForm extends React.Component {
             class={styles.button}
           >
             <span id={styles.buttonText}>
-              {this.state.isProcessing ? "Processing ..." : "Pay now"}
+              {this.state.isProcessing ? "Processing ..." : "Pay Now"}
             </span>
           </button>
           {message !== "" && <div id={styles.paymentMessage}>{message}</div>}

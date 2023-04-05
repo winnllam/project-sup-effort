@@ -32,11 +32,33 @@
 .button {
   background: #ffffff;
   border: 3px solid #284b63;
-  border-radius: 15px;
+  border-radius: 10px;
   font-size: 20px;
+  color: #284b63;
   width: 100px;
   height: auto;
   margin: 10px 0px;
+}
+
+.button:hover {
+  background: #284b63;
+  color: white;
+}
+
+.newButton {
+  background: #ffffff;
+  border: 3px solid #3d7397;
+  border-radius: 10px;
+  font-size: 20px;
+  color: #3d7397;
+  width: 100px;
+  height: auto;
+  margin: 10px 0px;
+}
+
+.newButton:hover {
+  background: #3d7397;
+  color: white;
 }
 
 .newTest {

@@ -90,7 +90,7 @@ class ProblemList extends React.Component {
             <div class={styles.title}>Problems</div>
             <div id={styles.newProblem}>
               <button
-                class={styles.button}
+                class={styles.newButton}
                 id={styles.new}
                 onClick={this.openNewProblemModal}
               >
@@ -108,14 +108,12 @@ class ProblemList extends React.Component {
                   <i> {problem.description}</i>
                 </div>
                 <div class={styles.editProblem}>
-                  <button class={styles.button}>
-                    <Link
-                      to={"/dashboard/admin/problems/" + problem.number}
-                      class={styles.options}
-                    >
-                      Edit
-                    </Link>
-                  </button>
+                  <Link
+                    to={"/dashboard/admin/problems/" + problem.number}
+                    class={styles.options}
+                  >
+                    <button class={styles.button}>Edit</button>
+                  </Link>
                 </div>
               </div>
             ))}

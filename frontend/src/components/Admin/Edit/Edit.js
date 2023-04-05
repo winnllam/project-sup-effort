@@ -320,7 +320,7 @@ class Edit extends React.Component {
               <Col md={2}>
                 <div class={styles.newTest}>
                   <button
-                    class={styles.button}
+                    class={styles.newButton}
                     id={styles.new}
                     onClick={this.openNewTestModal}
                   >

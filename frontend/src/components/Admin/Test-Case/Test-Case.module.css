@@ -21,11 +21,17 @@
 .button {
   background: #ffffff;
   border: 3px solid #284b63;
-  border-radius: 15px;
+  border-radius: 10px;
   font-size: 20px;
+  color: #284b63;
   width: 100px;
   height: auto;
   margin: 10px 0px;
+}
+
+.button:hover {
+  background: #284b63;
+  color: white;
 }
 
 .testBody {

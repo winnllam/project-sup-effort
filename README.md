@@ -8,6 +8,20 @@
 
 **Deployed Link**: https://divideandconquer.me
 
+## Table of Contents
+
+1. [Project Focus](#project-focus)
+2. [Team Members](#team-members)
+3. [Description of Web Application](#description-of-web-application)
+4. [Complexity Points](#complexity-points)
+   1. [Bonus Complexity Points](#bonus-complexity-points)
+5. [Deliverables](#deliverables)
+   1. [Alpha Version](#alpha-version)
+   2. [Beta Version](#beta-version)
+   3. [Final Version](#final-version)
+6. [User Guide](#user-guide)
+   1. [Credientals](#credentials)
+
 ## Project Focus
 
 Backend-focused application with support for multiple users at a time, real-time updates and execution of code programs.
@@ -36,6 +50,8 @@ The intended complexity points (9 of them) we aim to implement are:
 
 ### Bonus Complexity Points
 
+**Not Implemented**
+
 Time and resource permitting we may integrate _Twilio_ (2 points) for 2 factor authentication and SMS communications.
 
 ## Deliverables
@@ -54,3 +70,13 @@ send sign up for email verification via SendGrid and generate links to share wit
 ### Final Version
 
 For the final version, it will include everything in the Alpha and Beta version but with paid premium features via Stripe. The application will be fully polished and deployed.
+
+## User Guide
+
+### Credentials
+
+**Admin Account**:  
+Email: admin@email.com  
+Password: Admin123!
+
+More admin accounts can be generated/granted access by first having them sign-up for a regular basic account. Then an admin once logged in can go to the dashboard and under users promote various users to admin previliges.

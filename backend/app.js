@@ -57,11 +57,6 @@ app.use("/api/lobbies", lobbiesRouter);
 app.use("/api/emails", emailsRouter);
 app.use("/api/premium", premiumRouter);
 
-// app.listen(PORT, (err) => {
-//   if (err) console.log(err);
-//   else console.log("HTTP server on http://localhost:%s", PORT);
-// });
-
 const httpServer = createServer(app);
 
 const io = new Server(httpServer, {

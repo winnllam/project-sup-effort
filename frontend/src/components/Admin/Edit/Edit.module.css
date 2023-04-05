@@ -149,3 +149,8 @@
   height: 45px;
   padding: 5px 0px;
 }
+
+#prevButton,
+#nextButton {
+  margin: 0px 40px;
+}

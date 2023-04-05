@@ -4,7 +4,6 @@ import { withAuth0 } from "@auth0/auth0-react";
 import Editor from "@monaco-editor/react";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
-import Monaco from "../../components/Monaco/Monaco";
 import MonacoTabs from "../../components/Monaco/MonacoTabs";
 import * as problemService from "../../services/api/Problems.js";
 import ChatBox from "../../components/ChatBox/ChatBox";

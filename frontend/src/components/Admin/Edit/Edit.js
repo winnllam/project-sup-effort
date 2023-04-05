@@ -26,6 +26,7 @@ class Edit extends React.Component {
       problemName: "",
       newTest: false,
       testsList: [],
+      totalTests: 0,
       desc: "",
       difficulty: "",
       starterLanguage: defaultOption.value,
@@ -33,6 +34,8 @@ class Edit extends React.Component {
       starterCode: "",
       solutionCode: "",
       methodName: "",
+      page: 0,
+      limit: 10,
     };
 
     this.updateStarterLanguage = this.updateStarterLanguage.bind(this);
@@ -47,16 +50,45 @@ class Edit extends React.Component {
         difficulty: res.difficulty,
       });
     });
-    problemService.getTestCases(this.state.problemId).then((res) => {
-      this.setState({
-        testsList: res.test,
+    problemService
+      .getTestCases(this.state.problemId, this.state.page, this.state.limit)
+      .then((res) => {
+        this.setState({
+          testsList: res.test,
+          totalTests: res.total,
+        });
       });
-    });
   }
 
   openNewTestModal = () => this.setState({ newTest: true });
 
   closeNewTestModal = () => this.setState({ newTest: false });
+
+  nextPage = () => {
+    this.setState({ page: this.state.page + 1 }, () => {
+      problemService
+        .getTestCases(this.state.problemId, this.state.page, this.state.limit)
+        .then((res) => {
+          this.setState({
+            testsList: res.test,
+            totalTests: res.total,
+          });
+        });
+    });
+  };
+
+  prevPage = () => {
+    this.setState({ page: this.state.page - 1 }, () => {
+      problemService
+        .getTestCases(this.state.problemId, this.state.page, this.state.limit)
+        .then((res) => {
+          this.setState({
+            testsList: res.test,
+            totalTests: res.total,
+          });
+        });
+    });
+  };
 
   saveNewTestModal = (e) => {
     this.setState({ newTest: false });
@@ -104,30 +136,22 @@ class Edit extends React.Component {
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
 
-    problemService
-      .addStarterCode(
-        this.state.problemId,
-        this.state.starterLanguage,
-        starterEditorCode?.getValue(),
-        formJson.methodName
-      )
-      .then((res) => {
-        console.log(res);
-      });
+    problemService.addStarterCode(
+      this.state.problemId,
+      this.state.starterLanguage,
+      starterEditorCode?.getValue(),
+      formJson.methodName
+    );
   };
 
   saveSolutionCode = (e) => {
     e.preventDefault();
 
-    problemService
-      .addSolutionCode(
-        this.state.problemId,
-        this.state.solutionLanguage,
-        solutionEditorCode?.getValue()
-      )
-      .then((res) => {
-        console.log(res);
-      });
+    problemService.addSolutionCode(
+      this.state.problemId,
+      this.state.solutionLanguage,
+      solutionEditorCode?.getValue()
+    );
   };
 
   handleStarterEditorDidMount(editor, monaco) {
@@ -170,12 +194,27 @@ class Edit extends React.Component {
   };
 
   render() {
-    const { difficulty, problemName } = this.state;
+    const {
+      difficulty,
+      problemName,
+      newTest,
+      desc,
+      starterLanguage,
+      starterCode,
+      methodName,
+      solutionLanguage,
+      solutionCode,
+      testsList,
+      problemId,
+      page,
+      limit,
+      totalTests,
+    } = this.state;
     return (
       <div className={styles.page}>
         <div class={styles.problem}>
           <Modal
-            show={this.state.newTest}
+            show={newTest}
             onHide={this.closeNewTestModal}
             class={styles.editModal}
           >
@@ -213,7 +252,7 @@ class Edit extends React.Component {
               </Modal.Footer>
             </form>
           </Modal>
-          <div class={styles.title}>{this.state.problemName}</div>
+          <div class={styles.title}>{problemName}</div>
 
           <div class={styles.desc}>
             <div class={styles.subtitle}>Problem Details</div>
@@ -233,7 +272,7 @@ class Edit extends React.Component {
                   <textarea
                     id={styles.problemDesc}
                     name="desc"
-                    defaultValue={this.state.desc}
+                    defaultValue={desc}
                   ></textarea>
                 </div>
                 <div class={styles.problemDifficulty}>
@@ -270,8 +309,8 @@ class Edit extends React.Component {
                   id={styles.code}
                   height={"30vh"}
                   width={"100%"}
-                  language={this.state.starterLanguage}
-                  value={this.state.starterCode}
+                  language={starterLanguage}
+                  value={starterCode}
                   onMount={this.handleStarterEditorDidMount}
                 />
                 <div class={styles.category}>Method Name</div>
@@ -280,7 +319,7 @@ class Edit extends React.Component {
                   id={styles.methodName}
                   name="methodName"
                   placeholder={"Method Name"}
-                  value={this.state.methodName}
+                  value={methodName}
                   onChange={(e) => {
                     this.setState({ methodName: e.target.value });
                   }}
@@ -303,8 +342,8 @@ class Edit extends React.Component {
                 <Editor
                   height={"30vh"}
                   width={"100%"}
-                  language={this.state.solutionLanguage}
-                  value={this.state.solutionCode}
+                  language={solutionLanguage}
+                  value={solutionCode}
                   onMount={this.handleSolutionEditorDidMount}
                 />
                 <button class={styles.button}>Save</button>
@@ -331,11 +370,26 @@ class Edit extends React.Component {
             </Row>
 
             <div class={styles.testsBox}>
-              {this.state.testsList.length > 0 && (
-                <TestCase
-                  testsList={this.state.testsList}
-                  problemId={this.state.problemId}
-                />
+              {testsList.length > 0 && (
+                <TestCase testsList={testsList} problemId={problemId} />
+              )}
+              {page > 0 && (
+                <button
+                  class={styles.button}
+                  id={styles.prevButton}
+                  onClick={this.prevPage}
+                >
+                  Previous
+                </button>
+              )}
+              {totalTests - page * limit > limit && (
+                <button
+                  class={styles.button}
+                  id={styles.nextButton}
+                  onClick={this.nextPage}
+                >
+                  Next
+                </button>
               )}
             </div>
           </div>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import Monaco from "./Monaco";
-import monacoStyles from "./Monaco.module.css";
 import * as lobbyService from "../../services/api/Lobbies.js";
 import MonacoOther from "./MonacoOther";
 

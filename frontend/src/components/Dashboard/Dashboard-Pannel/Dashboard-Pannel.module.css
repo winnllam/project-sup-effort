@@ -32,17 +32,22 @@
 
 .button {
   background: #ffffff;
-  border: 5px solid #284b63;
-  border-radius: 15px;
+  border: 3px solid #284b63;
+  border-radius: 10px;
   font-family: "Raleway";
   font-style: normal;
   font-weight: 400;
   font-size: 24px;
-  color: #000000;
+  color: #284b63;
   width: 200px;
   height: 45px;
   margin-top: 5px;
   margin-bottom: 10px;
+}
+
+.button:hover {
+  background: #284b63;
+  color: white;
 }
 
 .options {

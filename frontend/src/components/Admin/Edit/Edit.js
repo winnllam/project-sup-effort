@@ -183,7 +183,7 @@ class Edit extends React.Component {
               <Modal.Header closeButton>
                 <Modal.Title>Add New Test Case</Modal.Title>
               </Modal.Header>
-              <Modal.Body>
+              <Modal.Body className={styles.modalBody}>
                 <div class={styles.modalTitle}>Input</div>
                 <input
                   type={String}
@@ -207,9 +207,9 @@ class Edit extends React.Component {
                 ></input>{" "}
               </Modal.Body>
               <Modal.Footer>
-                <Button variant="secondary" type="submit">
+                <button className={styles.saveButton} type="submit">
                   Save
-                </Button>
+                </button>
               </Modal.Footer>
             </form>
           </Modal>

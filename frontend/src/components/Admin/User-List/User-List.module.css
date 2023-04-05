@@ -35,15 +35,40 @@
 .button {
   background: #ffffff;
   border: 3px solid #284b63;
-  border-radius: 15px;
+  border-radius: 10px;
   font-size: 20px;
+  color: #284b63;
   width: 200px;
   height: auto;
   margin: 10px 0px;
 }
 
+.button:hover {
+  background: #284b63;
+  color: white;
+}
+
+.confirmButton {
+  background: rgb(117, 180, 117);
+  color: white;
+  border: 3px solid rgb(117, 180, 117);
+  border-radius: 10px;
+  font-size: 16px;
+  height: auto;
+  padding: 5px 20px;
+}
+
+.confirmButton:hover {
+  background: #ffffff;
+  color: rgb(117, 180, 117);
+}
+
 .userModal {
   width: 500px;
+}
+
+.modalBody {
+  padding: 20px 30px;
 }
 
 .modalTitle {

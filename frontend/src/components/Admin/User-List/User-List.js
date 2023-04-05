@@ -60,7 +60,7 @@ class UserList extends React.Component {
               <Modal.Title>Downgrade Admin User to Basic</Modal.Title>
             )}
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body className={styles.modalBody}>
             {userStatus === "basic" && (
               <div class={styles.modalTitle}>
                 Confirm Promotion of User {userName}
@@ -74,19 +74,24 @@ class UserList extends React.Component {
             {userStatus === "basic" && (
               <div class={styles.modalText}>
                 They will immediately gain access to adminstrative permissions
-                on the site
+                on the site.
               </div>
             )}
             {userStatus === "admin" && (
               <div class={styles.modalText}>
-                They will immediately lose adminstrative permissions to the site
+                They will immediately lose adminstrative permissions to the
+                site.
               </div>
             )}
           </Modal.Body>
           <Modal.Footer>
-            <Button type={"submit"} onClick={this.processRoleChange}>
+            <button
+              className={styles.confirmButton}
+              type={"submit"}
+              onClick={this.processRoleChange}
+            >
               Confirm
-            </Button>
+            </button>
           </Modal.Footer>
         </Modal>
         <div class={styles.page}>

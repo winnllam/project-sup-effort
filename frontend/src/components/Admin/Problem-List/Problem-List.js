@@ -56,7 +56,7 @@ class ProblemList extends React.Component {
             <Modal.Header closeButton>
               <Modal.Title>Add New Problem</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className={styles.modalBody}>
               <div class={styles.modalTitle}>Name</div>
               <input
                 type={Text}
@@ -79,9 +79,9 @@ class ProblemList extends React.Component {
               </select>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" type="submit">
+              <button class={styles.saveButton} type="submit">
                 Save
-              </Button>
+              </button>
             </Modal.Footer>
           </form>
         </Modal>

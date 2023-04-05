@@ -65,6 +65,21 @@
   color: white;
 }
 
+.saveButton {
+  background: rgb(117, 180, 117);
+  color: white;
+  border: 3px solid rgb(117, 180, 117);
+  border-radius: 10px;
+  font-size: 16px;
+  height: auto;
+  padding: 5px 20px;
+}
+
+.saveButton:hover {
+  background: #ffffff;
+  color: rgb(117, 180, 117);
+}
+
 .problemDesc {
   font-size: 20px;
   font-style: italic;
@@ -82,11 +97,16 @@
   width: 500px;
 }
 
+.modalBody {
+  padding: 20px 30px;
+}
+
 .inputBox {
   height: auto;
   border-radius: 15px;
   padding: 10px;
   width: 400px;
+  margin-bottom: 15px;
 }
 
 .inputBox::placeholder {

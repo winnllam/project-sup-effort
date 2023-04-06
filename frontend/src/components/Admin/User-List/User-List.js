@@ -74,11 +74,11 @@ class UserList extends React.Component {
       totalUsers,
     } = this.state;
     return (
-      <div className={styles.users}>
+      <div class={styles.users}>
         <Modal
           show={openModal}
           onHide={this.closeChangeRoleModal}
-          className={styles.userModal}
+          class={styles.userModal}
         >
           <Modal.Header closeButton>
             {userStatus === "basic" && (

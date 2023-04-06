@@ -99,11 +99,11 @@ class ProblemList extends React.Component {
     ));
 
     return (
-      <div className={styles.problems}>
+      <div class={styles.problems}>
         <Modal
           show={newProblem}
           onHide={this.closeNewProblemModal}
-          className={styles.editModal}
+          class={styles.editModal}
         >
           <form onSubmit={this.addNewProblem}>
             <Modal.Header closeButton>

@@ -93,7 +93,7 @@ class DashboardProfile extends React.Component {
         <Modal
           show={upgrade}
           onHide={this.closeUpgradeModal}
-          className={styles.modal}
+          class={styles.modal}
         >
           <form onSubmit={this.submitUpgrade}>
             <Modal.Header closeButton>
@@ -128,7 +128,7 @@ class DashboardProfile extends React.Component {
         <Modal
           show={cancel}
           onHide={this.closeCancelModal}
-          className={styles.modal}
+          class={styles.modal}
         >
           <Modal.Header closeButton>
             <Modal.Title>Cancel Subscription</Modal.Title>

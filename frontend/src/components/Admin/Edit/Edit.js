@@ -216,7 +216,7 @@ class Edit extends React.Component {
           <Modal
             show={newTest}
             onHide={this.closeNewTestModal}
-            className={styles.editModal}
+            class={styles.editModal}
           >
             <form onSubmit={this.saveNewTestModal}>
               <Modal.Header closeButton>

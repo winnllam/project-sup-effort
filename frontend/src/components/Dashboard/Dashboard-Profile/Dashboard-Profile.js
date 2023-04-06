@@ -4,7 +4,7 @@ import profile from "../../../assets/profile.svg";
 import dashboardStyles from "../../../pages/Dashboard/Dashboard.module.css";
 import * as userService from "../../../services/api/Users.js";
 import * as paymentService from "../../../services/api/Payments.js";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { HashLink as Link } from "react-router-hash-link";
 import Row from "react-bootstrap/Row";
 
@@ -133,7 +133,7 @@ class DashboardProfile extends React.Component {
           <Modal.Header closeButton>
             <Modal.Title>Cancel Subscription</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body className={styles.modalBody}>
             <div className={styles.modalTitle}>
               Confirm Subscription Cancellation
             </div>
@@ -143,7 +143,12 @@ class DashboardProfile extends React.Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.cancelSubscription}>Confirm</Button>
+            <button
+              className={styles.submitButton}
+              onClick={this.cancelSubscription}
+            >
+              Confirm
+            </button>
           </Modal.Footer>
         </Modal>
         <div className={styles.section}>

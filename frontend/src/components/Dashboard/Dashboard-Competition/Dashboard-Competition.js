@@ -5,7 +5,6 @@ import dashboardStyles from "../../../pages/Dashboard/Dashboard.module.css";
 import getLobbyName from "../../../lobby/lobbyName";
 import * as lobbyService from "../../../services/api/Lobbies.js";
 import * as userService from "../../../services/api/Users.js";
-import * as problemsService from "../../../services/api/Problems.js";
 
 const lobbyName = getLobbyName();
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import Editor from "@monaco-editor/react";
-import monacoStyles from "./Monaco.module.css";
 import { SocketContext } from "../../context/socket.js";
 
 const width = "100%";

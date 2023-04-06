@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
 import chatboxStyles from "./ChatBox.module.css";
-import { io } from "socket.io-client";
 import * as userService from "../../services/api/Users.js";
 import { SocketContext } from "../../context/socket.js";
 

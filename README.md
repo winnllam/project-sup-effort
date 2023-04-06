@@ -20,7 +20,12 @@
    2. [Beta Version](#beta-version)
    3. [Final Version](#final-version)
 6. [User Guide](#user-guide)
-   1. [Credientals](#credentials)
+   1. [Dashboard](#dashboard)
+      - [Profile](#profile)
+      - [Competition](#competition)
+   2. [Problems](#problems)
+   3. [Coding/Lobby](#codinglobby)
+   4. [Admin User](#admin-user)
 
 ## Project Focus
 
@@ -100,15 +105,13 @@ This is where the competition takes place with you and a friend. You can invite 
 
 The problem information is given in the left panel, and you solve it in the code editor in the middle. You can select which language you want to work with, and the respective starter code will display. When you have finished, hit submit code to compile. Test it against the test cases and see your results!
 
-### Credentials
+### Admin User
 
 **Admin Account**:  
 Email: admin@email.com  
 Password: Admin123!
 
 More admin accounts can be generated/granted access by first having them sign-up for a regular basic account. Then an admin once logged in can go to the dashboard and under users promote various users to admin previliges.
-
-### Admin User
 
 An adminastartive user can login in to the site and have the following priviliges:
 

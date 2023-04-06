@@ -21,12 +21,10 @@ function MonacoTabs({ number, language, lobby, user }) {
     setTabPanels(userTabPanel);
     lobbyService.getLobby(lobby).then((res) => {
       let arr = res.players;
-      console.log(arr);
       const foundIdx = arr.findIndex((el) => el === user);
       arr.splice(foundIdx, 1);
       arr.unshift(user);
       setUsers(arr);
-      console.log(arr);
     });
   }, []);
 
@@ -59,7 +57,6 @@ function MonacoTabs({ number, language, lobby, user }) {
       );
     }
 
-    console.log(curTabs, curTabPanels);
     setTabPanels(curTabPanels);
   }, [users, language, lobby, number, user]);
 

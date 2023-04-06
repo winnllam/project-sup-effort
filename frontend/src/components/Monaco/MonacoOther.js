@@ -25,7 +25,6 @@ function MonacoOther(props) {
 
   useEffect(() => {
     socket.emit("join-room", lobby);
-    console.log(socket.id + " joined room " + lobby);
 
     socket.on(
       "receive-code",

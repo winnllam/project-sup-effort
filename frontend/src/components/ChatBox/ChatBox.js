@@ -32,7 +32,6 @@ function ChatBox(props) {
     }
     let lobby = props.lobby;
     socket.emit("join-room", lobby);
-    console.log(socket.id + " joined room " + lobby);
     socket.emit("user-connected", username, props.lobby);
     if (messages.length === 0) {
       let newMessage = username + " has joined the chat";

@@ -21,16 +21,13 @@ const Monaco = ({ lobby, user, language, number }) => {
 
   useEffect(() => {
     socket.emit("join-room", lobby);
-    console.log(socket.id + " joined room " + lobby);
     if (number !== null) {
       if (sessionStorage.getItem("cur" + language + lobby) !== null) {
-        console.log("restoring code from storage");
         setCode(sessionStorage.getItem("cur" + language + lobby));
       } else {
         problemService
           .getStarterCode(number, language)
           .then((res) => {
-            console.log(res);
             setCode(res.code);
             setMethodName(res.methodName);
             sessionStorage.setItem("cur" + language + lobby, res.code);
@@ -186,7 +183,6 @@ const Monaco = ({ lobby, user, language, number }) => {
       } else if (language === "javascript") {
         addTests = runJavascript(total, tests);
       }
-      console.log(addTests);
 
       compilerService.executeCode(addTests, language).then((test) => {
         const result = test.output.split(/\r?\n/);

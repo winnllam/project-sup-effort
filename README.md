@@ -8,6 +8,20 @@
 
 **Deployed Link**: https://divideandconquer.me
 
+## Table of Contents
+
+1. [Project Focus](#project-focus)
+2. [Team Members](#team-members)
+3. [Description of Web Application](#description-of-web-application)
+4. [Complexity Points](#complexity-points)
+   1. [Bonus Complexity Points](#bonus-complexity-points)
+5. [Deliverables](#deliverables)
+   1. [Alpha Version](#alpha-version)
+   2. [Beta Version](#beta-version)
+   3. [Final Version](#final-version)
+6. [User Guide](#user-guide)
+   1. [Credientals](#credentials)
+
 ## Project Focus
 
 Backend-focused application with support for multiple users at a time, real-time updates and execution of code programs.
@@ -36,6 +50,8 @@ The intended complexity points (9 of them) we aim to implement are:
 
 ### Bonus Complexity Points
 
+**Not Implemented**
+
 Time and resource permitting we may integrate _Twilio_ (2 points) for 2 factor authentication and SMS communications.
 
 ## Deliverables
@@ -54,3 +70,53 @@ send sign up for email verification via SendGrid and generate links to share wit
 ### Final Version
 
 For the final version, it will include everything in the Alpha and Beta version but with paid premium features via Stripe. The application will be fully polished and deployed.
+
+## User Guide
+
+Some side notes while using the site:
+
+- If the dashboard shows up as blank, **please click to the problems page and then click back to dashboard to load it properly**
+- Use a real email so you can see SendGrid emails
+
+### Dashboard
+
+A home place for users. All you will need to navigate the site is here.
+
+#### Profile
+
+See all your account information in one place. This is also the place where you can upgrade your account to premium via a subscription. Premium will allow users to see and access the solutions tab in the coding page mid-competition. This is a pay to win feature.
+
+#### Competition
+
+Create or join a competition lobby here. To create a competition, choose a difficulty and it will select a random problem based on the difficulty to set up the lobby. To join a competition, enter the lobby ID to be redirected.
+
+### Problems
+
+Displays a list of all the problems we have in the database. Green represents an easy problem, yellow for medium, and red for hard. This page is just for viewing what problems are available.
+
+### Coding/Lobby
+
+This is where the competition takes place with you and a friend. You can invite them via email by entering their email and sending it off to your friend on the right panel. The lobby ID is also at the top of the right panel if you choose to message them instead. Once they join, you will see them join the chat and have a tab with their username above the code editor. This allows you to see their code in real time while they are trying to solve the problem, adding to the competing aspects.
+
+The problem information is given in the left panel, and you solve it in the code editor in the middle. You can select which language you want to work with, and the respective starter code will display. When you have finished, hit submit code to compile. Test it against the test cases and see your results!
+
+### Credentials
+
+**Admin Account**:  
+Email: admin@email.com  
+Password: Admin123!
+
+More admin accounts can be generated/granted access by first having them sign-up for a regular basic account. Then an admin once logged in can go to the dashboard and under users promote various users to admin previliges.
+
+### Admin User
+
+An adminastartive user can login in to the site and have the following priviliges:
+
+- adding and/or editing problems
+- adding and/or editing test cases for a particular problem
+- viewing all users on the site
+- promoting or downgrading user priviliges (basic to admin or admin to basic)
+
+The above is all done via the Admin dashboard on the site.
+
+**NOTE**: Please note that our code can only support String and number input and String and number output.

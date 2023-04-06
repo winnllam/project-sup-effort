@@ -1,21 +1,23 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import chatboxStyles from "./ChatBox.module.css";
-import { io } from "socket.io-client";
 import * as userService from "../../services/api/Users.js";
 import { SocketContext } from "../../context/socket.js";
 
 function ChatBox(props) {
   const [username, setUsername] = useState("");
   const [messages, setMessages] = useState([]);
+  const messagesEndRef = useRef(null);
   const socket = useContext(SocketContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const messageInput = document.getElementById("message-input");
-    const newMessage = username + ": " + messageInput.value;
-    setMessages([...messages, newMessage]);
-    socket.emit("send-message", newMessage, props.lobby);
-    messageInput.value = "";
+    if (messageInput.value !== "") {
+      const newMessage = username + ": " + messageInput.value;
+      setMessages([...messages, newMessage]);
+      socket.emit("send-message", newMessage, props.lobby);
+      messageInput.value = "";
+    }
   };
 
   useEffect(() => {
@@ -30,7 +32,6 @@ function ChatBox(props) {
     }
     let lobby = props.lobby;
     socket.emit("join-room", lobby);
-    console.log(socket.id + " joined room " + lobby);
     socket.emit("user-connected", username, props.lobby);
     if (messages.length === 0) {
       let newMessage = username + " has joined the chat";
@@ -47,13 +48,24 @@ function ChatBox(props) {
     });
   }, [socket, username, props.lobby]);
 
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   return (
-    <div className={chatboxStyles.chatbox}>
-      {messages.map((message, index) => (
-        <p key={index} className={chatboxStyles.messagesListLi}>
-          {message}
-        </p>
-      ))}
+    <>
+      <div className={chatboxStyles.chatbox}>
+        {messages.map((message, index) => (
+          <p key={index} className={chatboxStyles.messagesListLi}>
+            {message}
+          </p>
+        ))}
+        <div ref={messagesEndRef} />
+      </div>
       <div className={chatboxStyles.messageForm}>
         <form id="message-form" onSubmit={handleSubmit}>
           <input
@@ -71,7 +83,7 @@ function ChatBox(props) {
           </button>
         </form>
       </div>
-    </div>
+    </>
   );
 }
 

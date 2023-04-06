@@ -48,9 +48,7 @@ lobbiesRouter.post(
     }
 
     if (lobby.players.includes(req.body.username) === false) {
-      console.log(lobby.players);
       lobby.players.push(req.body.username);
-      console.log(lobby.players);
     } else {
       if (lobby.players.length >= 4) {
         return res.status(422).json({ message: "Lobby is full" });

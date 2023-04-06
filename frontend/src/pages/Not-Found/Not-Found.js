@@ -7,14 +7,14 @@ import pageNotFound from "../../assets/page_not_found.svg";
 class NotFound extends React.Component {
   render() {
     return (
-      <div class={notFoundStyles.bg}>
+      <div className={notFoundStyles.bg}>
         <Row>
           <Col md={4}></Col>
           <Col md={4}>
             <img
               src={pageNotFound}
               alt="Page Not Found"
-              class={notFoundStyles.image}
+              className={notFoundStyles.image}
             />
             <p>There is nothing here!</p>
           </Col>

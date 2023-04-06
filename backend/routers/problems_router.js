@@ -44,6 +44,9 @@ problemsRouter.patch("/:id", isAdmin, async function (req, res, next) {
 });
 
 problemsRouter.get("/", async function (req, res, next) {
+  const limit = req.query.limit ? parseInt(req.query.limit) : 10;
+  const offset = req.query.page ? parseInt(req.query.page) * limit : 0;
+
   const exclusion = { starterCode: 0, sampleSolution: 0, testCases: 0 };
 
   let problems;
@@ -56,7 +59,8 @@ problemsRouter.get("/", async function (req, res, next) {
     problems = await Problem.find({}, exclusion);
   }
 
-  return res.json({ problems });
+  const paginated = problems.slice(offset, offset + limit);
+  return res.json({ total: problems.length, problems: paginated });
 });
 
 problemsRouter.get("/:id", isAuthenticated, async function (req, res, next) {
@@ -235,8 +239,8 @@ problemsRouter.get(
   "/:id/testCases",
   isAuthenticated,
   async function (req, res, next) {
-    const limit = req.query.limit ? req.query.limit : 10;
-    const offset = req.query.page ? req.query.page * limit : 0;
+    const limit = req.query.limit ? parseInt(req.query.limit) : 10;
+    const offset = req.query.page ? parseInt(req.query.page) * limit : 0;
 
     const problem = await Problem.findOne({ number: req.params.id });
 

@@ -56,7 +56,7 @@ class TestCase extends React.Component {
   render() {
     return (
       <div className={styles.testCase}>
-        <Accordion defaultActiveKey="0" class={styles.oneTest}>
+        <Accordion defaultActiveKey="0" className={styles.oneTest}>
           {this.state.testList.map((test) => (
             <Accordion.Item
               key={test.number}
@@ -64,16 +64,18 @@ class TestCase extends React.Component {
               id={test.number}
             >
               <Accordion.Header>
-                <div class={styles.testHeader}>Test Case #{test.number}</div>
+                <div className={styles.testHeader}>
+                  Test Case #{test.number}
+                </div>
               </Accordion.Header>
               <Accordion.Body>
-                <div class={styles.testBody}>
+                <div className={styles.testBody}>
                   <form onSubmit={this.saveTest(test.number)}>
                     <b>Input:</b>{" "}
                     <input
                       type={Text}
                       defaultValue={test.input}
-                      class={styles.inputBox}
+                      className={styles.inputBox}
                       readOnly={!test.isEditing}
                       name="input"
                     ></input>{" "}
@@ -82,21 +84,21 @@ class TestCase extends React.Component {
                     <input
                       type={Text}
                       defaultValue={test.output}
-                      class={styles.inputBox}
+                      className={styles.inputBox}
                       readOnly={!test.isEditing}
                       name="output"
                     ></input>{" "}
                     <br />
                     {!test.isEditing && (
                       <button
-                        class={styles.button}
+                        className={styles.button}
                         onClick={() => this.editTest(test.number)}
                       >
                         Edit
                       </button>
                     )}
                     {test.isEditing && (
-                      <button class={styles.button} type="submit">
+                      <button className={styles.button} type="submit">
                         Save
                       </button>
                     )}

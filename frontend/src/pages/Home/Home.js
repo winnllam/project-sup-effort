@@ -20,15 +20,15 @@ const Home = () => {
               <img
                 src={codeThinking}
                 alt="Code Thinking"
-                class={homeStyles.graphics}
+                className={homeStyles.graphics}
               />
             </Col>
             <Col md={{ span: "auto", offset: 1 }}>
-              <div class={homeStyles.introText}>
-                <div class={homeStyles.subtitle}>
+              <div className={homeStyles.introText}>
+                <div className={homeStyles.subtitle}>
                   A new way to practice coding
                 </div>
-                <div class={homeStyles.textBlock}>
+                <div className={homeStyles.textBlock}>
                   Gone are the days of tedious exercises and repetitive drills.
                   Our platform offers a fun and engaging way to sharpen your
                   coding skills through exciting coding challenges and
@@ -42,18 +42,18 @@ const Home = () => {
           </Row>
         </MediaQuery>
         <MediaQuery maxWidth={1089}>
-          <div class={homeStyles.graphicsBoxMobile}>
+          <div className={homeStyles.graphicsBoxMobile}>
             <img
               src={codeThinking}
               alt="Code Thinking"
-              class={homeStyles.graphicsMobile}
+              className={homeStyles.graphicsMobile}
             />
           </div>
-          <div class={homeStyles.introTextMobile}>
-            <div class={homeStyles.subtitleMobile}>
+          <div className={homeStyles.introTextMobile}>
+            <div className={homeStyles.subtitleMobile}>
               A new way to practice coding
             </div>
-            <div class={homeStyles.textBlockMobile}>
+            <div className={homeStyles.textBlockMobile}>
               Gone are the days of tedious exercises and repetitive drills. Our
               platform offers a fun and engaging way to sharpen your coding
               skills through exciting coding challenges and competitions. With
@@ -68,11 +68,11 @@ const Home = () => {
         <MediaQuery minWidth={1090}>
           <Row>
             <Col md={{ span: 6, offset: 1 }}>
-              <div class={homeStyles.introText}>
-                <div class={homeStyles.subtitle}>
+              <div className={homeStyles.introText}>
+                <div className={homeStyles.subtitle}>
                   Compete in real time against users
                 </div>
-                <div class={homeStyles.textBlock}>
+                <div className={homeStyles.textBlock}>
                   Are you ready for the ultimate coding challenge? Our coding
                   competition site offers a unique opportunity to compete in
                   real-time against your friends! With our state-of-the-art
@@ -83,22 +83,22 @@ const Home = () => {
               </div>
             </Col>
             <Col md={{ span: 4 }}>
-              <div class={homeStyles.graphicsBoxMobile}>
+              <div className={homeStyles.graphicsBoxMobile}>
                 <img
                   src={codeTyping}
                   alt="Code Typing"
-                  class={homeStyles.graphics}
+                  className={homeStyles.graphics}
                 />
               </div>
             </Col>
           </Row>
         </MediaQuery>
         <MediaQuery maxWidth={1089}>
-          <div class={homeStyles.introTextMobile}>
-            <div class={homeStyles.subtitleMobile}>
+          <div className={homeStyles.introTextMobile}>
+            <div className={homeStyles.subtitleMobile}>
               Compete in real time against users
             </div>
-            <div class={homeStyles.textBlockMobile}>
+            <div className={homeStyles.textBlockMobile}>
               Are you ready for the ultimate coding challenge? Our coding
               competition site offers a unique opportunity to compete in
               real-time against your friends! With our state-of-the-art
@@ -107,11 +107,11 @@ const Home = () => {
               programmers you know.
             </div>
           </div>
-          <div class={homeStyles.graphicsBoxMobile}>
+          <div className={homeStyles.graphicsBoxMobile}>
             <img
               src={codeTyping}
               alt="Code Typing"
-              class={homeStyles.graphicsMobile}
+              className={homeStyles.graphicsMobile}
             />
           </div>
         </MediaQuery>
@@ -120,11 +120,11 @@ const Home = () => {
         <MediaQuery minWidth={1090}>
           <Row>
             <Col md={{ span: 4 }}>
-              <div class={homeStyles.introText}>
-                <div class={homeStyles.subtitle}>
+              <div className={homeStyles.introText}>
+                <div className={homeStyles.subtitle}>
                   Compete in popular languages
                 </div>
-                <div class={homeStyles.textBlock}>
+                <div className={homeStyles.textBlock}>
                   Are you a Java guru or a Python mastermind? Our coding
                   competition site offers challenges and competitions in popular
                   programming languages like Java, Python, C, and more, allowing
@@ -136,13 +136,13 @@ const Home = () => {
               <img
                 src={hackerMindset}
                 alt="Hacker Mindset"
-                class={homeStyles.graphics}
+                className={homeStyles.graphics}
               />
             </Col>
             <Col md={{ span: 4 }}>
-              <div class={homeStyles.introText}>
-                <div class={homeStyles.subtitle}>Win award badges</div>
-                <div class={homeStyles.textBlock}>
+              <div className={homeStyles.introText}>
+                <div className={homeStyles.subtitle}>Win award badges</div>
+                <div className={homeStyles.textBlock}>
                   Winning is not just about bragging rights. Our platform offers
                   a variety of badges and awards to recognize your achievements
                   and progress as a coder. From beginner to expert levels, our
@@ -154,28 +154,28 @@ const Home = () => {
           </Row>
         </MediaQuery>
         <MediaQuery maxWidth={1089}>
-          <div class={homeStyles.introTextMobile}>
-            <div class={homeStyles.subtitleMobile}>
+          <div className={homeStyles.introTextMobile}>
+            <div className={homeStyles.subtitleMobile}>
               Compete in popular languages
             </div>
-            <div class={homeStyles.textBlockMobile}>
+            <div className={homeStyles.textBlockMobile}>
               Are you a Java guru or a Python mastermind? Our coding competition
               site offers challenges and competitions in popular programming
               languages like Java, Python, C, and more, allowing you to showcase
               your skills in the language of your choice.
             </div>
           </div>
-          <div class={homeStyles.graphicsBoxMobile}>
+          <div className={homeStyles.graphicsBoxMobile}>
             <img
               src={hackerMindset}
               alt="Hacker Mindset"
-              class={homeStyles.graphicsMobile}
+              className={homeStyles.graphicsMobile}
             />
           </div>
 
-          <div class={homeStyles.introTexMobile}>
-            <div class={homeStyles.subtitleMobile}>Win award badges</div>
-            <div class={homeStyles.textBlockMobile}>
+          <div className={homeStyles.introTexMobile}>
+            <div className={homeStyles.subtitleMobile}>Win award badges</div>
+            <div className={homeStyles.textBlockMobile}>
               Winning is not just about bragging rights. Our platform offers a
               variety of badges and awards to recognize your achievements and
               progress as a coder. From beginner to expert levels, our badges

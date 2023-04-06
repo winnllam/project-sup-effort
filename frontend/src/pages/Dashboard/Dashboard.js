@@ -34,8 +34,7 @@ class Dashboard extends React.Component {
           "</b>!</p>" +
           "<p>Thank you for signing up for Divide and Conquer!</p>" +
           "<p>Divide and Conquer is a competition site where you can compete on coding problems with your friends in real time! " +
-          "We can't wait for you to get started!</p>" +
-          "<p>Make sure to verify your email to be able to access all of the features we have to offer. Once that is done, you can divide right in!</p>" +
+          "We can't wait for you to divide right in!</p>" +
           "<p>Welcome to the D&C community!</p><br>";
         emailService.sendEmail(user.email, subject, text, html);
       }
@@ -48,7 +47,7 @@ class Dashboard extends React.Component {
     return (
       <div className={dashboardStyles.page}>
         {isLoaded && (
-          <div class={dashboardStyles.dashboard}>
+          <div className={dashboardStyles.dashboard}>
             <div id={dashboardStyles.pannel}>
               <DashboardPannel />
             </div>
@@ -58,7 +57,7 @@ class Dashboard extends React.Component {
           </div>
         )}
         {!isLoaded && (
-          <div class={dashboardStyles.dashboard}>
+          <div className={dashboardStyles.dashboard}>
             <h3>Loading</h3>
           </div>
         )}

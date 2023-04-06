@@ -35,14 +35,14 @@ const Navbar = () => {
                 <img src={logoUrl} alt="Divide and Conquer" />
               </Col>
               <Col md={4}>
-                <div class={navbarStyles.titleBox}>
+                <div className={navbarStyles.titleBox}>
                   <Link to="/" id={navbarStyles.title}>
                     Divide and Conquer
                   </Link>
                 </div>
               </Col>
               <Col md={"auto"}>
-                <div class={navbarStyles.options}>
+                <div className={navbarStyles.options}>
                   <Link to="/premium" id={navbarStyles.premium}>
                     Premium
                   </Link>
@@ -50,10 +50,13 @@ const Navbar = () => {
               </Col>
               {!isAuthenticated && (
                 <Col md={{ span: "auto" }}>
-                  <div id={navbarStyles.explore} class={navbarStyles.options}>
+                  <div
+                    id={navbarStyles.explore}
+                    className={navbarStyles.options}
+                  >
                     <Link
                       to={"/#" + homeStyles.feature}
-                      class={navbarStyles.options}
+                      className={navbarStyles.options}
                     >
                       Explore
                     </Link>
@@ -62,10 +65,10 @@ const Navbar = () => {
               )}
               {!isAuthenticated && (
                 <Col md={"auto"}>
-                  <div id={navbarStyles.about} class={navbarStyles.options}>
+                  <div id={navbarStyles.about} className={navbarStyles.options}>
                     <Link
                       to={"/#" + aboutStyles.aboutBox}
-                      class={navbarStyles.options}
+                      className={navbarStyles.options}
                     >
                       About Us
                     </Link>
@@ -74,8 +77,11 @@ const Navbar = () => {
               )}
               <Col md={"auto"}>
                 {isAuthenticated && !isLoading && (
-                  <div id={navbarStyles.dashboard} class={navbarStyles.options}>
-                    <Link to="/dashboard" class={navbarStyles.options}>
+                  <div
+                    id={navbarStyles.dashboard}
+                    className={navbarStyles.options}
+                  >
+                    <Link to="/dashboard" className={navbarStyles.options}>
                       Dashboard
                     </Link>
                   </div>
@@ -83,8 +89,11 @@ const Navbar = () => {
               </Col>
               <Col md={"auto"}>
                 {isAuthenticated && !isLoading && (
-                  <div id={navbarStyles.dashboard} class={navbarStyles.options}>
-                    <Link to="/problems" class={navbarStyles.options}>
+                  <div
+                    id={navbarStyles.dashboard}
+                    className={navbarStyles.options}
+                  >
+                    <Link to="/problems" className={navbarStyles.options}>
                       Problems
                     </Link>
                   </div>
@@ -94,7 +103,7 @@ const Navbar = () => {
                 {!isAuthenticated && !isLoading && (
                   <div
                     id={navbarStyles.login}
-                    class={navbarStyles.options}
+                    className={navbarStyles.options}
                     onClick={() => loginWithRedirect()}
                   >
                     Login
@@ -103,7 +112,7 @@ const Navbar = () => {
                 {isAuthenticated && !isLoading && (
                   <div
                     id={navbarStyles.login}
-                    class={navbarStyles.options}
+                    className={navbarStyles.options}
                     onClick={handleLogOut}
                   >
                     Logout
@@ -116,7 +125,7 @@ const Navbar = () => {
       </MediaQuery>
       <MediaQuery maxWidth={1089}>
         <div
-          class={navbarStyles.mobileHeader}
+          className={navbarStyles.mobileHeader}
           onClick={() => {
             if (openDropdown) {
               setDropDown(false);
@@ -125,24 +134,24 @@ const Navbar = () => {
             }
           }}
         >
-          <div class={navbarStyles.hamburger}>
-            <div class={navbarStyles.burger}></div>
-            <div class={navbarStyles.burger}></div>
-            <div class={navbarStyles.burger}></div>
+          <div className={navbarStyles.hamburger}>
+            <div className={navbarStyles.burger}></div>
+            <div className={navbarStyles.burger}></div>
+            <div className={navbarStyles.burger}></div>
           </div>
 
           <div>
             <img
               src={logoUrl}
               alt="Divide and Conquer"
-              class={navbarStyles.logoMobile}
+              className={navbarStyles.logoMobile}
             />
 
             <Link to="/" id={navbarStyles.mobileTitle}>
               Divide and Conquer
             </Link>
           </div>
-          <div class={navbarStyles.disclaimer}>
+          <div className={navbarStyles.disclaimer}>
             <i>
               Note: Full functionality of the webpage requires a laptop or PC
               computer
@@ -150,23 +159,23 @@ const Navbar = () => {
           </div>
 
           {openDropdown && (
-            <div class={navbarStyles.dropdown}>
-              <div class={navbarStyles.nav}>
+            <div className={navbarStyles.dropdown}>
+              <div className={navbarStyles.nav}>
                 <Link to="/premium" id={navbarStyles.premium}>
                   Premium
                 </Link>
-                <div class={navbarStyles.nav}>
+                <div className={navbarStyles.nav}>
                   <Link
                     to={"/#" + homeStyles.feature}
-                    class={navbarStyles.options}
+                    className={navbarStyles.options}
                   >
                     Explore
                   </Link>
                 </div>
-                <div class={navbarStyles.nav}>
+                <div className={navbarStyles.nav}>
                   <Link
                     to={"/#" + aboutStyles.aboutBox}
-                    class={navbarStyles.options}
+                    className={navbarStyles.options}
                   >
                     About Us
                   </Link>

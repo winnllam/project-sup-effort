@@ -11,7 +11,7 @@ const width = "100%";
 const Monaco = ({ lobby, user, language, number }) => {
   const [editorCode, setEditorCode] = useState(null);
   const [methodName, setMethodName] = useState("");
-  const [height, setHeight] = useState("75vh");
+  const [height, setHeight] = useState("70vh");
   const [code, setCode] = useState(null);
   const [results, setResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
@@ -21,16 +21,13 @@ const Monaco = ({ lobby, user, language, number }) => {
 
   useEffect(() => {
     socket.emit("join-room", lobby);
-    console.log(socket.id + " joined room " + lobby);
     if (number !== null) {
       if (sessionStorage.getItem("cur" + language + lobby) !== null) {
-        console.log("restoring code from storage");
         setCode(sessionStorage.getItem("cur" + language + lobby));
       } else {
         problemService
           .getStarterCode(number, language)
           .then((res) => {
-            console.log(res);
             setCode(res.code);
             setMethodName(res.methodName);
             sessionStorage.setItem("cur" + language + lobby, res.code);
@@ -60,10 +57,10 @@ const Monaco = ({ lobby, user, language, number }) => {
       let output;
       if (isNaN(parseInt(tests[i].input))) {
         // is not a number
-        functionCall = this.state.methodName + '("' + tests[i].input + '")';
+        functionCall = methodName + '("' + tests[i].input + '")';
         output = '"' + tests[i].output + '"';
       } else {
-        functionCall = this.state.methodName + "(" + tests[i].input + ")";
+        functionCall = methodName + "(" + tests[i].input + ")";
         output = tests[i].output;
       }
 
@@ -100,10 +97,10 @@ const Monaco = ({ lobby, user, language, number }) => {
       let output;
       if (isNaN(parseInt(tests[i].input))) {
         // is not a number
-        functionCall = this.state.methodName + '("' + tests[i].input + '")';
+        functionCall = methodName + '("' + tests[i].input + '")';
         output = "'" + tests[i].output + "'";
       } else {
-        functionCall = this.state.methodName + "(" + tests[i].input + ")";
+        functionCall = methodName + "(" + tests[i].input + ")";
         output = tests[i].output;
       }
 
@@ -136,12 +133,10 @@ const Monaco = ({ lobby, user, language, number }) => {
       let output;
       if (isNaN(parseInt(tests[i].input))) {
         // is not a number
-        functionCall =
-          "sol." + this.state.methodName + '("' + tests[i].input + '")';
+        functionCall = "sol." + methodName + '("' + tests[i].input + '")';
         output = '"' + tests[i].output + '"';
       } else {
-        functionCall =
-          "sol." + this.state.methodName + "(" + tests[i].input + ")";
+        functionCall = "sol." + methodName + "(" + tests[i].input + ")";
         output = tests[i].output;
       }
 
@@ -176,7 +171,7 @@ const Monaco = ({ lobby, user, language, number }) => {
 
   const submit = () => {
     setSetSpinner(true);
-    problemService.getTestCases(number).then((res) => {
+    problemService.getTestCases(number, 0, 100).then((res) => {
       const total = res.total;
       const tests = res.test;
 
@@ -188,11 +183,10 @@ const Monaco = ({ lobby, user, language, number }) => {
       } else if (language === "javascript") {
         addTests = runJavascript(total, tests);
       }
-      console.log(addTests);
 
       compilerService.executeCode(addTests, language).then((test) => {
         const result = test.output.split(/\r?\n/);
-        setHeight("40vh");
+        setHeight("35vh");
         setResults(result);
         setShowResults(true);
         setSetSpinner(false);
@@ -218,7 +212,7 @@ const Monaco = ({ lobby, user, language, number }) => {
               radius="12.5"
               ariaLabel="mutating-dots-loading"
               wrapperStyle={{}}
-              wrapperClass=""
+              wrapperclassName=""
               visible={true}
             />
           </div>

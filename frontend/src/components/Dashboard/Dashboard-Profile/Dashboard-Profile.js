@@ -4,7 +4,7 @@ import profile from "../../../assets/profile.svg";
 import dashboardStyles from "../../../pages/Dashboard/Dashboard.module.css";
 import * as userService from "../../../services/api/Users.js";
 import * as paymentService from "../../../services/api/Payments.js";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { HashLink as Link } from "react-router-hash-link";
 import Row from "react-bootstrap/Row";
 
@@ -93,7 +93,7 @@ class DashboardProfile extends React.Component {
         <Modal
           show={upgrade}
           onHide={this.closeUpgradeModal}
-          class={styles.modal}
+          className={styles.modal}
         >
           <form onSubmit={this.submitUpgrade}>
             <Modal.Header closeButton>
@@ -102,8 +102,8 @@ class DashboardProfile extends React.Component {
                 <Modal.Title>Upgrade to Premium</Modal.Title>
               )}
             </Modal.Header>
-            <Modal.Body>
-              <div class={styles.modalTitle}>Subscription Type</div>
+            <Modal.Body className={styles.modalBody}>
+              <div className={styles.modalTitle}>Subscription Type</div>
               <select
                 id={styles.planType}
                 name="planType"
@@ -114,13 +114,13 @@ class DashboardProfile extends React.Component {
                 <option value="Yearly">Yearly</option>
               </select>
               <hr />
-              <div class={styles.modalText}>
+              <div className={styles.modalText}>
                 <b>Total: </b>${upgradeTotal / 100}
               </div>
             </Modal.Body>
             <Modal.Footer>
               <Link to="/payment" state={{ upgradeType, upgradeTotal }}>
-                Submit
+                <button className={styles.submitButton}>Submit</button>
               </Link>
             </Modal.Footer>
           </form>
@@ -128,27 +128,32 @@ class DashboardProfile extends React.Component {
         <Modal
           show={cancel}
           onHide={this.closeCancelModal}
-          class={styles.modal}
+          className={styles.modal}
         >
           <Modal.Header closeButton>
             <Modal.Title>Cancel Subscription</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <div class={styles.modalTitle}>
+          <Modal.Body className={styles.modalBody}>
+            <div className={styles.modalTitle}>
               Confirm Subscription Cancellation
             </div>
-            <div class={styles.modalText}>
+            <div className={styles.modalText}>
               You will immediatly lose access to premium features if you proceed
               to cancel
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.cancelSubscription}>Confirm</Button>
+            <button
+              className={styles.submitButton}
+              onClick={this.cancelSubscription}
+            >
+              Confirm
+            </button>
           </Modal.Footer>
         </Modal>
-        <div class={styles.section}>
-          <div class={styles.subtitle}>User Profile</div>
-          <div class={styles.box}>
+        <div className={styles.section}>
+          <div className={styles.subtitle}>User Profile</div>
+          <div className={styles.box}>
             <b>Username:</b> {username}
             <br />
             <b>Email:</b> {email} <br />
@@ -156,9 +161,9 @@ class DashboardProfile extends React.Component {
           </div>
         </div>
 
-        <div class={styles.section}>
-          <div class={styles.subtitle}>Premium Status</div>
-          <div class={styles.box}>
+        <div className={styles.section}>
+          <div className={styles.subtitle}>Premium Status</div>
+          <div className={styles.box}>
             <b>Premium Account:</b> {premiumStatus} <br />
             <b>Expiry Date:</b> {expirationDate}
             <br />
@@ -166,7 +171,7 @@ class DashboardProfile extends React.Component {
             <br></br>
             {premiumStatus === "Inactive" && (
               <button
-                class={styles.button}
+                className={styles.button}
                 id={styles.upgradeBtn}
                 onClick={this.openUpgradeModal}
               >
@@ -177,7 +182,7 @@ class DashboardProfile extends React.Component {
               <Row>
                 {timeToRenew && (
                   <button
-                    class={styles.button}
+                    className={styles.button}
                     id={styles.upgradeBtn}
                     onClick={this.openUpgradeModal}
                   >
@@ -186,7 +191,7 @@ class DashboardProfile extends React.Component {
                 )}
 
                 <button
-                  class={styles.button}
+                  className={styles.button}
                   id={styles.upgradeBtn}
                   onClick={this.openCancelModal}
                 >
@@ -197,7 +202,11 @@ class DashboardProfile extends React.Component {
           </div>
         </div>
 
-        <img src={profile} class={dashboardStyles.graphics} alt="profile"></img>
+        <img
+          src={profile}
+          className={dashboardStyles.graphics}
+          alt="profile"
+        ></img>
       </div>
     );
   }

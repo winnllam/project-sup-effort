@@ -32,11 +32,33 @@
 .button {
   background: #ffffff;
   border: 3px solid #284b63;
-  border-radius: 15px;
+  border-radius: 10px;
   font-size: 20px;
+  color: #284b63;
   width: 100px;
   height: auto;
   margin: 10px 0px;
+}
+
+.button:hover {
+  background: #284b63;
+  color: white;
+}
+
+.newButton {
+  background: #ffffff;
+  border: 3px solid #3d7397;
+  border-radius: 10px;
+  font-size: 20px;
+  color: #3d7397;
+  width: 100px;
+  height: auto;
+  margin: 10px 0px;
+}
+
+.newButton:hover {
+  background: #3d7397;
+  color: white;
 }
 
 .newTest {
@@ -108,10 +130,15 @@
   width: 500px;
 }
 
+.modalBody {
+  padding: 20px 30px;
+}
+
 .inputBox {
   height: auto;
   border-radius: 15px;
   padding: 10px 5px;
+  margin-bottom: 15px;
 }
 
 .inputBox::placeholder {
@@ -148,6 +175,21 @@
   color: #000000;
   height: 45px;
   padding: 5px 0px;
+}
+
+.saveButton {
+  background: rgb(117, 180, 117);
+  color: white;
+  border: 3px solid rgb(117, 180, 117);
+  border-radius: 10px;
+  font-size: 16px;
+  height: auto;
+  padding: 5px 20px;
+}
+
+.saveButton:hover {
+  background: #ffffff;
+  color: rgb(117, 180, 117);
 }
 
 #prevButton,

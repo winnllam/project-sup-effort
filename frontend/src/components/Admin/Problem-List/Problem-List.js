@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Problem-List.module.css";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import * as problemService from "../../../services/api/Problems.js";
 import { HashLink as Link } from "react-router-hash-link";
 
@@ -12,14 +12,45 @@ class ProblemList extends React.Component {
       problemId: null,
       problems: [],
       newProblem: false,
+      total: 0,
+      page: 0,
+      limit: 10,
     };
   }
 
   componentDidMount() {
-    problemService.getProblems().then((res) => {
-      this.setState({ problems: res });
-    });
+    problemService
+      .getProblems(this.state.page, this.state.limit)
+      .then((res) => {
+        this.setState({ problems: res.problems, total: res.total });
+      });
   }
+
+  nextPage = () => {
+    this.setState({ page: this.state.page + 1 }, () => {
+      problemService
+        .getProblems(this.state.page, this.state.limit)
+        .then((res) => {
+          this.setState({
+            problems: res.problems,
+            total: res.total,
+          });
+        });
+    });
+  };
+
+  prevPage = () => {
+    this.setState({ page: this.state.page - 1 }, () => {
+      problemService
+        .getProblems(this.state.page, this.state.limit)
+        .then((res) => {
+          this.setState({
+            problems: res.problems,
+            total: res.total,
+          });
+        });
+    });
+  };
 
   openNewProblemModal = () => this.setState({ newProblem: true });
 
@@ -44,34 +75,56 @@ class ProblemList extends React.Component {
   };
 
   render() {
-    const { problems, newProblem, problemId } = this.state;
+    const { problems, newProblem, problemId, page, limit, total } = this.state;
+
+    let problemList = problems.map((problem) => (
+      <div className={styles.problem}>
+        <div className={styles.problemName}>
+          <b>
+            {problem.number} : {problem.name}
+          </b>
+        </div>
+        <div className={styles.problemDesc}>
+          <i> {problem.description}</i>
+        </div>
+        <div className={styles.editProblem}>
+          <Link
+            to={"/dashboard/admin/problems/" + problem.number}
+            className={styles.options}
+          >
+            <button className={styles.button}>Edit</button>
+          </Link>
+        </div>
+      </div>
+    ));
+
     return (
       <div className={styles.problems}>
         <Modal
           show={newProblem}
           onHide={this.closeNewProblemModal}
-          class={styles.editModal}
+          className={styles.editModal}
         >
           <form onSubmit={this.addNewProblem}>
             <Modal.Header closeButton>
               <Modal.Title>Add New Problem</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-              <div class={styles.modalTitle}>Name</div>
+            <Modal.Body className={styles.modalBody}>
+              <div className={styles.modalTitle}>Name</div>
               <input
                 type={Text}
                 placeholder={"Problem Name"}
-                class={styles.inputBox}
+                className={styles.inputBox}
                 name="name"
               ></input>
-              <div class={styles.modalTitle}>Description</div>
+              <div className={styles.modalTitle}>Description</div>
               <input
                 type={Text}
                 placeholder={"Problem Description"}
-                class={styles.inputBox}
+                className={styles.inputBox}
                 name="desc"
               ></input>{" "}
-              <div class={styles.modalTitle}>Difficulty</div>
+              <div className={styles.modalTitle}>Difficulty</div>
               <select name="difficulty" id={styles.difficulty}>
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
@@ -79,46 +132,45 @@ class ProblemList extends React.Component {
               </select>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" type="submit">
+              <button className={styles.saveButton} type="submit">
                 Save
-              </Button>
+              </button>
             </Modal.Footer>
           </form>
         </Modal>
         {problemId === null && (
           <div id={styles.screen}>
-            <div class={styles.title}>Problems</div>
+            <div className={styles.title}>Problems</div>
             <div id={styles.newProblem}>
               <button
-                class={styles.button}
+                className={styles.newButton}
                 id={styles.new}
                 onClick={this.openNewProblemModal}
               >
                 New Problem
               </button>
             </div>
-            {problems.map((problem) => (
-              <div class={styles.problem}>
-                <div class={styles.problemName}>
-                  <b>
-                    {problem.number} : {problem.name}
-                  </b>
-                </div>
-                <div class={styles.problemDesc}>
-                  <i> {problem.description}</i>
-                </div>
-                <div class={styles.editProblem}>
-                  <button class={styles.button}>
-                    <Link
-                      to={"/dashboard/admin/problems/" + problem.number}
-                      class={styles.options}
-                    >
-                      Edit
-                    </Link>
-                  </button>
-                </div>
-              </div>
-            ))}
+            <div>
+              {problemList.length > 0 && <div>{problemList}</div>}
+              {page > 0 && (
+                <button
+                  className={styles.button}
+                  id={styles.prevButton}
+                  onClick={this.prevPage}
+                >
+                  Previous
+                </button>
+              )}
+              {total - page * limit > limit && (
+                <button
+                  className={styles.button}
+                  id={styles.nextButton}
+                  onClick={this.nextPage}
+                >
+                  Next
+                </button>
+              )}
+            </div>
           </div>
         )}
       </div>

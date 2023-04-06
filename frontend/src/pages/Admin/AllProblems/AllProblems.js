@@ -27,7 +27,7 @@ class AdminProblems extends React.Component {
     return (
       <div className={styles.page}>
         {adminPrivilge && (
-          <div class={styles.problems}>
+          <div className={styles.problems}>
             <div id={styles.pannel}>
               <DashboardPannel />
             </div>

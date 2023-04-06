@@ -28,7 +28,7 @@ class AllUsers extends React.Component {
     return (
       <div className={styles.page}>
         {adminPrivilge && (
-          <div class={styles.users}>
+          <div className={styles.users}>
             <div id={styles.pannel}>
               <DashboardPannel />
             </div>

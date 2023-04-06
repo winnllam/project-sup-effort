@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import Editor from "@monaco-editor/react";
-import monacoStyles from "./Monaco.module.css";
 import { SocketContext } from "../../context/socket.js";
 
 const width = "100%";
@@ -26,7 +25,6 @@ function MonacoOther(props) {
 
   useEffect(() => {
     socket.emit("join-room", lobby);
-    console.log(socket.id + " joined room " + lobby);
 
     socket.on(
       "receive-code",

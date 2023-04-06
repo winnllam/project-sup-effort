@@ -25,15 +25,24 @@
 .button {
   background: #ffffff;
   border: 3px solid #284b63;
-  border-radius: 15px;
+  border-radius: 10px;
   font-size: 20px;
-  width: 150px;
-  height: auto;
+  color: #284b63;
   margin: 10px 5px;
+  padding: 3px 10px;
+}
+
+.button:hover {
+  background: #284b63;
+  color: #ffffff;
 }
 
 .modal {
   width: 500px;
+}
+
+.modalBody {
+  padding: 20px 30px;
 }
 
 .inputBox {
@@ -66,4 +75,19 @@
   font-family: "Alegreya";
   font-style: normal;
   font-size: 22px;
+}
+
+.submitButton {
+  background: rgb(117, 180, 117);
+  color: white;
+  border: 3px solid rgb(117, 180, 117);
+  border-radius: 10px;
+  font-size: 16px;
+  height: auto;
+  padding: 5px 20px;
+}
+
+.submitButton:hover {
+  background: #ffffff;
+  color: rgb(117, 180, 117);
 }

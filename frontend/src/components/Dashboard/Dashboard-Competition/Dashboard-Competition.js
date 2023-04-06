@@ -5,7 +5,6 @@ import dashboardStyles from "../../../pages/Dashboard/Dashboard.module.css";
 import getLobbyName from "../../../lobby/lobbyName";
 import * as lobbyService from "../../../services/api/Lobbies.js";
 import * as userService from "../../../services/api/Users.js";
-import * as problemsService from "../../../services/api/Problems.js";
 
 const lobbyName = getLobbyName();
 
@@ -16,13 +15,17 @@ const DashboardCompetition = () => {
     const dropdown = document.querySelector(`.${styles.dropdown}`);
     const selectedDifficulty = dropdown.value;
 
-    userService.getMe().then((res) => {
-      lobbyService
-        .createLobby(lobbyName, res.username, selectedDifficulty)
-        .then(() => {
-          window.location.href = "/coding/" + lobbyName;
-        });
-    });
+    if (selectedDifficulty === "") {
+      alert("Please select a difficulty!");
+    } else {
+      userService.getMe().then((res) => {
+        lobbyService
+          .createLobby(lobbyName, res.username, selectedDifficulty)
+          .then(() => {
+            window.location.href = "/coding/" + lobbyName;
+          });
+      });
+    }
   };
 
   const onChangeHandler = (event) => {
@@ -41,42 +44,36 @@ const DashboardCompetition = () => {
 
   return (
     <div className={styles.competition}>
-      <div class={styles.title}>Competition</div>
+      <div className={styles.title}>Competition</div>
 
-      <div class={styles.section}>
-        <div class={styles.subtitle}>New Competition</div>
-        <div class={styles.box}>
-          <b>Difficulty:</b>{" "}
-          <select class={styles.dropdown}>
-            <option
-              value=""
-              disabled
-              selected
-              hidden
-              class={styles.optionTitle}
-            >
+      <div className={styles.section}>
+        <div className={styles.subtitle}>New Competition</div>
+        <div className={styles.box}>
+          <b>Difficulty: </b>{" "}
+          <select className={styles.dropdown} defaultValue={""}>
+            <option value="" disabled hidden className={styles.optionTitle}>
               Choose a difficulty
             </option>
-            <option value="easy" class={styles.option}>
+            <option value="easy" className={styles.option}>
               Easy
             </option>
-            <option value="medium" class={styles.option}>
+            <option value="medium" className={styles.option}>
               Medium
             </option>
-            <option value="hard" class={styles.option}>
+            <option value="hard" className={styles.option}>
               Hard
             </option>
           </select>{" "}
-          <button class={styles.button} onClick={handleCreateLobby}>
+          <button className={styles.button} onClick={handleCreateLobby}>
             Generate
           </button>
         </div>
       </div>
 
-      <div class={styles.section}>
-        <div class={styles.subtitle}>Join Competition</div>
-        <div class={styles.box}>
-          <b>Contest URL:</b>{" "}
+      <div className={styles.section}>
+        <div className={styles.subtitle}>Join Competition</div>
+        <div className={styles.box}>
+          <b>Contest URL: </b>{" "}
           <input
             type="text"
             id={styles.contestCode}
@@ -86,14 +83,14 @@ const DashboardCompetition = () => {
             value={lobbyId}
           ></input>
           <br />
-          <button class={styles.button} onClick={redirectToLobby}>
+          <button className={styles.button} onClick={redirectToLobby}>
             Start
           </button>
         </div>
       </div>
       <img
         src={image}
-        class={dashboardStyles.graphics}
+        className={dashboardStyles.graphics}
         alt="coding history"
       ></img>
     </div>

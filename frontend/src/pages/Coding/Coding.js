@@ -131,7 +131,7 @@ class Coding extends React.Component {
       <div className={codingStyles.coding}>
         <div className={codingStyles.leftPane}>
           <Tabs>
-            <div class={codingStyles.tabs}>
+            <div className={codingStyles.tabs}>
               <TabList>
                 <Tab>Problem</Tab>
                 {premium && <Tab>Solution</Tab>}
@@ -151,7 +151,7 @@ class Coding extends React.Component {
                 defaultValue={defaultOption}
                 placeholder="Select a language"
               />
-              <div class={codingStyles.codeBox}>
+              <div className={codingStyles.codeBox}>
                 <Editor
                   height={"30vh"}
                   width={"100%"}

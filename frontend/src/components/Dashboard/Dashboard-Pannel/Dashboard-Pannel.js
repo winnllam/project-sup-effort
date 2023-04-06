@@ -33,46 +33,36 @@ class DashboardPannel extends React.Component {
       <div className={styles.pannel}>
         <div id={styles.user}>
           <img src={userPic} id={styles.userPic} alt="user pic"></img>
-          <div class={styles.username}>{name}</div>
+          <div className={styles.username}>{name}</div>
           <div id={styles.lastLogin}>Last Login: {lastLoginDate}</div>
           {this.state.userStatus === "basic" && (
-            <button class={styles.button}>
-              <Link to={"/dashboard/profile"} class={styles.options}>
-                Profile
-              </Link>
-            </button>
+            <Link to={"/dashboard/profile"} className={styles.options}>
+              <button className={styles.button}>Profile</button>
+            </Link>
           )}
           <br />
           {userStatus === "basic" && (
-            <button class={styles.button}>
-              <Link to={"/dashboard/history"} class={styles.options}>
-                History
-              </Link>
-            </button>
+            <Link to={"/dashboard/history"} className={styles.options}>
+              <button className={styles.button}>History</button>
+            </Link>
           )}
           <br />
           {userStatus === "basic" && (
-            <button class={styles.button}>
-              <Link to={"/dashboard/competition"} class={styles.options}>
-                Competition
-              </Link>
-            </button>
+            <Link to={"/dashboard/competition"} className={styles.options}>
+              <button className={styles.button}>Competition</button>
+            </Link>
           )}
 
           {userStatus === "admin" && (
-            <button class={styles.button}>
-              <Link to="/dashboard/admin/problems" class={styles.options}>
-                Problems
-              </Link>
-            </button>
+            <Link to="/dashboard/admin/problems" className={styles.options}>
+              <button className={styles.button}>Problems</button>
+            </Link>
           )}
           <br />
           {userStatus === "admin" && (
-            <button class={styles.button}>
-              <Link to="/dashboard/admin/users" class={styles.options}>
-                Users
-              </Link>
-            </button>
+            <Link to="/dashboard/admin/users" className={styles.options}>
+              <button className={styles.button}>Users</button>
+            </Link>
           )}
           <br />
         </div>

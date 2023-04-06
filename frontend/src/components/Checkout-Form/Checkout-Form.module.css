@@ -10,16 +10,15 @@
 .button {
   background: #ffffff;
   border: 3px solid #284b63;
-  border-radius: 15px;
+  border-radius: 10px;
   font-size: 20px;
-  width: 150px;
-  height: auto;
-  margin: 10px 0px;
+  margin: 20px 0px;
+  padding: 5px 20px;
 }
 
 .button:hover {
-  background: #e9f5db;
-  padding: 10px auto;
+  background: #284b63;
+  color: white;
 }
 
 .subtitle {

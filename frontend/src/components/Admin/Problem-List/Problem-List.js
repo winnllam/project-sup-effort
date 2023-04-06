@@ -12,14 +12,45 @@ class ProblemList extends React.Component {
       problemId: null,
       problems: [],
       newProblem: false,
+      total: 0,
+      page: 0,
+      limit: 10,
     };
   }
 
   componentDidMount() {
-    problemService.getProblems().then((res) => {
-      this.setState({ problems: res });
-    });
+    problemService
+      .getProblems(this.state.page, this.state.limit)
+      .then((res) => {
+        this.setState({ problems: res.problems, total: res.total });
+      });
   }
+
+  nextPage = () => {
+    this.setState({ page: this.state.page + 1 }, () => {
+      problemService
+        .getProblems(this.state.page, this.state.limit)
+        .then((res) => {
+          this.setState({
+            problems: res.problems,
+            total: res.total,
+          });
+        });
+    });
+  };
+
+  prevPage = () => {
+    this.setState({ page: this.state.page - 1 }, () => {
+      problemService
+        .getProblems(this.state.page, this.state.limit)
+        .then((res) => {
+          this.setState({
+            problems: res.problems,
+            total: res.total,
+          });
+        });
+    });
+  };
 
   openNewProblemModal = () => this.setState({ newProblem: true });
 
@@ -44,7 +75,29 @@ class ProblemList extends React.Component {
   };
 
   render() {
-    const { problems, newProblem, problemId } = this.state;
+    const { problems, newProblem, problemId, page, limit, total } = this.state;
+
+    let problemList = problems.map((problem) => (
+      <div className={styles.problem}>
+        <div className={styles.problemName}>
+          <b>
+            {problem.number} : {problem.name}
+          </b>
+        </div>
+        <div className={styles.problemDesc}>
+          <i> {problem.description}</i>
+        </div>
+        <div className={styles.editProblem}>
+          <Link
+            to={"/dashboard/admin/problems/" + problem.number}
+            className={styles.options}
+          >
+            <button className={styles.button}>Edit</button>
+          </Link>
+        </div>
+      </div>
+    ));
+
     return (
       <div className={styles.problems}>
         <Modal
@@ -97,26 +150,27 @@ class ProblemList extends React.Component {
                 New Problem
               </button>
             </div>
-            {problems.map((problem) => (
-              <div className={styles.problem}>
-                <div className={styles.problemName}>
-                  <b>
-                    {problem.number} : {problem.name}
-                  </b>
-                </div>
-                <div className={styles.problemDesc}>
-                  <i> {problem.description}</i>
-                </div>
-                <div className={styles.editProblem}>
-                  <Link
-                    to={"/dashboard/admin/problems/" + problem.number}
-                    className={styles.options}
-                  >
-                    <button className={styles.button}>Edit</button>
-                  </Link>
-                </div>
-              </div>
-            ))}
+            <div>
+              {problemList.length > 0 && <div>{problemList}</div>}
+              {page > 0 && (
+                <button
+                  className={styles.button}
+                  id={styles.prevButton}
+                  onClick={this.prevPage}
+                >
+                  Previous
+                </button>
+              )}
+              {total - page * limit > limit && (
+                <button
+                  className={styles.button}
+                  id={styles.nextButton}
+                  onClick={this.nextPage}
+                >
+                  Next
+                </button>
+              )}
+            </div>
           </div>
         )}
       </div>

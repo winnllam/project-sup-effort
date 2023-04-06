@@ -140,3 +140,8 @@
   font-weight: 400;
   color: #000000;
 }
+
+#prevButton,
+#nextButton {
+  margin: 20px 30px;
+}

@@ -8,15 +8,46 @@ class Problems extends React.Component {
 
     this.state = {
       problems: [],
+      total: 0,
+      page: 0,
+      limit: 10,
     };
 
-    problemService.getProblems().then((res) => {
-      this.setState({ problems: res });
-    });
+    problemService
+      .getProblems(this.state.page, this.state.limit)
+      .then((res) => {
+        this.setState({ problems: res.problems, total: res.total });
+      });
   }
 
+  nextPage = () => {
+    this.setState({ page: this.state.page + 1 }, () => {
+      problemService
+        .getProblems(this.state.page, this.state.limit)
+        .then((res) => {
+          this.setState({
+            problems: res.problems,
+            total: res.total,
+          });
+        });
+    });
+  };
+
+  prevPage = () => {
+    this.setState({ page: this.state.page - 1 }, () => {
+      problemService
+        .getProblems(this.state.page, this.state.limit)
+        .then((res) => {
+          this.setState({
+            problems: res.problems,
+            total: res.total,
+          });
+        });
+    });
+  };
+
   render() {
-    const { problems } = this.state;
+    const { problems, page, limit, total } = this.state;
 
     let problemList = problems.map((problem) => (
       <div
@@ -38,7 +69,27 @@ class Problems extends React.Component {
     return (
       <div className={problemStyles.problems}>
         <div id={problemStyles.header}>Problem Catalog</div>
-        {problemList}
+        <div>
+          {problemList.length > 0 && <div>{problemList}</div>}
+          {page > 0 && (
+            <button
+              className={problemStyles.button}
+              id={problemStyles.prevButton}
+              onClick={this.prevPage}
+            >
+              Previous
+            </button>
+          )}
+          {total - page * limit > limit && (
+            <button
+              className={problemStyles.button}
+              id={problemStyles.nextButton}
+              onClick={this.nextPage}
+            >
+              Next
+            </button>
+          )}
+        </div>
       </div>
     );
   }

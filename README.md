@@ -73,6 +73,33 @@ For the final version, it will include everything in the Alpha and Beta version 
 
 ## User Guide
 
+Some side notes while using the site:
+
+- If the dashboard shows up as blank, **please click to the problems page and then click back to dashboard to load it properly**
+- Use a real email so you can see SendGrid emails
+
+### Dashboard
+
+A home place for users. All you will need to navigate the site is here.
+
+#### Profile
+
+See all your account information in one place. This is also the place where you can upgrade your account to premium via a subscription. Premium will allow users to see and access the solutions tab in the coding page mid-competition. This is a pay to win feature.
+
+#### Competition
+
+Create or join a competition lobby here. To create a competition, choose a difficulty and it will select a random problem based on the difficulty to set up the lobby. To join a competition, enter the lobby ID to be redirected.
+
+### Problems
+
+Displays a list of all the problems we have in the database. Green represents an easy problem, yellow for medium, and red for hard. This page is just for viewing what problems are available.
+
+### Coding/Lobby
+
+This is where the competition takes place with you and a friend. You can invite them via email by entering their email and sending it off to your friend on the right panel. The lobby ID is also at the top of the right panel if you choose to message them instead. Once they join, you will see them join the chat and have a tab with their username above the code editor. This allows you to see their code in real time while they are trying to solve the problem, adding to the competing aspects.
+
+The problem information is given in the left panel, and you solve it in the code editor in the middle. You can select which language you want to work with, and the respective starter code will display. When you have finished, hit submit code to compile. Test it against the test cases and see your results!
+
 ### Credentials
 
 **Admin Account**:  
@@ -91,3 +118,5 @@ An adminastartive user can login in to the site and have the following privilige
 - promoting or downgrading user priviliges (basic to admin or admin to basic)
 
 The above is all done via the Admin dashboard on the site.
+
+**NOTE**: Please note that our code can only support String and number input and String and number output.

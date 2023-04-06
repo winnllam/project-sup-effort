@@ -91,6 +91,8 @@ A home place for users. All you will need to navigate the site is here.
 
 See all your account information in one place. This is also the place where you can upgrade your account to premium via a subscription. Premium will allow users to see and access the solutions tab in the coding page mid-competition. This is a pay to win feature.
 
+For Stripe testing cards visit: https://stripe.com/docs/testing
+
 #### Competition
 
 Create or join a competition lobby here. To create a competition, choose a difficulty and it will select a random problem based on the difficulty to set up the lobby. To join a competition, enter the lobby ID to be redirected.

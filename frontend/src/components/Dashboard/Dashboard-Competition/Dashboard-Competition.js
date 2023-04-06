@@ -50,14 +50,8 @@ const DashboardCompetition = () => {
         <div className={styles.subtitle}>New Competition</div>
         <div className={styles.box}>
           <b>Difficulty: </b>{" "}
-          <select className={styles.dropdown}>
-            <option
-              value=""
-              disabled
-              selected
-              hidden
-              className={styles.optionTitle}
-            >
+          <select className={styles.dropdown} defaultValue={""}>
+            <option value="" disabled hidden className={styles.optionTitle}>
               Choose a difficulty
             </option>
             <option value="easy" className={styles.option}>

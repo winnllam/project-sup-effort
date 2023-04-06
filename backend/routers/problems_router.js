@@ -43,7 +43,7 @@ problemsRouter.patch("/:id", isAdmin, async function (req, res, next) {
   return res.json({ problem });
 });
 
-problemsRouter.get("/", async function (req, res, next) {
+problemsRouter.get("/", isAuthenticated, async function (req, res, next) {
   const limit = req.query.limit ? parseInt(req.query.limit) : 10;
   const offset = req.query.page ? parseInt(req.query.page) * limit : 0;
 

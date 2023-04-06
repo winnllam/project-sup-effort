@@ -16,13 +16,17 @@ const DashboardCompetition = () => {
     const dropdown = document.querySelector(`.${styles.dropdown}`);
     const selectedDifficulty = dropdown.value;
 
-    userService.getMe().then((res) => {
-      lobbyService
-        .createLobby(lobbyName, res.username, selectedDifficulty)
-        .then(() => {
-          window.location.href = "/coding/" + lobbyName;
-        });
-    });
+    if (selectedDifficulty === "") {
+      alert("Please select a difficulty!");
+    } else {
+      userService.getMe().then((res) => {
+        lobbyService
+          .createLobby(lobbyName, res.username, selectedDifficulty)
+          .then(() => {
+            window.location.href = "/coding/" + lobbyName;
+          });
+      });
+    }
   };
 
   const onChangeHandler = (event) => {

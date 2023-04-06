@@ -154,9 +154,19 @@ const Monaco = ({ lobby, user, language, number }) => {
       );
 
       // increase counter if test passed
-      main = main.concat(
-        "\r\nif (" + output + " == " + functionCall + ") { passCounter++; }"
-      );
+      if (isNaN(parseInt(tests[i].output))) {
+        main = main.concat(
+          "\r\nif (" +
+            output +
+            ".equals(" +
+            functionCall +
+            ")) { passCounter++; }"
+        );
+      } else {
+        main = main.concat(
+          "\r\nif (" + output + " == " + functionCall + ") { passCounter++; }"
+        );
+      }
     }
 
     main = main.concat(

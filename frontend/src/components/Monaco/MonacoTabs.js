@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import Monaco from "./Monaco";
 import * as lobbyService from "../../services/api/Lobbies.js";
 import MonacoOther from "./MonacoOther";
+import { SocketContext } from "../../context/socket.js";
 
 function MonacoTabs({ number, language, lobby, user }) {
   const [tabIndex, setTabIndex] = useState(0);
   const [users, setUsers] = useState([]);
   const [tabs, setTabs] = useState([]);
   const [tabPanels, setTabPanels] = useState([]);
+  const [numUsers, setNumUsers] = useState(0);
+  const socket = useContext(SocketContext);
 
   useEffect(() => {
     let userTab = [<Tab key={0}>{`${user}`}</Tab>];
@@ -26,9 +29,14 @@ function MonacoTabs({ number, language, lobby, user }) {
       arr.splice(foundIdx, 1);
       arr.unshift(user);
       setUsers(arr);
-      console.log(arr);
     });
-  }, []);
+
+    socket.on("user-connected", (message) => {
+      if (!users.includes(message)) {
+        setNumUsers(numUsers + 1);
+      }
+    });
+  }, [numUsers]);
 
   useEffect(() => {
     if (users.length === 0) {

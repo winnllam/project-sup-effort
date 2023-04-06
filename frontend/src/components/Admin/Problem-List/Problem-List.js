@@ -125,7 +125,14 @@ class ProblemList extends React.Component {
                 name="desc"
               ></input>{" "}
               <div className={styles.modalTitle}>Difficulty</div>
-              <select name="difficulty" id={styles.difficulty}>
+              <select
+                name="difficulty"
+                id={styles.difficulty}
+                defaultValue={""}
+              >
+                <option value="" disabled hidden>
+                  Choose a difficulty
+                </option>
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>

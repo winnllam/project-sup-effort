@@ -27,7 +27,7 @@ class History extends React.Component {
     return (
       <div className={styles.page}>
         {userPrivilge && (
-          <div class={styles.history}>
+          <div className={styles.history}>
             <div id={styles.pannel}>
               <DashboardPannel />
             </div>
@@ -37,7 +37,7 @@ class History extends React.Component {
           </div>
         )}
         {!userPrivilge && (
-          <div class={styles.history}>
+          <div className={styles.history}>
             <NotFound />
           </div>
         )}

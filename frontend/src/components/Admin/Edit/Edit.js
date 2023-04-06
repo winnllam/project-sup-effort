@@ -212,36 +212,36 @@ class Edit extends React.Component {
     } = this.state;
     return (
       <div className={styles.page}>
-        <div class={styles.problem}>
+        <div className={styles.problem}>
           <Modal
             show={newTest}
             onHide={this.closeNewTestModal}
-            class={styles.editModal}
+            className={styles.editModal}
           >
             <form onSubmit={this.saveNewTestModal}>
               <Modal.Header closeButton>
                 <Modal.Title>Add New Test Case</Modal.Title>
               </Modal.Header>
               <Modal.Body className={styles.modalBody}>
-                <div class={styles.modalTitle}>Input</div>
+                <div className={styles.modalTitle}>Input</div>
                 <input
                   type={String}
                   placeholder={"Expected input"}
-                  class={styles.inputBox}
+                  className={styles.inputBox}
                   name="input"
                 ></input>
-                <div class={styles.modalTitle}>Output</div>
+                <div className={styles.modalTitle}>Output</div>
                 <input
                   type={Text}
                   placeholder={"Expected output"}
-                  class={styles.inputBox}
+                  className={styles.inputBox}
                   name="output"
                 ></input>{" "}
-                <div class={styles.modalTitle}>Description</div>
+                <div className={styles.modalTitle}>Description</div>
                 <input
                   type={Text}
                   placeholder={"Optional"}
-                  class={styles.inputBox}
+                  className={styles.inputBox}
                   name="desc"
                 ></input>{" "}
               </Modal.Body>
@@ -252,31 +252,31 @@ class Edit extends React.Component {
               </Modal.Footer>
             </form>
           </Modal>
-          <div class={styles.title}>{problemName}</div>
+          <div className={styles.title}>{problemName}</div>
 
-          <div class={styles.desc}>
-            <div class={styles.subtitle}>Problem Details</div>
-            <div class={styles.details}>
+          <div className={styles.desc}>
+            <div className={styles.subtitle}>Problem Details</div>
+            <div className={styles.details}>
               <form onSubmit={this.updateProblem}>
-                <div class={styles.problemName}>
-                  <div class={styles.category}>Name</div>
+                <div className={styles.problemName}>
+                  <div className={styles.category}>Name</div>
                   <input
                     type={String}
                     defaultValue={problemName}
-                    class={styles.nameInput}
+                    className={styles.nameInput}
                     name="name"
                   ></input>
                 </div>
-                <div class={styles.problemDesc}>
-                  <div class={styles.category}>Description</div>
+                <div className={styles.problemDesc}>
+                  <div className={styles.category}>Description</div>
                   <textarea
                     id={styles.problemDesc}
                     name="desc"
                     defaultValue={desc}
                   ></textarea>
                 </div>
-                <div class={styles.problemDifficulty}>
-                  <div class={styles.category}>Difficulty</div>
+                <div className={styles.problemDifficulty}>
+                  <div className={styles.category}>Difficulty</div>
                   <select
                     id={styles.options}
                     name="difficulty"
@@ -288,22 +288,22 @@ class Edit extends React.Component {
                   </select>
                 </div>
                 <br />
-                <button class={styles.button} type="submit">
+                <button className={styles.button} type="submit">
                   Save
                 </button>
               </form>
             </div>
           </div>
 
-          <div class={styles.code}>
-            <div class={styles.subtitle}>Starter Code</div>
+          <div className={styles.code}>
+            <div className={styles.subtitle}>Starter Code</div>
             <Dropdown
               options={options}
               onChange={this.updateStarterLanguage}
               defaultValue={defaultOption}
               placeholder="Select a language"
             />
-            <div class={styles.codeBox}>
+            <div className={styles.codeBox}>
               <form onSubmit={this.saveStarterCode}>
                 <Editor
                   id={styles.code}
@@ -313,7 +313,7 @@ class Edit extends React.Component {
                   value={starterCode}
                   onMount={this.handleStarterEditorDidMount}
                 />
-                <div class={styles.category}>Method Name</div>
+                <div className={styles.category}>Method Name</div>
                 <input
                   type="text"
                   id={styles.methodName}
@@ -324,20 +324,20 @@ class Edit extends React.Component {
                     this.setState({ methodName: e.target.value });
                   }}
                 ></input>
-                <button class={styles.button}>Save</button>
+                <button className={styles.button}>Save</button>
               </form>
             </div>
           </div>
 
-          <div class={styles.code}>
-            <div class={styles.subtitle}>Sample Solution Code</div>
+          <div className={styles.code}>
+            <div className={styles.subtitle}>Sample Solution Code</div>
             <Dropdown
               options={options}
               onChange={this.updateSolutionLanguage}
               defaultValue={defaultOption}
               placeholder="Select a language"
             />
-            <div class={styles.codeBox}>
+            <div className={styles.codeBox}>
               <form onSubmit={this.saveSolutionCode}>
                 <Editor
                   height={"30vh"}
@@ -346,20 +346,20 @@ class Edit extends React.Component {
                   value={solutionCode}
                   onMount={this.handleSolutionEditorDidMount}
                 />
-                <button class={styles.button}>Save</button>
+                <button className={styles.button}>Save</button>
               </form>
             </div>
           </div>
 
-          <div class={styles.tests}>
+          <div className={styles.tests}>
             <Row>
               <Col md={10}>
-                <div class={styles.subtitle}>Test Cases</div>
+                <div className={styles.subtitle}>Test Cases</div>
               </Col>
               <Col md={2}>
-                <div class={styles.newTest}>
+                <div className={styles.newTest}>
                   <button
-                    class={styles.newButton}
+                    className={styles.newButton}
                     id={styles.new}
                     onClick={this.openNewTestModal}
                   >
@@ -369,13 +369,13 @@ class Edit extends React.Component {
               </Col>
             </Row>
 
-            <div class={styles.testsBox}>
+            <div className={styles.testsBox}>
               {testsList.length > 0 && (
                 <TestCase testsList={testsList} problemId={problemId} />
               )}
               {page > 0 && (
                 <button
-                  class={styles.button}
+                  className={styles.button}
                   id={styles.prevButton}
                   onClick={this.prevPage}
                 >
@@ -384,7 +384,7 @@ class Edit extends React.Component {
               )}
               {totalTests - page * limit > limit && (
                 <button
-                  class={styles.button}
+                  className={styles.button}
                   id={styles.nextButton}
                   onClick={this.nextPage}
                 >

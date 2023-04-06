@@ -10,7 +10,7 @@ const DashboardWelcome = () => {
       <div id={styles.tagline}>Select an option on the left to get started</div>
       <img
         src={dashboardImg}
-        class={dashboardStyles.graphics}
+        className={dashboardStyles.graphics}
         alt="dashboard"
       ></img>
     </div>

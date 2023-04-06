@@ -47,7 +47,7 @@ class Dashboard extends React.Component {
     return (
       <div className={dashboardStyles.page}>
         {isLoaded && (
-          <div class={dashboardStyles.dashboard}>
+          <div className={dashboardStyles.dashboard}>
             <div id={dashboardStyles.pannel}>
               <DashboardPannel />
             </div>
@@ -57,7 +57,7 @@ class Dashboard extends React.Component {
           </div>
         )}
         {!isLoaded && (
-          <div class={dashboardStyles.dashboard}>
+          <div className={dashboardStyles.dashboard}>
             <h3>Loading</h3>
           </div>
         )}

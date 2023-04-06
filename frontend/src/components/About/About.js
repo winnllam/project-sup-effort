@@ -16,15 +16,15 @@ class About extends React.Component {
                 <img
                   src={devProductivity}
                   alt="Dev Producitivty"
-                  class={aboutStyles.graphics}
+                  className={aboutStyles.graphics}
                 />
               </Col>
               <Col md={{ span: 7 }}>
-                <div class={aboutStyles.introText}>
+                <div className={aboutStyles.introText}>
                   <div id={aboutStyles.aboutTitle}>
                     Made by developers for developers
                   </div>
-                  <div class={aboutStyles.textBlock}>
+                  <div className={aboutStyles.textBlock}>
                     With a deep understanding of the coding world and the needs
                     of our community, we are committed to creating a platform
                     that provides a fun, challenging, and engaging environment
@@ -36,18 +36,18 @@ class About extends React.Component {
             </Row>
           </MediaQuery>
           <MediaQuery maxWidth={1089}>
-            <div class={aboutStyles.graphicsBoxMobile}>
+            <div className={aboutStyles.graphicsBoxMobile}>
               <img
                 src={devProductivity}
                 alt="Dev Producitivty"
-                class={aboutStyles.graphicsMobile}
+                className={aboutStyles.graphicsMobile}
               />
             </div>
-            <div class={aboutStyles.introTextMobile}>
+            <div className={aboutStyles.introTextMobile}>
               <div id={aboutStyles.aboutTitleMobile}>
                 Made by developers for developers
               </div>
-              <div class={aboutStyles.textBlockMobile}>
+              <div className={aboutStyles.textBlockMobile}>
                 With a deep understanding of the coding world and the needs of
                 our community, we are committed to creating a platform that
                 provides a fun, challenging, and engaging environment for coders

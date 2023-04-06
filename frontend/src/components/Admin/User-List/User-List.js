@@ -78,7 +78,7 @@ class UserList extends React.Component {
         <Modal
           show={openModal}
           onHide={this.closeChangeRoleModal}
-          class={styles.userModal}
+          className={styles.userModal}
         >
           <Modal.Header closeButton>
             {userStatus === "basic" && (
@@ -90,23 +90,23 @@ class UserList extends React.Component {
           </Modal.Header>
           <Modal.Body className={styles.modalBody}>
             {userStatus === "basic" && (
-              <div class={styles.modalTitle}>
+              <div className={styles.modalTitle}>
                 Confirm Promotion of User {userName}
               </div>
             )}
             {userStatus === "admin" && (
-              <div class={styles.modalTitle}>
+              <div className={styles.modalTitle}>
                 Confirm Downgrade of User {userName}
               </div>
             )}
             {userStatus === "basic" && (
-              <div class={styles.modalText}>
+              <div className={styles.modalText}>
                 They will immediately gain access to adminstrative permissions
                 on the site.
               </div>
             )}
             {userStatus === "admin" && (
-              <div class={styles.modalText}>
+              <div className={styles.modalText}>
                 They will immediately lose adminstrative permissions to the
                 site.
               </div>
@@ -122,18 +122,18 @@ class UserList extends React.Component {
             </button>
           </Modal.Footer>
         </Modal>
-        <div class={styles.page}>
-          <div class={styles.title}>All Users</div>
+        <div className={styles.page}>
+          <div className={styles.title}>All Users</div>
 
           {users.map((user) => (
-            <div class={styles.user}>
-              <div class={styles.userName}>{user.username}</div>
+            <div className={styles.user}>
+              <div className={styles.userName}>{user.username}</div>
               <b>Email:</b> {user.email} <br />
               <b>Role:</b> {user.userStatus}
-              <div class={styles.promoteUser}>
+              <div className={styles.promoteUser}>
                 {user.userStatus === "basic" && currentId !== user._id && (
                   <button
-                    class={styles.button}
+                    className={styles.button}
                     onClick={() => {
                       this.setState(
                         {
@@ -152,7 +152,7 @@ class UserList extends React.Component {
                 )}
                 {user.userStatus === "admin" && currentId !== user._id && (
                   <button
-                    class={styles.button}
+                    className={styles.button}
                     onClick={() => {
                       this.setState(
                         {
@@ -174,7 +174,7 @@ class UserList extends React.Component {
           ))}
           {page > 0 && (
             <button
-              class={styles.button}
+              className={styles.button}
               id={styles.prevButton}
               onClick={this.prevPage}
             >
@@ -183,7 +183,7 @@ class UserList extends React.Component {
           )}
           {totalUsers - page * limit > limit && (
             <button
-              class={styles.button}
+              className={styles.button}
               id={styles.nextButton}
               onClick={this.nextPage}
             >

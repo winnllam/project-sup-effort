@@ -50,28 +50,28 @@ class ProblemList extends React.Component {
         <Modal
           show={newProblem}
           onHide={this.closeNewProblemModal}
-          class={styles.editModal}
+          className={styles.editModal}
         >
           <form onSubmit={this.addNewProblem}>
             <Modal.Header closeButton>
               <Modal.Title>Add New Problem</Modal.Title>
             </Modal.Header>
             <Modal.Body className={styles.modalBody}>
-              <div class={styles.modalTitle}>Name</div>
+              <div className={styles.modalTitle}>Name</div>
               <input
                 type={Text}
                 placeholder={"Problem Name"}
-                class={styles.inputBox}
+                className={styles.inputBox}
                 name="name"
               ></input>
-              <div class={styles.modalTitle}>Description</div>
+              <div className={styles.modalTitle}>Description</div>
               <input
                 type={Text}
                 placeholder={"Problem Description"}
-                class={styles.inputBox}
+                className={styles.inputBox}
                 name="desc"
               ></input>{" "}
-              <div class={styles.modalTitle}>Difficulty</div>
+              <div className={styles.modalTitle}>Difficulty</div>
               <select name="difficulty" id={styles.difficulty}>
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
@@ -79,7 +79,7 @@ class ProblemList extends React.Component {
               </select>
             </Modal.Body>
             <Modal.Footer>
-              <button class={styles.saveButton} type="submit">
+              <button className={styles.saveButton} type="submit">
                 Save
               </button>
             </Modal.Footer>
@@ -87,10 +87,10 @@ class ProblemList extends React.Component {
         </Modal>
         {problemId === null && (
           <div id={styles.screen}>
-            <div class={styles.title}>Problems</div>
+            <div className={styles.title}>Problems</div>
             <div id={styles.newProblem}>
               <button
-                class={styles.newButton}
+                className={styles.newButton}
                 id={styles.new}
                 onClick={this.openNewProblemModal}
               >
@@ -98,21 +98,21 @@ class ProblemList extends React.Component {
               </button>
             </div>
             {problems.map((problem) => (
-              <div class={styles.problem}>
-                <div class={styles.problemName}>
+              <div className={styles.problem}>
+                <div className={styles.problemName}>
                   <b>
                     {problem.number} : {problem.name}
                   </b>
                 </div>
-                <div class={styles.problemDesc}>
+                <div className={styles.problemDesc}>
                   <i> {problem.description}</i>
                 </div>
-                <div class={styles.editProblem}>
+                <div className={styles.editProblem}>
                   <Link
                     to={"/dashboard/admin/problems/" + problem.number}
-                    class={styles.options}
+                    className={styles.options}
                   >
-                    <button class={styles.button}>Edit</button>
+                    <button className={styles.button}>Edit</button>
                   </Link>
                 </div>
               </div>

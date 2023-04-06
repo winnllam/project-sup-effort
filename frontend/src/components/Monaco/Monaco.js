@@ -216,7 +216,7 @@ const Monaco = ({ lobby, user, language, number }) => {
               radius="12.5"
               ariaLabel="mutating-dots-loading"
               wrapperStyle={{}}
-              wrapperClass=""
+              wrapperclassName=""
               visible={true}
             />
           </div>

@@ -46,8 +46,8 @@ usersRouter.get("/signout", function (req, res, next) {
 });
 
 usersRouter.get("/", isAuthenticated, async (req, res) => {
-  const limit = req.query.limit ? req.query.limit : 10;
-  const offset = req.query.page ? req.query.page * limit : 0;
+  const limit = req.query.limit ? parseInt(req.query.limit) : 10;
+  const offset = req.query.page ? parseInt(req.query.page) * limit : 0;
 
   const users = await User.find();
 

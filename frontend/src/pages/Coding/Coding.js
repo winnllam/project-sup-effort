@@ -141,7 +141,9 @@ class Coding extends React.Component {
               <div className={codingStyles.subtitle}>
                 {number}. {name}
               </div>
-              <div>{difficulty}</div>
+              <div className={codingStyles.difficulty}>
+                Difficulty: {difficulty}
+              </div>
               <div>{description}</div>
             </TabPanel>
             <TabPanel>
